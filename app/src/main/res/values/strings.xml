@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name"> Margin &amp; Brokerage Calculator for Zerodha</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="nav_open">Open navigation drawer</string>
+    <string name="nav_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_bookmark">BookmarkActivity</string>
+
+    <string name="title_activity_equity_brokerage">EquityBrokerage</string>
+
+    <string name="about_1">1. This app is in no way related to  zerodha it uses the API of zerodha to serve the data</string>
+    <string name="about_2">2. This app or its developers are in no way responsible for the error(if present) in the data</string>
+    <string name="about_3">3. There might be slight variation in the brokerage calculator, the difference might be neglected in some caase</string>
+</resources>

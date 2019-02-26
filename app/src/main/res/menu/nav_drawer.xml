@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/book"
+            android:icon="@drawable/ic_bookmark"
+            android:title="Bookmarks" />
+        <item
+            android:id="@+id/feedback"
+            android:title="Feedback"
+            android:icon="@drawable/ic_feedback"/>
+        <item android:title="Request Feature"
+            android:id="@+id/feature"
+            android:icon="@drawable/ic_lightbulb"
+            />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_pabout"
+            android:title="About" />
+    </group>
+
+</menu>
