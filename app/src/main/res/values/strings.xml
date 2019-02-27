@@ -2,7 +2,7 @@
     <string name="app_name"> Margin &amp; Brokerage Calculator for Zerodha</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <string name="nav_open">Open navigation drawer</string>
     <string name="nav_close">Close navigation drawer</string>
