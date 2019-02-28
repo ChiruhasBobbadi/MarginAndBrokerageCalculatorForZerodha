@@ -34,8 +34,10 @@
                 android:id="@+id/buy"
                 android:layout_width="120dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="24dp"
+                android:layout_margin="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
                 android:background="@color/bg_blue"
                 android:gravity="center"
                 android:hint="Buy Price"
@@ -43,6 +45,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.005"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,8 +55,8 @@
                 android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="15dp"
                 android:background="@color/bg_blue"
                 android:gravity="center"
                 android:hint="Sell Price"
@@ -61,7 +65,7 @@
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.949"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +74,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="60dp"
                 android:background="@color/bg_blue"
                 android:foregroundGravity="center"
@@ -80,7 +84,7 @@
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
                 app:layout_constraintEnd_toEndOf="@+id/sell"
-                app:layout_constraintHorizontal_bias="0.375"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/buy"
                 app:layout_constraintTop_toBottomOf="@+id/sell" />
 
@@ -148,7 +152,7 @@
                 android:id="@+id/list"
 
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="130dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="8dp"
@@ -197,7 +201,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -207,7 +212,7 @@
                 android:layout_marginTop="70dp"
                 android:layout_marginEnd="10dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/brokerage_banner"
+                ads:adUnitId="@string/brokerage_banner_currency"
                 ads:layout_constraintEnd_toEndOf="parent"
                 ads:layout_constraintStart_toStartOf="parent"
                 ads:layout_constraintTop_toBottomOf="@+id/textView6" />

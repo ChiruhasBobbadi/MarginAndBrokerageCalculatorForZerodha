@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.chiruhas.android.zerodha">
@@ -12,8 +10,7 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-    <application
-        xmlns:tools="http://schemas.android.com/tools"
+    <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,30 +18,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".View.Brokerage.commodity.commodityBrokerageActivity"
+            android:label="@string/title_activity_commodity_brokerage"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".View.Activities.MainActivity"/>
+        <activity
+            android:name=".View.Brokerage.currency.CurrencyBrokerage"
+            android:label="@string/title_activity_currency_brokerage"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".View.Activities.MainActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/app_id"/>
+            android:value="@string/app_id" />
 
-        <activity android:name="com.chiruhas.android.zerodha.View.Activities.AboutActivity"
-            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.chiruhas.android.zerodha.View.Activities.CommodityActivity"
-            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity" />
+            android:name=".View.Activities.AboutActivity"
+            android:parentActivityName=".View.Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage"
+            android:name=".View.Activities.CommodityActivity"
+            android:parentActivityName=".View.Activities.MainActivity" />
+        <activity
+            android:name=".View.Brokerage.equity.EquityBrokerage"
             android:label="@string/title_activity_equity_brokerage"
-            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
+            android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.chiruhas.android.zerodha.View.Activities.BookmarkActivity"
+            android:name=".View.Activities.BookmarkActivity"
             android:label="@string/title_activity_bookmark"
-            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
+            android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.chiruhas.android.zerodha.View.Activities.MainActivity"
-
+            android:name=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,8 +60,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.chiruhas.android.zerodha.View.Activities.EquityActivity"
-            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity" />
+            android:name=".View.Activities.EquityActivity"
+            android:parentActivityName=".View.Activities.MainActivity" />
     </application>
 
 </manifest>

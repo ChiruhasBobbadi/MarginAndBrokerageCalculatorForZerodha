@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chiruhas.android.zerodha.R;
 
@@ -30,7 +29,7 @@ public class BrokerageHelper {
     ListView list;
     // Brokerage function here
 
-    public void brokerageCalculate(Context context, View view, int position,char type) {
+    public void brokerageCalculate(Context context, View view, int position, char type) {
 
 
         buy = view.findViewById(R.id.buy);
@@ -43,7 +42,7 @@ public class BrokerageHelper {
         list = view.findViewById(R.id.list);
         ArrayList<String> a = new ArrayList<>();
 
-        
+
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
@@ -54,62 +53,62 @@ public class BrokerageHelper {
 
         // flag for checking nse or bse
         boolean flag = false;
-        double data[] = calculate(b, s, q,findType(position,type));
+        double data[] = calculate(b, s, q, findType(position, type));
         double total_tax = 0;
         List lst = new ArrayList();
 
         int id = rg.getCheckedRadioButtonId();
 
-        switch(id){
+        switch (id) {
             case R.id.nse:
-                flag=true;
+                flag = true;
                 break;
             case R.id.bse:
-                flag=false;
+                flag = false;
                 break;
         }
 
         if (flag) {
-            int k=0;
-            for (int i = 0; i < data.length-1; i++) {
+            int k = 0;
+            for (int i = 0; i < data.length - 1; i++) {
 
                 if (i == 4 || i == 7)
                     continue;
-                lst.add(msg[k] +"\t"+  Math.round(data[i]*100.0)/100.0);
+                lst.add(msg[k] + "\t" + Math.round(data[i] * 100.0) / 100.0);
                 //skipping i==0 case
-                if(i!=0)
-                total_tax += data[i];
+                if (i != 0)
+                    total_tax += data[i];
                 k++;
 
             }
         } else {
-            int k=0;
-            for (int i = 0; i < data.length-1; i++) {
+            int k = 0;
+            for (int i = 0; i < data.length - 1; i++) {
 
                 if (i == 3 || i == 6)
                     continue;
-                lst.add(msg[k] +"\t"+  Math.round(data[i]*100.0)/100.0);
+                lst.add(msg[k] + "\t" + Math.round(data[i] * 100.0) / 100.0);
                 //skipping i==0 case
-                if(i!=0)
-                total_tax += data[i];
+                if (i != 0)
+                    total_tax += data[i];
                 k++;
             }
         }
 
 
-        lst.add("Total tax and charges : " + Math.round(total_tax*100.0)/100.0);
+        lst.add("Total tax and charges : " + Math.round(total_tax * 100.0) / 100.0);
 
         double net = 0;
         boolean profit = false;
 
         net = (s * q) - (b * q) - total_tax;
-        net = Math.round(net*100.0)/100.0;
+        net = Math.round(net * 100.0) / 100.0;
 
         if (net > 0)
             profit = true;
 
 
-        ArrayAdapter arrayAdapter1 = new ArrayAdapter(context,android.R.layout.simple_list_item_1,lst) {
+        ArrayAdapter arrayAdapter1 = new ArrayAdapter(context, android.R.layout.simple_list_item_1, lst) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -117,18 +116,17 @@ public class BrokerageHelper {
 
                 TextView textView = (TextView) v.findViewById(android.R.id.text1);
                 textView.setTextColor(Color.WHITE);
-            return v;
+                return v;
             }
         };
 
         list.setAdapter(arrayAdapter1);
 
-        pl.setText(net+"");
+        pl.setText(net + "");
         // changing text color
-        if(!profit){
+        if (!profit) {
             pl.setTextColor(Color.RED);
-        }
-        else{
+        } else {
             pl.setTextColor(Color.GREEN);
         }
 
@@ -162,57 +160,76 @@ public class BrokerageHelper {
          * 5th index GST
          *
          */
-        if (type.equals("E0")) {
+        if (type.startsWith("E")) {
+            if (type.equals("E0")) {
 
-            c[0] = 0.01;
-            c[1] = 0.025;
-            c[2] = 0.00325;
-            c[3] = 0.003;
-            c[4] = 0;
-            c[5] = 18;
-        }else if(type.equals("E1")){
-            c[0] = 0;
-            c[1] = 0.1;
-            c[2] = 0.00325;
-            c[3] = 0.003;
-            c[4] = 0;
-            c[5] = 18;
+                c[0] = 0.01;
+                c[1] = 0.025;
+                c[2] = 0.00325;
+                c[3] = 0.003;
+                c[4] = 0;
+                c[5] = 18;
+            } else if (type.equals("E1")) {
+                c[0] = 0;
+                c[1] = 0.1;
+                c[2] = 0.00325;
+                c[3] = 0.003;
+                c[4] = 0;
+                c[5] = 18;
+            } else if (type.equals("E2")) {
+                c[0] = 0.01;
+                c[1] = 0.01;
+                c[2] = 0.0019;
+                c[3] = 0.003;
+                c[4] = 0.0002;
+                c[5] = 18;
+            } else if (type.equals("E3")) {
+                c[0] = 0;
+                c[1] = 0.05;
+                c[2] = 0.05;
+                c[3] = 0.003;
+                c[4] = 0.002;
+                c[5] = 18;
+            }
         }
-        else if(type.equals("E2")){
-            c[0] = 0.01;
-            c[1] = 0.01;
-            c[2] = 0.0019;
-            c[3] = 0.003;
-            c[4] = 0.0002;
-            c[5] = 18;
+        else if(type.startsWith("C")){
+            if(type.equals("CU0")){
+                c[0] = 0.01;
+                c[1] = 0;
+                c[2] =0.0009 ;
+                c[3] = 0.00022;
+                c[4] = 0.0002;
+                c[5] = 18;
+
+            }
+            else if(type.equals("CU1")){
+                c[0] = 0.01;
+                c[1] = 0;
+                c[2] =0.04 ;
+                c[3] = 0.001;
+                c[4] = 0.002;
+                c[5] = 18;
+            }
         }
-        else if(type.equals("E3")){
-            c[0] =0;
-            c[1] = 0.05;
-            c[2] = 0.05;
-            c[3] = 0.003;
-            c[4] = 0.002;
-            c[5] = 18;
-        }
+
 
         return c;
     }
 
+
     /**
      * @param buy
      * @param sell
-     * @param qty
-     *
-     * 0th index turnover
-     * 1st index brokerage
-     * 2nd index stt
-     * 3rd index txn charge if nse
-     * 4th index txn charge if bse
-     * 5th index clearing charge
-     * 6th index GST if nse
-     * 7th index GST if bse
-     * 8th index sebi
-     * 9th index
+     * @param qty  0th index turnover
+     *             1st index brokerage
+     *             2nd index stt
+     *             3rd index txn charge if nse
+     *             4th index txn charge if bse
+     *             5th index clearing charge
+     *             6th index GST if nse
+     *             7th index GST if bse
+     *             8th index sebi
+     *             9th index
      */
 
     public double[] calculate(double buy, double sell, int qty, String type) {
@@ -226,8 +243,8 @@ public class BrokerageHelper {
         brokerage += (sell_amt * per[0]) / 100 > 20 ? 20 : (sell_amt * per[0]) / 100;
         tax[0] = buy_amt + sell_amt;
 
-        if(type.equals("E3"))
-            brokerage=40;
+        if (type.equals("E3"))
+            brokerage = 40;
 
         tax[1] = brokerage;
         double stt = 0;
@@ -245,11 +262,11 @@ public class BrokerageHelper {
 
         //TODO
         // clearing charge
-        tax[5] = tax[0]*per[4]/100;
+        tax[5] = tax[0] * per[4] / 100;
 
-        double gst = (((brokerage + tax[3]) *18)/ 100);
+        double gst = (((brokerage + tax[3]) * 18) / 100);
         tax[6] = gst;
-        gst = (((brokerage + tax[4]) * 18)/ 100);
+        gst = (((brokerage + tax[4]) * 18) / 100);
         tax[7] = gst;
 
         double sebi = ((buy_amt * 15) + (sell_amt * 15)) / (10000000);
@@ -260,22 +277,30 @@ public class BrokerageHelper {
         return tax;
     }
 
-    public String findType(int pos,char ty){
-        String type="";
-        if(ty=='e'){
-            if(pos==0)
-                type="E0";
-            else if(pos==1)
-                type="E1";
-            else if(pos==2)
-                type="E2";
-            else if(pos==3)
-                type="E3";
-        }
-        else if(ty=='C'){
 
-        }
-        else if(ty=='c'){
+    /**
+     * @param pos
+     * @param ty
+     * @return string indicating the type of order
+     */
+    public String findType(int pos, char ty) {
+        String type = "";
+        if (ty == 'e') {
+            if (pos == 0)
+                type = "E0";
+            else if (pos == 1)
+                type = "E1";
+            else if (pos == 2)
+                type = "E2";
+            else if (pos == 3)
+                type = "E3";
+        } else if (ty == 'C') {
+
+            if (pos == 0)
+                type = "CU0";
+            else if (pos == 1)
+                type = "CU1";
+        } else if (ty == 'c') {
 
         }
 

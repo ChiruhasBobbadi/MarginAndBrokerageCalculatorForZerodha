@@ -15,4 +15,12 @@
     <string name="about_1">1. This app is in no way related to  zerodha it uses the API of zerodha to serve the data</string>
     <string name="about_2">2. This app or its developers are in no way responsible for the error(if present) in the data</string>
     <string name="about_3">3. There might be slight variation in the brokerage calculator, the difference might be neglected in some caase</string>
+    <string name="title_activity_currency_brokerage">CurrencyBrokerage</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="title_activity_commodity_brokerage">commodityBrokerageActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
