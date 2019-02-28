@@ -3,7 +3,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.chiruhas.android.zerodhamargincalculator">
+    package="com.chiruhas.android.zerodha">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,24 +26,24 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_id"/>
 
-        <activity android:name=".View.Activities.AboutActivity"
-            android:parentActivityName=".View.Activities.MainActivity"
+        <activity android:name="com.chiruhas.android.zerodha.View.Activities.AboutActivity"
+            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".View.Activities.CommodityActivity"
-            android:parentActivityName=".View.Activities.MainActivity" />
+            android:name="com.chiruhas.android.zerodha.View.Activities.CommodityActivity"
+            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity" />
         <activity
-            android:name=".View.Brokerage.equity.EquityBrokerage"
+            android:name="com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage"
             android:label="@string/title_activity_equity_brokerage"
-            android:parentActivityName=".View.Activities.MainActivity"
+            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".View.Activities.BookmarkActivity"
+            android:name="com.chiruhas.android.zerodha.View.Activities.BookmarkActivity"
             android:label="@string/title_activity_bookmark"
-            android:parentActivityName=".View.Activities.MainActivity"
+            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".View.Activities.MainActivity"
+            android:name="com.chiruhas.android.zerodha.View.Activities.MainActivity"
 
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -53,8 +53,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.Activities.EquityActivity"
-            android:parentActivityName=".View.Activities.MainActivity" />
+            android:name="com.chiruhas.android.zerodha.View.Activities.EquityActivity"
+            android:parentActivityName="com.chiruhas.android.zerodha.View.Activities.MainActivity" />
     </application>
 
 </manifest>

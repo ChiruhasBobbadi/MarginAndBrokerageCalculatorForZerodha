@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.chiruhas.android.zerodhamargincalculator.View.Activities.BookmarkActivity">
+    tools:context="com.chiruhas.android.zerodha.View.Activities.BookmarkActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

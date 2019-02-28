@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
-    <string name="equitybookmark_banner">ca-app-pub-4351116683020455/7682116886</string>
-    <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>
-    <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>
+
+    <!--Original id -->
+    <!--<string name="app_id">ca-app-pub-4351116683020455~8691946225</string>-->
+    <!--<string name="equitybookmark_banner">ca-app-pub-4351116683020455/7682116886</string>-->
+    <!--<string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>-->
+    <!--<string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>-->
+    <!---->
+    <!-- demo id -->
+
+    <string name="app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="equitybookmark_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="margin_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="brokerage_banner">ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>
