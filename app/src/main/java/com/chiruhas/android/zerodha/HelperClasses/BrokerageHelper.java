@@ -43,7 +43,7 @@ public class BrokerageHelper {
         list = view.findViewById(R.id.list);
         ArrayList<String> a = new ArrayList<>();
 
-        Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
+        
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
