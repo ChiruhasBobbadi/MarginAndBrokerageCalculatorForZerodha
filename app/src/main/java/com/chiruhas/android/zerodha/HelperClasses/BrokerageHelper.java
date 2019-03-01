@@ -11,10 +11,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +49,11 @@ public class BrokerageHelper {
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
         int q = Integer.parseInt(qty.getText().toString());
+
+        if(type=='C' && position==0){
+            b*=1000;
+            s*=1000;
+        }
 
         String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ", "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
 
@@ -133,6 +140,40 @@ public class BrokerageHelper {
     }
 
 
+
+
+    public void brokerageCalculate(Context context, View view, List<GodModel> list){
+
+        int pos=0;
+        // lot size is decided by the pos selected by user from spinner
+
+        String lot = list.get(pos).getLotsize();
+        String name = list.get(pos).getTradingsymbol();
+
+        String splits[] = lot.split(" ");
+
+        int effective = getEffective(splits[0],splits[1]);
+
+
+
+
+    }
+
+    int getEffective(String qty , String metric){
+
+        int q = Integer.parseInt(qty);
+        int effective;
+        effective=q;
+        if(metric.equals("MT"))
+            effective = q*1000;
+
+
+            return effective;
+
+
+    }
+
+
     /**
      * @param buy
      * @param sell
@@ -195,7 +236,7 @@ public class BrokerageHelper {
         else if(type.startsWith("C")){
             if(type.equals("CU0")){
                 c[0] = 0.01;
-                c[1] = 0;
+                c[1] = 0.01;
                 c[2] =0.0009 ;
                 c[3] = 0.00022;
                 c[4] = 0.0002;
@@ -204,10 +245,32 @@ public class BrokerageHelper {
             }
             else if(type.equals("CU1")){
                 c[0] = 0.01;
-                c[1] = 0;
+                c[1] = 0.05;
                 c[2] =0.04 ;
                 c[3] = 0.001;
                 c[4] = 0.002;
+                c[5] = 18;
+            }
+        }
+
+        /**
+         * for commodity since ther is no NSE and BSE consider it as nse to maintain the flow
+         */
+        else if(type.startsWith("c")){
+            if(type.equals("c0")){
+                c[0] = 0.01;
+                c[1] = 0;
+                c[2] =0.04 ;
+                c[3] = 0;
+                c[4] = 0.01;
+                c[5] = 18;
+            }
+            else if(type.equals("c1")){
+                c[0] = 0.01;
+                c[1] = 0;
+                c[2] =0.04 ;
+                c[3] = 0;
+                c[4] =0.002;
                 c[5] = 18;
             }
         }
@@ -239,12 +302,18 @@ public class BrokerageHelper {
         double buy_amt = buy * qty;
         double sell_amt = sell * qty;
         double tax[] = new double[10];
+
+        // checking if it is currency futures
+
         double brokerage = (buy_amt * per[0]) / 100 > 20 ? 20 : (buy_amt * per[0]) / 100;
         brokerage += (sell_amt * per[0]) / 100 > 20 ? 20 : (sell_amt * per[0]) / 100;
-        tax[0] = buy_amt + sell_amt;
+
+        tax[0] = (buy_amt + sell_amt);
 
         if (type.equals("E3"))
             brokerage = 40;
+
+
 
         tax[1] = brokerage;
         double stt = 0;
@@ -257,12 +326,18 @@ public class BrokerageHelper {
 
 
         tax[2] = stt;
+
+
         tax[3] = ((per[2] * buy_amt) / 100) + ((per[2] * sell_amt) / 100);
         tax[4] = ((per[3] * buy_amt) / 100) + (((per[3]) * sell_amt) / 100);
 
         //TODO
         // clearing charge
         tax[5] = tax[0] * per[4] / 100;
+
+        if(type.equals("c1")){
+            tax[5] = ((buy_amt+sell_amt)*200)/10000000;
+        }
 
         double gst = (((brokerage + tax[3]) * 18) / 100);
         tax[6] = gst;

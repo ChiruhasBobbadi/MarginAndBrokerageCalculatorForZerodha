@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".View.bookmark.Fragments.EquityFrag"
 
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/bg_black">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView

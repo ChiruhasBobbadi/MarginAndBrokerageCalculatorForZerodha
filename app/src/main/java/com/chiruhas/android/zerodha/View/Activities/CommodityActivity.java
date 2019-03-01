@@ -29,9 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommodityActivity extends AppCompatActivity {
 
-    String lotsize[] = {"1 MT", "5 MT", "1 MT", "100 KGS", "110 MT", "1 MT", "250 KGS", "25 BALES", "10 MT", "100 BBL", "10 BBL", "1 KGS",
+    String lotsize[] = {"5 MT", "1 MT","1 MT", "5 MT", "1 MT", "100 KGS", "110 MT", "1 MT", "250 KGS", "25 BALES", "10 MT", "100 BBL", "10 BBL", "1 KGS",
             "8 GRMS", "100 GRMS", "1 GRMS", "5 MT", "1 MT", "360 KGS", "1250 MMBTU", "250 KGS", "100 KGS", "1 MT", "10 MT"
-            ,"30 KGS", "5 KGS", "1 KGS", "5 MT", "1 MT"};
+            ,"30 KGS", "5 KGS", "1 KGS"};
 
     RecyclerView recyclerView;
     ViewModel viewModel;

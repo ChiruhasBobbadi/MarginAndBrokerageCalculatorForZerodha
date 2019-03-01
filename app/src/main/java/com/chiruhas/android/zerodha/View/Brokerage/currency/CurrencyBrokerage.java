@@ -15,7 +15,7 @@ import android.os.Bundle;
 
 import com.chiruhas.android.zerodha.R;
 
-public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrokerageFrag.OnFragmentInteractionListener{
+public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrokerageFrag.OnFragmentInteractionListener,CurrencyBrokerageFrag1.OnFragmentInteractionListener{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -75,6 +75,15 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
             // Return a PlaceholderFragment (defined as a static inner class below).
             Fragment fragment = new CurrencyBrokerageFrag();
             ((CurrencyBrokerageFrag) fragment).updatePos(position);
+            switch (position){
+                case 0:
+                     fragment = new CurrencyBrokerageFrag();
+                    ((CurrencyBrokerageFrag) fragment).updatePos(position);
+                    break;
+                case 1:
+                    fragment = new CurrencyBrokerageFrag1();
+
+            }
             return fragment;
         }
 

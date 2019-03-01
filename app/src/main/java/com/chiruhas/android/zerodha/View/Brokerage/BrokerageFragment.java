@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import com.chiruhas.android.zerodha.R;
 
 
-public class BrokerageFragment extends Fragment  {
+public class
+BrokerageFragment extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;

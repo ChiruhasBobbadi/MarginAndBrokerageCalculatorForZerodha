@@ -78,7 +78,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/bg_black"
 
        app:itemIconTint="@color/bg_blue"
         app:itemIconPadding="50dp"
