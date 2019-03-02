@@ -85,10 +85,13 @@ public class commodityBrokerageActivity extends AppCompatActivity implements Com
             //return PlaceholderFragment.newInstance(position + 1);
             Fragment fragment = new CommBrokerageFrag();
             switch (position){
-                case 1:
+                case 0:
                     fragment =  new CommBrokerageFrag();
                     break;
+                case 1:
+                    break;
             }
+
             return fragment;
         }
 

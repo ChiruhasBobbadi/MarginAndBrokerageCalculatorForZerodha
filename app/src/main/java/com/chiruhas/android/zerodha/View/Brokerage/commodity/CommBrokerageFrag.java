@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
@@ -28,9 +31,11 @@ public class CommBrokerageFrag extends Fragment {
             "8 GRMS", "100 GRMS", "1 GRMS", "5 MT", "1 MT", "360 KGS", "1250 MMBTU", "250 KGS", "100 KGS", "1 MT", "10 MT"
             ,"30 KGS", "5 KGS", "1 KGS"};
 
+    Spinner spinner;
     ViewModel viewModel;
 
     List<GodModel> list = new ArrayList<>();
+    List<String> names = new ArrayList<>();
 
     public CommBrokerageFrag() {
         // Required empty public constructor
@@ -56,6 +61,7 @@ public class CommBrokerageFrag extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_comm_brokerage, container, false);
 
+        spinner = view.findViewById(R.id.spinner);
         final View tview=view;
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
@@ -68,6 +74,27 @@ public class CommBrokerageFrag extends Fragment {
                     godModels.get(i).setLotsize(lotsize[i]);
                 }
                 list = godModels;
+            }
+        });
+
+        for(GodModel g: list){
+            names.add(g.getTradingsymbol());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,names);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 

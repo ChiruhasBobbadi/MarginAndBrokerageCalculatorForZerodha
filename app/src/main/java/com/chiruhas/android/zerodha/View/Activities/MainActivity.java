@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
+import com.chiruhas.android.zerodha.View.Brokerage.commodity.commodityBrokerageActivity;
 import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
 import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-//        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
         MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
@@ -138,11 +139,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 break;
 
             case R.id.commodity:
-                Toast.makeText(this, "Coming Soon..", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(MainActivity.this, commodityBrokerageActivity.class));
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.futures:
-                Toast.makeText(this, "Coming Soon..", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.currency:
                 //Toast.makeText(this, "Coming Soon..", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, CurrencyBrokerage.class));
