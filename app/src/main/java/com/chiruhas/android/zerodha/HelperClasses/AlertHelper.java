@@ -93,6 +93,14 @@ public class AlertHelper {
         myDialog.show();
     }
 
+    public void nrml_bo(){
+        final View view = LayoutInflater.from(context).inflate(R.layout.bo_nrml_popup, null);
 
+        myDialog.setContentView(R.layout.bo_nrml_popup);
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
 
 }

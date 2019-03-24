@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
+import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.BracketOrder;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
@@ -119,7 +120,7 @@ public class Normal_BO extends Fragment {
                 if (TextUtils.isEmpty(auto.getText().toString()) || price.getText().toString().equals("")||qty.getText().toString().equals("")||sl.getText().toString().equals(""))
                     Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
                 else
-                    BracketOrder.calculate();
+                new AlertHelper(getContext()).nrml_bo();
 
 
             }

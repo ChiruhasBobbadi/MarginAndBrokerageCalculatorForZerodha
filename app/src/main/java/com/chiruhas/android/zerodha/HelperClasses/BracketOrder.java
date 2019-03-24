@@ -41,6 +41,7 @@ public class BracketOrder {
         double margin = x > y ? x : y;
         margin = margin + (margin * 0.2);
 
+        double a[] = {margin,};
 
 
 
