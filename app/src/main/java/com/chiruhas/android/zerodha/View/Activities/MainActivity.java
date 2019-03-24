@@ -167,6 +167,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 case R.id.currency:
                     Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
                     break;
+                case R.id.bracket:
+                    startActivity(new Intent(MainActivity.this,BracketActivity.class));
+                    break;
             }
     }
 
