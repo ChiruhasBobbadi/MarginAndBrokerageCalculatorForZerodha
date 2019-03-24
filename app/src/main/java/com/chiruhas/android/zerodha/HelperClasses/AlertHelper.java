@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -93,12 +94,31 @@ public class AlertHelper {
         myDialog.show();
     }
 
-    public void nrml_bo(){
-        final View view = LayoutInflater.from(context).inflate(R.layout.bo_nrml_popup, null);
+    public void nrml_bo(String name,String margin,String avalue, String leverage){
+       // final View view = LayoutInflater.from(context).inflate(R.layout.bo_nrml_popup, null);
 
         myDialog.setContentView(R.layout.bo_nrml_popup);
 
+
+        TextView sc = myDialog.findViewById(R.id.scrip);
+        sc.setText(name);
+        TextView mar = myDialog.findViewById(R.id.margin);
+        mar.setText(" RS "+Math.round(Double.parseDouble(margin) * 100.0) / 100.0+" /-");
+        TextView av = myDialog.findViewById(R.id.values);
+        av.setText(" RS "+Math.round(Double.parseDouble(avalue) * 100.0) / 100.0+" /-");
+        TextView lev = myDialog.findViewById(R.id.leverage);
+        lev.setText(Math.round(Double.parseDouble(leverage) * 100.0) / 100.0+" X");
+        TextView close = myDialog.findViewById(R.id.close);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         myDialog.setCancelable(false);
         myDialog.show();
     }
