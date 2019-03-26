@@ -118,7 +118,6 @@ public class AlertHelper {
         });
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         myDialog.setCancelable(false);
         myDialog.show();
     }

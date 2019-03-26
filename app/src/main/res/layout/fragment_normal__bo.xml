@@ -92,16 +92,16 @@
             <EditText
                 android:id="@+id/price"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="45dp"
+                android:backgroundTint="@color/bg_blue"
+                android:inputType="numberDecimal"
+                android:textColor="@color/bg_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:backgroundTint="@color/bg_blue"
-                android:textColor="@color/bg_white"
-                android:inputType="numberDecimal"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -118,13 +118,13 @@
             <EditText
                 android:id="@+id/qty"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="44dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="260dp"
-                android:textColor="@color/bg_white"
                 android:backgroundTint="@color/bg_blue"
                 android:inputType="number"
+                android:textColor="@color/bg_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -132,31 +132,31 @@
             <EditText
                 android:id="@+id/sl"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="260dp"
-                android:textColor="@color/bg_white"
-                android:backgroundTint="@color/bg_blue"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="44dp"
+                android:backgroundTint="@color/bg_blue"
+                android:inputType="numberDecimal"
+                android:textColor="@color/bg_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
-                android:inputType="numberDecimal"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <TextView
                 android:id="@+id/textView12"
-                android:textColor="@color/bg_white"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:text="Stop Loss"
+                android:text="Stop Loss (Abs Val)"
+                android:textColor="@color/bg_white"
                 android:textSize="20sp"
 
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.598"
+                app:layout_constraintHorizontal_bias="0.69"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/price" />
 
@@ -202,14 +202,11 @@
                 android:id="@+id/calculate"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="104dp"
+                android:layout_marginStart="96dp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="8dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:text="Calculate"
                 android:textColor="@color/bg_white"
-                app:layout_constraintEnd_toStartOf="@+id/reset"
-                app:layout_constraintHorizontal_bias="0.435"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
@@ -218,7 +215,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="92dp"
+                android:layout_marginEnd="96dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:text="Reset"
                 android:textColor="@color/bg_white"
@@ -232,14 +229,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="180dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/brokerage_banner"
+                ads:adUnitId="@string/bracket_order"
+                ads:layout_constraintBottom_toBottomOf="parent"
                 ads:layout_constraintEnd_toEndOf="parent"
                 ads:layout_constraintHorizontal_bias="0.48"
                 ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+                ads:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+                ads:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

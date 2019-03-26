@@ -44,17 +44,29 @@ public class BracketOrder {
         double co_upper = g.getCo_upper();
         co_lower = co_lower/100;
         co_upper = co_upper/100;
+
         double trigger = price - (co_upper * price);
 
-
-        if (stoploss < trigger)
-        stoploss = trigger;
+        if(transaction_type.equals("buy"))
+        {    stoploss = price-stoploss;
+            if (stoploss < trigger)
+            stoploss = trigger;
         else
-        trigger = stoploss;
+            trigger = stoploss;
+
+        }
+        else{
+            stoploss = price+stoploss;
+            if (stoploss > trigger)
+                stoploss = trigger;
+            else
+                trigger = stoploss;
+        }
+
 
         double x = 0;
 
-        if(transaction_type == "buy")
+        if(transaction_type.equals("buy"))
         x = (price - trigger) * quantity;
         else
         x = (trigger - price) * quantity;
