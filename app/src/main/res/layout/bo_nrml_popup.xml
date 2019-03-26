@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:background="@drawable/bo_card"
+    android:layout_height="300dp"
     android:layout_gravity="center"
-    >
+    android:background="@drawable/ic_bo_card">
+
 
     <TextView
         android:id="@+id/scrip"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="62dp"
         android:layout_marginTop="16dp"
@@ -22,37 +23,15 @@
         android:textColor="@color/bg_blue"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/scrip2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="228dp"
-        android:layout_marginEnd="62dp"
-        android:fontFamily="@font/avenir_light"
-        android:gravity="center"
-        android:text="Order Details"
-        android:textColor="#616161"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/close"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="36dp"
+        android:layout_height="43dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.214"
-        app:layout_constraintStart_toEndOf="@+id/scrip"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -60,10 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/avenir_light"
         android:text="Margin Required : "
         android:textColor="#616161"
-        android:fontFamily="@font/avenir_light"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrip" />
@@ -72,27 +51,32 @@
         android:id="@+id/margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/avenir_light"
         android:text="RS"
         android:textColor="@color/bg_green"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="251dp"
-        tools:layout_editor_absoluteY="68dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/scrip" />
 
     <TextView
         android:id="@+id/values"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/avenir_light"
         android:text="RS"
         android:textColor="@color/bg_green"
         android:textSize="20sp"
-        android:fontFamily="@font/avenir_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toEndOf="@+id/textView1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/margin" />
 
     <TextView
@@ -100,7 +84,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/avenir_light"
         android:text="Actual Value : "
         android:textColor="#616161"
         android:textSize="20sp"
@@ -111,12 +96,16 @@
         android:id="@+id/leverage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/avenir_light"
         android:text="RS"
-        android:textColor="@color/bg_green"
+        android:textColor="@color/bg_blue"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/values" />
 
     <TextView
@@ -124,14 +113,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/avenir_light"
         android:text="Leverage : "
         android:textColor="#616161"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="185dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="395dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -132,7 +132,7 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="bo_card" />
+                            <entry key="outputName" value="ic_bo_card" />
                             <entry key="sourceFile" value="D:\bo_card.svg" />
                           </map>
                         </option>

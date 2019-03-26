@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Normal_BO;
+import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Reverse_BO;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 
 import com.chiruhas.android.zerodha.R;
 
-public class BracketActivity extends AppCompatActivity implements Normal_BO.OnFragmentInteractionListener {
+public class BracketActivity extends AppCompatActivity implements Normal_BO.OnFragmentInteractionListener,Reverse_BO.OnFragmentInteractionListener {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -79,6 +80,9 @@ public class BracketActivity extends AppCompatActivity implements Normal_BO.OnFr
                 case 0 :
                     fragment = new Normal_BO();
 
+                    break;
+                case 1:
+                    fragment=new Reverse_BO();
                     break;
             }
             return fragment;

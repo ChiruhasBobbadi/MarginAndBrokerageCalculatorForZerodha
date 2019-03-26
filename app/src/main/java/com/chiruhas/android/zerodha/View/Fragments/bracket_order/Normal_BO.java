@@ -101,9 +101,9 @@ public class Normal_BO extends Fragment {
             }
         });
 
-        if (auto.getAdapter() == null) {
-            Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
-        }
+//        if (auto.getAdapter() == null) {
+//            Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
+//        }
 
         price = view.findViewById(R.id.price);
         qty = view.findViewById(R.id.qty);
@@ -117,10 +117,31 @@ public class Normal_BO extends Fragment {
         cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(auto.getText().toString()) || price.getText().toString().equals("")||qty.getText().toString().equals("")||sl.getText().toString().equals(""))
-                    Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
+                // for BUY or sell
+                String status = "";
+                if (buy.isChecked())
+                    status = "buy";
                 else
-                new AlertHelper(getContext()).nrml_bo();
+                    status = "sell";
+
+
+                if (TextUtils.isEmpty(auto.getText().toString()) || price.getText().toString().equals("") || qty.getText().toString().equals("") || sl.getText().toString().equals(""))
+                    Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
+                else {
+                    GodModel godModel=null;
+                    for (GodModel g : list) {
+                        if (g.getTradingsymbol().equals(auto.getText().toString().trim())) {
+                            godModel = g;
+                            break;
+                        }
+                    }
+
+                    if(godModel==null)
+                        Toast.makeText(getContext(), "Oops Something happened", Toast.LENGTH_SHORT).show();
+                    else
+                    BracketOrder.calculate(getContext(),godModel.getTradingsymbol(),price.getText().toString(),qty.getText().toString(),
+                            sl.getText().toString(),"equity",status,godModel);
+                }
 
 
             }
