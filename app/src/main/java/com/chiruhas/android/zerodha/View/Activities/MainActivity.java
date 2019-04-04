@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
-//        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+      MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
 
 
 

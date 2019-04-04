@@ -28,10 +28,14 @@
 
     <TextView
         android:id="@+id/close"
-        android:layout_width="36dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        android:layout_width="28dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintStart_toEndOf="@+id/scrip"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
