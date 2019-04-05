@@ -8,6 +8,7 @@
     <!--<string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>-->
     <!--<string name="brokerage_banner_currency">ca-app-pub-4351116683020455/8820738469</string>-->
      <!--<string name="bracket_order">ca-app-pub-4351116683020455/9421890140</string>-->
+    <!--<string name="bracket_inter">ca-app-pub-4351116683020455/7631704868</string>-->
 
 
     <!-- demo id -->
@@ -18,6 +19,8 @@
     <string name="brokerage_banner">ca-app-pub-3940256099942544/6300978111</string>
     <string name="brokerage_banner_currency">ca-app-pub-3940256099942544/6300978111</string>
     <string name="bracket_order">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="bracket_inter">ca-app-pub-3940256099942544/1033173712</string>
+
     <!--<string name="equitybookmark_banner">x</string>-->
     <!--<string name="margin_banner">x</string>-->
     <!--<string name="brokerage_banner">x</string>-->

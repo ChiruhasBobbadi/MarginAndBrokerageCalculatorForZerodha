@@ -5,6 +5,9 @@ import android.view.View;
 import com.chiruhas.android.zerodha.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 public class AdViewHelper
 {
@@ -14,4 +17,6 @@ public class AdViewHelper
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
     }
+
+
 }

@@ -1,11 +1,16 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
+import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
 import com.chiruhas.android.zerodha.View.Brokerage.commodity.commodityBrokerageActivity;
 import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
 import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -38,11 +43,31 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     private ViewPager mViewPager;
+    private InterstitialAd interstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        interstitialAd = new InterstitialAd(this);
+
+        //test
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        // original
+
+        //interstitialAd.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        // navigating user to bracket activity
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this,BracketActivity.class));
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -118,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
       MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
 
 
-
     }
 
     @Override
@@ -168,7 +192,14 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                     Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.bracket:
-                    startActivity(new Intent(MainActivity.this,BracketActivity.class));
+
+                    if(interstitialAd.isLoaded()){
+                        interstitialAd.show();
+                    }
+                    else{
+                        startActivity(new Intent(MainActivity.this,BracketActivity.class));
+                    }
+
                     break;
             }
     }

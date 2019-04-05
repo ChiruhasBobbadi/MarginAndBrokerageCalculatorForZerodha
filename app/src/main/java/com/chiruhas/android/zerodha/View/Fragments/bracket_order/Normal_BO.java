@@ -231,7 +231,7 @@ public class Normal_BO extends Fragment {
         });
 
 
-        AdViewHelper.loadBanner(view);
+
 
 
         return view;
