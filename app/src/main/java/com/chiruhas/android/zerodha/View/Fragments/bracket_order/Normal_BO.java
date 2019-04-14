@@ -152,6 +152,9 @@ public class Normal_BO extends Fragment {
                     String str = auto.getText().toString().trim();
                     lot.setText("Lot Size : " + map.get(str));
                     lot_size = map.get(str);
+                    price.setText("");
+                    qty.setText("");
+                    sl.setText("");
 
                 }
             }
@@ -195,18 +198,25 @@ public class Normal_BO extends Fragment {
                         // checking lot size mapping
                         int q = Integer.parseInt(qty.getText().toString().trim());
 
-                        if (q < lot_size) {
+                        if(type.equals("mcx")){
+                            if (q < lot_size) {
 
-                            Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            if (q % lot_size != 0)
                                 Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                            else {
-                                new BracketOrder().calculate(getContext(), godModel.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
-                                        sl.getText().toString(), type, status, godModel);
+
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), godModel.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, godModel);
+                                }
                             }
                         }
+                        else{
+                            new BracketOrder().calculate(getContext(), godModel.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
+                                    sl.getText().toString(), type, status, godModel);
+                        }
+
 
 
                     }

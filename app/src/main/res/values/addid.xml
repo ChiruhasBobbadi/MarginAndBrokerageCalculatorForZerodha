@@ -2,24 +2,24 @@
 <resources>
 
     <!--Original id -->
-    <!--<string name="app_id">ca-app-pub-4351116683020455~8691946225</string>-->
-    <!--<string name="equitybookmark_banner">ca-app-pub-4351116683020455/7682116886</string>-->
-    <!--<string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>-->
-    <!--<string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>-->
-    <!--<string name="brokerage_banner_currency">ca-app-pub-4351116683020455/8820738469</string>-->
-     <!--<string name="bracket_order">ca-app-pub-4351116683020455/9421890140</string>-->
-    <!--<string name="bracket_inter">ca-app-pub-4351116683020455/7631704868</string>-->
+    <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
+    <string name="equitybookmark_banner">ca-app-pub-4351116683020455/7682116886</string>
+    <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>
+    <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>
+    <string name="brokerage_banner_currency">ca-app-pub-4351116683020455/8820738469</string>
+     <string name="bracket_order">ca-app-pub-4351116683020455/9421890140</string>
+    <string name="bracket_inter">ca-app-pub-4351116683020455/7631704868</string>
 
 
     <!-- demo id -->
 
-    <string name="app_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="equitybookmark_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="margin_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="brokerage_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="brokerage_banner_currency">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="bracket_order">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="bracket_inter">ca-app-pub-3940256099942544/1033173712</string>
+    <!--<string name="app_id">ca-app-pub-3940256099942544~3347511713</string>-->
+    <!--<string name="equitybookmark_banner">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="margin_banner">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="brokerage_banner">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="brokerage_banner_currency">ca-app-pub-3940256099942544/6300978111</string>-->
+
+    <!--<string name="bracket_inter">ca-app-pub-3940256099942544/1033173712</string>-->
 
     <!--<string name="equitybookmark_banner">x</string>-->
     <!--<string name="margin_banner">x</string>-->

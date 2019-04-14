@@ -54,11 +54,11 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         interstitialAd = new InterstitialAd(this);
 
         //test
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        //interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-        //interstitialAd.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+        interstitialAd.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
 
         interstitialAd.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
@@ -137,10 +137,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
-      MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+      //MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
 
 
     }
@@ -207,10 +207,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
 //
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
