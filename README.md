@@ -1,8 +1,8 @@
 # Margin and brokerge calculator
 
-This app is developed as a result of my habbit of trading 
+This app is developed by me because of my habbit of day trading in Zerodha.
 
-This app solves my problem of frequently calculating margins for intraday stocks in zerodha platform and saves my most valuable trading time
+This app solves my problem of frequently calculating margins for intraday stocks in zerodha platform and saves my most valuable trading time and i hope it saves your valuable time too.
 
 
 #Tech Stack:
@@ -10,6 +10,11 @@ This app solves my problem of frequently calculating margins for intraday stocks
 1. Rest API (Retrofit)
 2. MVVM Architecture
 3. Room Persistence library
+4. Firebase Analytics
+5. Firebase __
+6.
+
+
 
 #Things learnt the hard way from this project
 
@@ -24,3 +29,6 @@ This app solves my problem of frequently calculating margins for intraday stocks
 
 
 Happy Trading :)
+
+
+Check out this app on playstore :!
