@@ -9,6 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:backgroundTint="@color/bg_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -27,8 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="52dp"
+
         android:text="3MINDIA:EQ"
-        android:textColor="@color/bg_black"
+        android:textColor="#FAFAFA"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +56,7 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="16dp"
         android:text="MIS Multiplier : 14X"
-        android:textColor="@color/bg_black"
+        android:textColor="#9e9e9e"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lot"
@@ -68,7 +70,7 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/bg_black"
+        android:textColor="#9e9e9e"
         android:textSize="15sp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

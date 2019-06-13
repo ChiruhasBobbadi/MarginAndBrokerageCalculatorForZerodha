@@ -24,4 +24,32 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bracket">BracketActivity</string>
+
+
+    <string-array name="states">
+        <item>Select State</item>
+        <item>Andhra Pradesh</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Delhi</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jammu &amp; Kashmir</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Meghalaya</item>
+        <item>Odisha</item>
+        <item>Rajasthan</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Uttar Pradesh</item>
+        <item>West Bengal</item>
+        <item>Others</item>
+
+    </string-array>
+
 </resources>
