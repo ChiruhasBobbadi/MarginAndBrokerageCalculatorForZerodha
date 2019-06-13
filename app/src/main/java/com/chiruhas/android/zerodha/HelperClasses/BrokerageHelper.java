@@ -29,9 +29,10 @@ public class BrokerageHelper {
     RadioButton nse, bse;
     TextView pl;
     ListView list;
+    String state;
     // Brokerage function here
 
-    public void brokerageCalculate(Context context, View view, int position, char type) {
+    public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
 
         buy = view.findViewById(R.id.buy);
@@ -44,15 +45,15 @@ public class BrokerageHelper {
         list = view.findViewById(R.id.list);
         ArrayList<String> a = new ArrayList<>();
 
-
+        state=states;
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
         int q = Integer.parseInt(qty.getText().toString());
 
-        if(type=='C' && position==0){
-            b*=1000;
-            s*=1000;
+        if (type == 'C' && position == 0) {
+            b *= 1000;
+            s *= 1000;
         }
 
         String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ", "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
@@ -102,7 +103,8 @@ public class BrokerageHelper {
             }
         }
 
-
+        total_tax+=data[9];
+        lst.add("Stamp Duty : "+data[9]);
         lst.add("Total tax and charges : " + Math.round(total_tax * 100.0) / 100.0);
 
         double net = 0;
@@ -140,11 +142,9 @@ public class BrokerageHelper {
     }
 
 
+    public void brokerageCalculate(Context context, View view, List<GodModel> list) {
 
-
-    public void brokerageCalculate(Context context, View view, List<GodModel> list){
-
-        int pos=0;
+        int pos = 0;
         // lot size is decided by the pos selected by user from spinner
 
         String lot = list.get(pos).getLotsize();
@@ -152,23 +152,21 @@ public class BrokerageHelper {
 
         String splits[] = lot.split(" ");
 
-        int effective = getEffective(splits[0],splits[1]);
-
-
+        int effective = getEffective(splits[0], splits[1]);
 
 
     }
 
-    int getEffective(String qty , String metric){
+    int getEffective(String qty, String metric) {
 
         int q = Integer.parseInt(qty);
         int effective;
-        effective=q;
-        if(metric.equals("MT"))
-            effective = q*1000;
+        effective = q;
+        if (metric.equals("MT"))
+            effective = q * 1000;
 
 
-            return effective;
+        return effective;
 
 
     }
@@ -232,21 +230,19 @@ public class BrokerageHelper {
                 c[4] = 0.002;
                 c[5] = 18;
             }
-        }
-        else if(type.startsWith("C")){
-            if(type.equals("CU0")){
+        } else if (type.startsWith("C")) {
+            if (type.equals("CU0")) {
                 c[0] = 0.01;
                 c[1] = 0.01;
-                c[2] =0.0009 ;
+                c[2] = 0.0009;
                 c[3] = 0.00022;
                 c[4] = 0.0002;
                 c[5] = 18;
 
-            }
-            else if(type.equals("CU1")){
+            } else if (type.equals("CU1")) {
                 c[0] = 0.01;
                 c[1] = 0.05;
-                c[2] =0.04 ;
+                c[2] = 0.04;
                 c[3] = 0.001;
                 c[4] = 0.002;
                 c[5] = 18;
@@ -254,23 +250,22 @@ public class BrokerageHelper {
         }
 
         /**
-         * for commodity since ther is no NSE and BSE consider it as nse to maintain the flow
+         * for commodity since there is no NSE and BSE consider it as nse to maintain the flow
          */
-        else if(type.startsWith("c")){
-            if(type.equals("c0")){
+        else if (type.startsWith("c")) {
+            if (type.equals("c0")) {
                 c[0] = 0.01;
                 c[1] = 0;
-                c[2] =0.04 ;
+                c[2] = 0.04;
                 c[3] = 0;
                 c[4] = 0.01;
                 c[5] = 18;
-            }
-            else if(type.equals("c1")){
+            } else if (type.equals("c1")) {
                 c[0] = 0.01;
                 c[1] = 0;
-                c[2] =0.04 ;
+                c[2] = 0.04;
                 c[3] = 0;
-                c[4] =0.002;
+                c[4] = 0.002;
                 c[5] = 18;
             }
         }
@@ -314,7 +309,6 @@ public class BrokerageHelper {
             brokerage = 40;
 
 
-
         tax[1] = brokerage;
         double stt = 0;
 
@@ -333,10 +327,10 @@ public class BrokerageHelper {
 
         //TODO
         // clearing charge
-        tax[5] = tax[0] * per[4] / 100;
-
-        if(type.equals("c1")){
-            tax[5] = ((buy_amt+sell_amt)*200)/10000000;
+        //tax[5] = tax[0] * per[4] / 100;
+        tax[5] = 0;
+        if (type.equals("c1")) {
+            tax[5] = ((buy_amt + sell_amt) * 200) / 10000000;
         }
 
         double gst = (((brokerage + tax[3]) * 18) / 100);
@@ -348,6 +342,8 @@ public class BrokerageHelper {
 
         tax[8] = sebi;
 
+        // fetching data
+        tax[9] = StateTaxHelper.stampDuty(type,tax[0],state);
 
         return tax;
     }

@@ -61,7 +61,7 @@ public class CurrencyBrokerageFrag extends Fragment {
                 if(buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty())
                     Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
                 else
-                    new BrokerageHelper().brokerageCalculate(getContext(),tview,pos,'C');
+                    new BrokerageHelper().brokerageCalculate(getContext(),tview,pos,'C',"State");
 
 
             }
