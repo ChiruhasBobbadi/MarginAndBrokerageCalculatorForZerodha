@@ -9,10 +9,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/equity"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:onClick="onMarginFragment"
         app:cardBackgroundColor="@color/bg_blue"
         app:cardCornerRadius="19dp"
@@ -27,11 +27,11 @@
                 android:layout_width="65dp"
                 android:layout_height="69dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_equity"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.473"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="33dp"
                 android:layout_marginEnd="33dp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Equity"
@@ -53,9 +54,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/commodity"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="40dp"
         android:onClick="onMarginFragment"
         app:cardBackgroundColor="@color/bg_blue"
@@ -71,7 +72,7 @@
                 android:layout_width="54dp"
                 android:layout_height="61dp"
                 android:layout_marginStart="31dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="31dp"
                 android:src="@drawable/ic_commodity"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,17 +99,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/futures"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="60dp"
         android:onClick="onMarginFragment"
+
         app:cardBackgroundColor="@color/bg_blue"
         app:cardCornerRadius="19dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        >
+        app:layout_constraintTop_toBottomOf="@+id/equity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="23dp"
                 android:src="@drawable/ic_futures"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,8 +145,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/currency"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
         android:onClick="onMarginFragment"
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="27dp"
                 android:src="@drawable/ic_currency"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,10 +193,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/bracket"
         android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="120dp"
 
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
         android:foregroundGravity="center"
         android:onClick="onMarginFragment"
         app:cardBackgroundColor="@color/bg_blue"
@@ -214,7 +215,7 @@
                 android:layout_width="61dp"
                 android:layout_height="41dp"
                 android:layout_marginStart="23dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="23dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_bracket_icon"
@@ -229,7 +230,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="28dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Bracket\nOrder"
