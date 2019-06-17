@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         equity = new InterstitialAd(this);
 
         //test
-        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-        //bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-        //equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
         bracket.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
         bracket.setAdListener(new AdListener() {
@@ -146,10 +146,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
 
     }

@@ -67,6 +67,9 @@
         <activity
             android:name=".View.Activities.EquityActivity"
             android:parentActivityName=".View.Activities.MainActivity" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
     </application>
 
 </manifest>
