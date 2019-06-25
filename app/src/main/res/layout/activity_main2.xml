@@ -55,7 +55,7 @@
                     android:id="@+id/tabItem2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Brokerage Calculator" />
+                    android:text="Brokerage " />
 
 
             </com.google.android.material.tabs.TabLayout>

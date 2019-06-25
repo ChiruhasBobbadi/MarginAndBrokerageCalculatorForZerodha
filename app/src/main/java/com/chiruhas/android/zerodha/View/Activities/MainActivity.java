@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
         //test
 //        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//       equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
