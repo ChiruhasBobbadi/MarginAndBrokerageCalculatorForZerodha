@@ -15,11 +15,16 @@ public class ViewModel extends AndroidViewModel {
     Repository r;
     LiveData<List<GodModel>> list ;
     LiveData<List<GodModel>> commodity;
+    LiveData<List<GodModel>> currency;
+    LiveData<List<GodModel>> futures;
+
     public ViewModel(@NonNull Application application) {
         super(application);
         r = new Repository();
         list = r.getEquity();
         commodity = r.getCommodity();
+        currency=r.getCurrency();
+        futures=r.getFutures();
     }
     public LiveData<List<GodModel>> fetchEquity()
     {
@@ -28,4 +33,13 @@ public class ViewModel extends AndroidViewModel {
     public LiveData<List<GodModel>> fetchCommodity(){
         return commodity;
     }
+    public LiveData<List<GodModel>> fetchCurrency(){
+        return currency;
+    }
+    public LiveData<List<GodModel>> fetchFutures(){
+        return futures;
+    }
+
+
+
 }

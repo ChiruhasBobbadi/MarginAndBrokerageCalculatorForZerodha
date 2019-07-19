@@ -29,11 +29,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chiruhas.android.zerodha.R;
+import com.vorlonsoft.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity implements MarginFragment.OnFragmentInteractionListener, BrokerageFragment.OnFragmentInteractionListener {
 
@@ -51,17 +54,24 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+
+        // Rate It
+//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+//        View view = inflater.inflate(R.layout.custom_dialog, (ViewGroup) findViewById(R.id.));
+//        AppRate.with(this).setView(view);
+//        AppRate.
+
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 
         //test
-        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-       equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
         bracket.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
         bracket.setAdListener(new AdListener() {
@@ -71,12 +81,12 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
             }
         });
         equity.loadAd(new AdRequest.Builder().build());
-     equity.setAdListener(new AdListener(){
-         @Override
-         public void onAdClosed() {
-             startActivity(new Intent(MainActivity.this, EquityActivity.class));
-         }
-     });
+        equity.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityActivity.class));
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -146,10 +156,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
 
     }
@@ -202,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
                 break;
             case R.id.currency:
-                Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+                //startActivity(new Intent(MainActivity.this, CurrencyActivity.class));
+               Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
                 break;
             case R.id.bracket:
 

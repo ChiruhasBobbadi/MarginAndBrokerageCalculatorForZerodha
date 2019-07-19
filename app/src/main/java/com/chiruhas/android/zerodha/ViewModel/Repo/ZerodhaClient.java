@@ -14,5 +14,9 @@ public interface ZerodhaClient {
     Call<List<GodModel>> getEquity();
     @GET("commodity")
     Call<List<GodModel>> getCommodity();
+    @GET("currency")
+    Call<List<GodModel>> getCurrency();
+    @GET("futures")
+    Call<List<GodModel>> getFutures();
 
 }

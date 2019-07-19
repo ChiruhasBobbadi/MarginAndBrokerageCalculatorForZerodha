@@ -19,10 +19,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".View.Activities.CurrencyActivity"
+            android:label="@string/title_activity_currency"
+            android:parentActivityName=".View.Activities.MainActivity"/>
+        <activity
             android:name=".View.Activities.BracketActivity"
             android:label="@string/title_activity_bracket"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".View.Activities.MainActivity"/>
+            android:parentActivityName=".View.Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".View.Brokerage.commodity.commodityBrokerageActivity"
             android:label="@string/title_activity_commodity_brokerage"
@@ -67,9 +71,10 @@
         <activity
             android:name=".View.Activities.EquityActivity"
             android:parentActivityName=".View.Activities.MainActivity" />
+
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
     </application>
 
 </manifest>

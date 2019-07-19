@@ -47,9 +47,6 @@ public class CommodityActivity extends AppCompatActivity {
         //loading adview
         View view = getWindow().getDecorView().getRootView();
         AdViewHelper.loadBanner(view);
-
-
-
         getSupportActionBar().setTitle("Commodity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setAdapter();

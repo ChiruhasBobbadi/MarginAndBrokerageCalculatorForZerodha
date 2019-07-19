@@ -22,6 +22,9 @@ public class Repository {
     ZerodhaClient zerodhaClient;
     MutableLiveData<List<GodModel>> GodModels;
     MutableLiveData<List<GodModel>> commodity;
+    MutableLiveData<List<GodModel>> currency;
+    MutableLiveData<List<GodModel>> futures;
+
     public Repository()
     {
          retrofit= new Retrofit.Builder().baseUrl("https://api.kite.trade/margins/").addConverterFactory(GsonConverterFactory.create()).build();
@@ -69,5 +72,43 @@ public class Repository {
             }
         });
         return commodity;
+    }
+
+    public LiveData<List<GodModel>> getCurrency(){
+        Call<List<GodModel>> call = zerodhaClient.getCurrency();
+        call.enqueue(new Callback<List<GodModel>>() {
+            @Override
+            public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                currency.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<GodModel>> call, Throwable t) {
+                Log.d(TAG, "onFailure: inside getCurrency: "+t.getLocalizedMessage());
+            }
+        });
+        return currency;
+    }
+
+    public LiveData<List<GodModel>> getFutures(){
+        Call<List<GodModel>> call = zerodhaClient.getFutures();
+        call.enqueue(new Callback<List<GodModel>>() {
+            @Override
+            public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                futures.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<GodModel>> call, Throwable t) {
+                Log.d(TAG, "onFailure: inside getCommodity: "+t.getLocalizedMessage());
+            }
+        });
+        return futures;
     }
 }
