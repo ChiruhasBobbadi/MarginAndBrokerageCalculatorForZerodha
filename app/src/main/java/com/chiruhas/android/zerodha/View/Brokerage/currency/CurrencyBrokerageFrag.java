@@ -9,8 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
@@ -23,7 +28,10 @@ public class CurrencyBrokerageFrag extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     int pos;
-    EditText buy,sell,qty;
+    String state;
+    EditText buy, sell, qty;
+    Spinner spinner;
+
     public CurrencyBrokerageFrag() {
         // Required empty public constructor
     }
@@ -47,21 +55,54 @@ public class CurrencyBrokerageFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_currency_brokerage, container, false);
-        final View tview= view;
+        final View tview = view;
 
 
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
         qty = view.findViewById(R.id.lot);
-
+        spinner = view.findViewById(R.id.states);
         Button cal = view.findViewById(R.id.calculate);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinner.setAdapter(adapter);
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
+            }
+        });
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
+                String s = parentView.getItemAtPosition(position).toString();
+                state = s;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
         cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty())
+                if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty())
                     Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
-                else
-                    new BrokerageHelper().brokerageCalculate(getContext(),tview,pos,'C',"State");
+                else {
+                    if (state.isEmpty() || state.equals("Select State"))
+                        Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
+                    else
+                        new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
+
+                }
 
 
             }
@@ -95,8 +136,8 @@ public class CurrencyBrokerageFrag extends Fragment {
         mListener = null;
     }
 
-    public void updatePos(int pos){
-        this.pos=pos ;
+    public void updatePos(int pos) {
+        this.pos = pos;
     }
 
 
