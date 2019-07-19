@@ -1,7 +1,9 @@
 package com.chiruhas.android.zerodha.HelperClasses;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -32,6 +34,7 @@ public class BrokerageHelper {
     String state;
     // Brokerage function here
 
+    @SuppressLint("ClickableViewAccessibility")
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
 
@@ -44,6 +47,16 @@ public class BrokerageHelper {
         pl = view.findViewById(R.id.pl);
         list = view.findViewById(R.id.list);
         ArrayList<String> a = new ArrayList<>();
+
+        list.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         state=states;
         // start of cal code
