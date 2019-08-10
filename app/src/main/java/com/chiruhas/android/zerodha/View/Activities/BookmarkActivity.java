@@ -2,6 +2,7 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodEquity;
 import com.chiruhas.android.zerodha.View.bookmark.Fragments.CommodityFrag;
@@ -76,11 +77,15 @@ public class BookmarkActivity extends AppCompatActivity implements EquityFrag.Eq
     public void showPopup(GodModel GodModel) {
         new AlertHelper(BookmarkActivity.this).loadEquityPopup(GodModel);
     }
+    @Override
+    public void showCommodityPopup(Commodity commodity){
+        new AlertHelper(BookmarkActivity.this).loadCommodityPopUp(commodity);
+    }
 
     @Override
-    public void deleteBookmarkCommodity(GodModel GodModel) {
+    public void deleteBookmarkCommodity(Commodity GodModel) {
 
-        commodityViewModel.delete(ObjectConverter.GodModeltoGodCommodity(GodModel));
+        commodityViewModel.delete(GodModel);
     }
 
     // deleting equity

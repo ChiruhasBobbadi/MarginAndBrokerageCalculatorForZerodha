@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.room.Commodity;
 
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodCommodity;
 
 import java.util.List;
@@ -13,11 +14,11 @@ import androidx.room.Query;
 @Dao
 public interface CommodityDao {
     @Insert
-    void insert(GodCommodity commodity);
+    void insert(Commodity commodity);
     @Delete
-    void delete(GodCommodity commodity);
+    void delete(Commodity commodity);
 
     @Query("SELECT * FROM commodity_table")
-    LiveData<List<GodCommodity>> getAll();
+    LiveData<List<Commodity>> getAll();
 
 }

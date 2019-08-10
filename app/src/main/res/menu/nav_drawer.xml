@@ -20,6 +20,10 @@
             android:id="@+id/feature"
             android:icon="@drawable/ic_lightbulb"
             />
+        <item android:title="Privacy Policy"
+            android:id="@+id/pp"
+            android:icon="@drawable/ic_padlock"
+            />
         <item
             android:id="@+id/about"
             android:icon="@drawable/ic_pabout"

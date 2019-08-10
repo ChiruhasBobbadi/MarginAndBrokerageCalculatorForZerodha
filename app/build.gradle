@@ -7,15 +7,15 @@ android {
         applicationId "com.chiruhas.android.zerodha"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.0.8"
+        versionCode 10
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-        compileOptions {
-            sourceCompatibility 1.8
-            targetCompatibility 1.8
-        }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 
     dataBinding {
         enabled = true

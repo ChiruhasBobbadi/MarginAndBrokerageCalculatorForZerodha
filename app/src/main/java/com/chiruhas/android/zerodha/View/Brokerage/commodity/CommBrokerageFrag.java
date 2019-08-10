@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
@@ -34,7 +35,7 @@ public class CommBrokerageFrag extends Fragment {
     Spinner spinner;
     ViewModel viewModel;
 
-    List<GodModel> list = new ArrayList<>();
+    List<Commodity> list = new ArrayList<>();
     List<String> names = new ArrayList<>();
 
     public CommBrokerageFrag() {
@@ -66,19 +67,17 @@ public class CommBrokerageFrag extends Fragment {
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
 
-        viewModel.fetchCommodity().observe(getViewLifecycleOwner(), new Observer<List<GodModel>>() {
+        viewModel.fetchCommodity().observe(getViewLifecycleOwner(), new Observer<List<Commodity>>() {
             @Override
-            public void onChanged(List<GodModel> godModels) {
+            public void onChanged(List<Commodity> godModels) {
 
-                for (int i = 0; i < godModels.size(); i++) {
-                    godModels.get(i).setLotsize(lotsize[i]);
-                }
+
                 list = godModels;
             }
         });
 
-        for(GodModel g: list){
-            names.add(g.getTradingsymbol());
+        for(Commodity g: list){
+            names.add(g.getScrip());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,names);

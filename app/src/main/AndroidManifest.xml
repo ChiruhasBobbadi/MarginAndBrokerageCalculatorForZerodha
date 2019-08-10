@@ -18,10 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".View.Activities.FuturesActivity"></activity>
         <activity
             android:name=".View.Activities.CurrencyActivity"
             android:label="@string/title_activity_currency"
-            android:parentActivityName=".View.Activities.MainActivity"/>
+            android:parentActivityName=".View.Activities.MainActivity" />
         <activity
             android:name=".View.Activities.BracketActivity"
             android:label="@string/title_activity_bracket"

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.CommodityAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodCommodity;
 import com.chiruhas.android.zerodha.R;
@@ -49,18 +50,19 @@ public class CommodityFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         commodityAdapter = new CommodityAdapter(new CommodityAdapter.ItemListener() {
+
             @Override
-            public void onItemClick(GodModel item) {
-                showPopup(item);
+            public void onItemClick(Commodity item) {
+                showCommodityPopup(item);
             }
 
             @Override
-            public void onBookmarkClick(GodModel model) {
+            public void onBookmarkClick(Commodity model) {
 
             }
 
             @Override
-            public void onBookmarkUnClick(GodModel model) {
+            public void onBookmarkUnClick(Commodity model) {
                 mListener.deleteBookmarkCommodity(model);
             }
         },getContext());
@@ -74,11 +76,11 @@ public class CommodityFrag extends Fragment {
 
 
         commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
-        commodityViewModel.getAll().observe(this, new Observer<List<GodCommodity>>() {
+        commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
             @Override
-            public void onChanged(List<GodCommodity> godCommodities) {
-                commodityAdapter.updateData(ObjectConverter.godCommtoGodModel(godCommodities));
-                commodityAdapter.setCache(ObjectConverter.godCommtoGodModel(godCommodities));
+            public void onChanged(List<Commodity> godCommodities) {
+                commodityAdapter.updateData(godCommodities);
+                commodityAdapter.setCache(godCommodities);
 
             }
         });
@@ -96,13 +98,13 @@ public class CommodityFrag extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void showPopup(GodModel GodModel) {
+    public void showCommodityPopup(Commodity GodModel) {
         if (mListener != null) {
-            mListener.showPopup(GodModel);
+            mListener.showCommodityPopup(GodModel);
         }
     }
 
-    public void delete(GodModel GodModel) {
+    public void delete(Commodity GodModel) {
         if (mListener != null) {
             mListener.deleteBookmarkCommodity(GodModel);
         }
@@ -128,8 +130,8 @@ public class CommodityFrag extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void showPopup(GodModel GodModel);
+        void showCommodityPopup(Commodity commodity);
 
-        void deleteBookmarkCommodity(GodModel GodModel);
+        void deleteBookmarkCommodity(Commodity commodity);
     }
 }

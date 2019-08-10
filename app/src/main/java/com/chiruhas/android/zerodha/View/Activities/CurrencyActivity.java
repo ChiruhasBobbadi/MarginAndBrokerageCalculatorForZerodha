@@ -59,94 +59,94 @@ public class CurrencyActivity extends AppCompatActivity  {
         View rootView = getWindow().getDecorView().getRootView();
 
         AdViewHelper.loadBanner(rootView);
-        setAdapter();
-        fetchData();
+//        setAdapter();
+//        fetchData();
 
         }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
-        MenuItem item = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                s = s.toLowerCase();
-                List<GodModel> em = new ArrayList<>();
-                for (GodModel e : currency) {
-                    if (e.getTradingsymbol().toLowerCase().startsWith(s)) {
-                        em.add(e);
-                    }
-                }
-                commodityAdapter.updateData(em);
-
-
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public void setAdapter() {
-        bar = findViewById(R.id.progress);
-        bar.setVisibility(View.VISIBLE);
-        rv = findViewById(R.id.rv);
-        commodityAdapter =new CommodityAdapter(new CommodityAdapter.ItemListener() {
-            @Override
-            public void onItemClick(GodModel item) {
-                // code for calculating and showing a popup
-                AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
-
-                alertHelper.loadEquityPopup(item);
-
-            }
-
-            @Override
-            public void onBookmarkClick(GodModel model) {
-                // insert into database
-
-
-
-            }
-
-            @Override
-            public void onBookmarkUnClick(GodModel model) {
-                // delete from database
-            }
-        },CurrencyActivity.this);
-
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(commodityAdapter);
-
-
-    }
-
-    public void fetchData() {
-        view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchCommodity().observe(this, new Observer<List<GodModel>>() {
-            @Override
-            public void onChanged(List<GodModel> godModels) {
-
-//                for (int i = 0; i < godModels.size(); i++) {
-//                    godModels.get(i).setLotsize(lotsize[i]);
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.search, menu);
+//        MenuItem item = menu.findItem(R.id.app_bar_search);
+//        SearchView searchView = (SearchView) item.getActionView();
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                s = s.toLowerCase();
+//                List<GodModel> em = new ArrayList<>();
+//                for (GodModel e : currency) {
+//                    if (e.getTradingsymbol().toLowerCase().startsWith(s)) {
+//                        em.add(e);
+//                    }
 //                }
-                currency = godModels;
+//                commodityAdapter.updateData(em);
+//
+//
+//                return false;
+//            }
+//        });
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
-                commodityAdapter.updateData(godModels);
-
-                bar.setVisibility(View.GONE);
-            }
-        });
+//    public void setAdapter() {
+//        bar = findViewById(R.id.progress);
+//        bar.setVisibility(View.VISIBLE);
+//        rv = findViewById(R.id.rv);
+//        commodityAdapter =new CommodityAdapter(new CommodityAdapter.ItemListener() {
+//            @Override
+//            public void onItemClick(GodModel item) {
+//                // code for calculating and showing a popup
+//                AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
+//
+//                alertHelper.loadEquityPopup(item);
+//
+//            }
+//
+//            @Override
+//            public void onBookmarkClick(GodModel model) {
+//                // insert into database
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onBookmarkUnClick(GodModel model) {
+//                // delete from database
+//            }
+//        },CurrencyActivity.this);
+//
+//        rv.setLayoutManager(new LinearLayoutManager(this));
+//        rv.setAdapter(commodityAdapter);
+//
+//
+//    }
+//
+//    public void fetchData() {
+//        view = ViewModelProviders.of(this).get(ViewModel.class);
+//        view.fetchCommodity().observe(this, new Observer<List<GodModel>>() {
+//            @Override
+//            public void onChanged(List<GodModel> godModels) {
+//
+////                for (int i = 0; i < godModels.size(); i++) {
+////                    godModels.get(i).setLotsize(lotsize[i]);
+////                }
+//                currency = godModels;
+//
+//                commodityAdapter.updateData(godModels);
+//
+//                bar.setVisibility(View.GONE);
+//            }
+//        });
     }
 
 
-}
+

@@ -56,22 +56,26 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
 
         // Rate It
-//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-//        View view = inflater.inflate(R.layout.custom_dialog, (ViewGroup) findViewById(R.id.));
-//        AppRate.with(this).setView(view);
-//        AppRate.
+
+        AppRate.with(this)
+                .setInstallDays((byte) 5)                  // default is 10, 0 means install day, 10 means app is launched 10 or more days later than installation
+                .setLaunchTimes((byte) 3)                  // default is 10, 3 means app is launched 3 or more times
+                .setRemindInterval((byte) 1)               // default is 1, 1 means app is launched 1 or more days after neutral button clicked
+                .setRemindLaunchesNumber((byte) 1)         // default is 0, 1 means app is launched 1 or more times after neutral button clicked
+                .monitor();                                // Monitors the app launch times
+        AppRate.showRateDialogIfMeetsConditions(this);
 
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 
         //test
-//        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
         bracket.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
         bracket.setAdListener(new AdListener() {
@@ -126,6 +130,13 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                         startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
                         break;
 
+                    case R.id.pp:
+                        String url = "http://chiruhas.in/privacy_policy.html";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                        break;
+
                     case R.id.about:
                         startActivity(new Intent(MainActivity.this, AboutActivity.class));
                         break;
@@ -156,10 +167,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+       //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
 //
         // test
-        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
 
     }
