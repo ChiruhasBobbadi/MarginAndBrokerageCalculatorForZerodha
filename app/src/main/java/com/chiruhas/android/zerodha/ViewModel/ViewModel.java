@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.annotation.NonNull;
 
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
+import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 import com.chiruhas.android.zerodha.ViewModel.Repo.Repository;
@@ -19,7 +20,7 @@ public class ViewModel extends AndroidViewModel {
     LiveData<List<GodModel>> list ;
     LiveData<List<Commodity>> commodity;
     LiveData<List<GodModel>> currency;
-    LiveData<List<GodModel>> futures;
+    LiveData<List<Futures>> futures;
 
     public ViewModel(@NonNull Application application) {
         super(application);
@@ -40,7 +41,7 @@ public class ViewModel extends AndroidViewModel {
     public LiveData<List<GodModel>> fetchCurrency(){
         return currency;
     }
-    public LiveData<List<GodModel>> fetchFutures(){
+    public LiveData<List<Futures>> fetchFutures(){
         return futures;
     }
 
