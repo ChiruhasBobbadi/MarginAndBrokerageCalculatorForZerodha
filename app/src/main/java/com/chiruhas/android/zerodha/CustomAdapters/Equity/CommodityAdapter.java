@@ -73,7 +73,7 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         holder.mis.setText("MIS Margin : "+Commodity.getMis());
         holder.cnc.setText("NRML Magin : "+Commodity.getNrml());
         holder.lot.setText("Lot size : "+Commodity.getLot());
-        holder.lot.setText("Price : "+Commodity.getPrice());
+        holder.price.setText("Price : "+Commodity.getPrice());
         holder.cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

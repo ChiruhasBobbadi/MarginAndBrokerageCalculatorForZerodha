@@ -1,11 +1,5 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,16 +9,17 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 
-import com.chiruhas.android.zerodha.CustomAdapters.Equity.FutureAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
-
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
-import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
-
 import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
 
 import java.util.ArrayList;
@@ -48,6 +43,7 @@ public class FuturesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_futures);
+
 
         //loading adview
         View view = getWindow().getDecorView().getRootView();
