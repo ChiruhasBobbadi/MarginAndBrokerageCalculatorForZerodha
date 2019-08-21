@@ -18,10 +18,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.chiruhas.android.zerodha.HelperClasses.BracketOrder;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
+import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
+import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
@@ -31,14 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
-
+ *
  */
 public class Normal_BO extends Fragment {
 
@@ -52,8 +54,10 @@ public class Normal_BO extends Fragment {
     Map<String, Integer> map = new HashMap<>();
     List<GodModel> list = new ArrayList<>();
     List<Commodity> commodityList = new ArrayList<>();
+    List<Futures> futuresList = new ArrayList<>();
+    List<Currency> currencyList = new ArrayList<>();
     // add additional radio buttons for different segments
-    RadioButton equity;
+
 
     RadioButton buy, sell;
     private OnFragmentInteractionListener mListener;
@@ -66,7 +70,7 @@ public class Normal_BO extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static Normal_BO newInstance(String param1, String param2) {
         Normal_BO fragment = new Normal_BO();
-        Bundle args = new Bundle();
+
 
         return fragment;
     }
@@ -138,8 +142,14 @@ public class Normal_BO extends Fragment {
                         lst = fetchCommodity();
                         lot.setVisibility(View.VISIBLE);
 
-                        setMap();
                         break;
+                    case R.id.nfo:
+                        lst = fetchFutures();
+                        lot.setVisibility(View.VISIBLE);
+                        break;
+
+                        case R.id.cds:
+
 
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
@@ -152,8 +162,17 @@ public class Normal_BO extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (rg.getCheckedRadioButtonId() == R.id.mcx) {
                     String str = auto.getText().toString().trim();
-                    lot.setText("Lot Size : " + map.get(str));
-                    lot_size = map.get(str);
+                    Commodity commodity = null;
+                    for (Commodity c : commodityList) {
+                        if (c.getScrip().equals(str)) {
+                            commodity = c;
+                            break;
+                        }
+                    }
+
+
+                    lot.setText("Lot Size : " + commodity.getLot());
+                    lot_size = Integer.parseInt(commodity.getLot());
                     price.setText("");
                     qty.setText("");
                     sl.setText("");
@@ -175,32 +194,50 @@ public class Normal_BO extends Fragment {
 
 
                 if (TextUtils.isEmpty(auto.getText().toString()) ||
-                        price.getText().toString().equals("") || qty.getText().toString().equals("")
-                        || sl.getText().toString().equals(""))
+                        price.getText().toString().equals("") || !price.getText().toString().startsWith(".") || qty.getText().toString().equals("")
+                        || sl.getText().toString().equals("") || !sl.getText().toString().startsWith("."))
                     Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
                 else {
 
-                    GodModel godModel = null;
-                    for (GodModel g : list) {
-                        if (g.getTradingsymbol().equals(auto.getText().toString().trim())) {
-                            godModel = g;
-                            break;
-                        }
-                    }
+                    Commodity commodity = null;
+                    GodModel equity = null;
+                    Futures futures = null;
 
-                    if (godModel == null)
+                    if (list == null && commodityList == null && futuresList == null)
                         Toast.makeText(getContext(), "Oops Something happened", Toast.LENGTH_SHORT).show();
                     else {
                         String type = "";
-                        if (rg.getCheckedRadioButtonId() == R.id.equity)
+                        if (rg.getCheckedRadioButtonId() == R.id.equity) {
+                            for (GodModel model : list) {
+                                if (model.getTradingsymbol().equals(auto.getText().toString())) {
+                                    equity = model;
+                                    break;
+
+                                }
+                            }
                             type = "equity";
-                        else if (rg.getCheckedRadioButtonId() == R.id.mcx)
+                        } else if (rg.getCheckedRadioButtonId() == R.id.mcx) {
+                            for (Commodity c : commodityList) {
+                                if (c.getScrip().equals(auto.getText().toString())) {
+                                    commodity = c;
+                                    break;
+                                }
+                            }
                             type = "mcx";
+                        } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
+                            for (Futures c : futuresList) {
+                                if (c.getScrip().equals(auto.getText().toString())) {
+                                    futures = c;
+                                    break;
+                                }
+                            }
+                            type = "nfo";
+                        }
 
                         // checking lot size mapping
                         int q = Integer.parseInt(qty.getText().toString().trim());
 
-                        if(type.equals("mcx")){
+                        if (type.equals("mcx")) {
                             if (q < lot_size) {
 
                                 Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
@@ -209,16 +246,28 @@ public class Normal_BO extends Fragment {
                                 if (q % lot_size != 0)
                                     Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
                                 else {
-                                    new BracketOrder().calculate(getContext(), godModel.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
-                                            sl.getText().toString(), type, status, godModel);
+                                    new BracketOrder().calculate(getContext(), commodity.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.commodity2God(commodity));
+                                }
+                            }
+                        } else if (type.equals("equity")) {
+                            new BracketOrder().calculate(getContext(), equity.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
+                                    sl.getText().toString(), type, status, equity);
+                        } else if (type.equals("nfo")) {
+                            if (q < lot_size) {
+                                Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), futures.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.future2God(futures));
                                 }
                             }
                         }
-                        else{
-                            new BracketOrder().calculate(getContext(), godModel.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
-                                    sl.getText().toString(), type, status, godModel);
-                        }
+                        else if(type.equals("cds")){
 
+                        }
 
 
                     }
@@ -243,18 +292,9 @@ public class Normal_BO extends Fragment {
         });
 
 
-
-
-
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -285,6 +325,17 @@ public class Normal_BO extends Fragment {
         return NameExtractHelper.commodityName(commodityList);
     }
 
+    public String[] fetchFutures() {
+        viewModel.fetchFutures().observe(this, new Observer<List<Futures>>() {
+            @Override
+            public void onChanged(List<Futures> godModels) {
+                futuresList = godModels;
+
+            }
+        });
+        return NameExtractHelper.futureNames(futuresList);
+    }
+
     public String[] fetchEquity() {
         viewModel.fetchEquity().observe(this, new Observer<List<GodModel>>() {
             @Override
@@ -301,39 +352,5 @@ public class Normal_BO extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-    public void setMap() {
-
-        map.put("ALUMINI", 1000);
-        map.put("ALUMINIUM", 5000);
-        map.put("BRASSPHY", 1000);
-        map.put("CARDAMOM", 100);
-        map.put("CASTORSEED", 1000);
-        map.put("COPPER", 1000);
-        map.put("COPPERM", 250);
-        map.put("COTTON", 25);
-        map.put("CPO", 1000);
-        map.put("CRUDEOIL", 100);
-
-        map.put("CRUDEOILM", 10);
-        map.put("GOLD", 100);
-        map.put("GOLDGUINEA", 1);
-        map.put("GOLDM", 10);
-        map.put("GOLDPETAL", 1);
-        map.put("LEAD", 5000);
-        map.put("LEADMINI", 1000);
-        map.put("MENTHAOIL", 360);
-        map.put("NATURALGAS", 1250);
-        map.put("NICKEL", 250);
-        map.put("NICKELM", 100);
-        map.put("PEPPER", 10);
-        map.put("RBDPMOLEIN", 1000);
-        map.put("SILVER", 30);
-        map.put("SILVERM", 5);
-
-        map.put("SILVERMIC", 1);
-        map.put("ZINC", 5000);
-        map.put("ZINCINI", 1000);
-    }
 
 }

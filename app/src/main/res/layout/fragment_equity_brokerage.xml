@@ -61,7 +61,7 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:hint="Quantity"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textColor="@color/bg_white"
             android:textColorHint="@color/bg_white"
             app:layout_constraintEnd_toEndOf="@+id/sell"

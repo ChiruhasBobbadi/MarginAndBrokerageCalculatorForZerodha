@@ -1,13 +1,8 @@
-package com.chiruhas.android.zerodha.Model.Equity;
+package com.chiruhas.android.zerodha.Model;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "futures_table")
-public class Futures {
-    @NonNull
-    @PrimaryKey
+public class Currency {
     private String scrip;
     private String expiry;
     private String lot;
@@ -20,10 +15,10 @@ public class Futures {
     private float margin;
     private float mis_multiplier;
 
-    public Futures() {
+    public Currency() {
     }
 
-    public Futures(@NonNull String scrip, String expiry, String lot, double price, int nrml, int mis, String mwpl, double co_lower, double co_upper, float margin, float mis_multiplier) {
+    public Currency(@NonNull String scrip, String expiry, String lot, double price, int nrml, int mis, String mwpl, double co_lower, double co_upper, float margin, float mis_multiplier) {
         this.scrip = scrip;
         this.expiry = expiry;
         this.lot = lot;

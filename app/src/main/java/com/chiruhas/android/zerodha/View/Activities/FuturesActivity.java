@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chiruhas.android.zerodha.CustomAdapters.Equity.FutureAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
@@ -29,14 +30,14 @@ public class FuturesActivity extends AppCompatActivity {
 
     ViewModel view;
     RecyclerView rv;
-    Dialog myDialog;
-    FutureAdapter FutureAdapter;
+
+   FutureAdapter adapter;
     ProgressBar bar;
     private static final String TAG = "FuturesActivity";
     List<Futures> list = new ArrayList<>();
 
     //room viewmodel
-    EquityViewModel futureViewModel;
+   // EquityViewModel futureViewModel;
 
 
     @Override
@@ -76,7 +77,7 @@ public class FuturesActivity extends AppCompatActivity {
         bar.setVisibility(View.VISIBLE);
         rv = findViewById(R.id.rv);
         // change later
-        FutureAdapter =new FutureAdapter(new FutureAdapter.ItemListener() {
+        adapter =new FutureAdapter(new FutureAdapter.ItemListener() {
             @Override
             public void onItemClick(Futures item) {
                 // code for calculating and showing a popup
@@ -86,23 +87,11 @@ public class FuturesActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onBookmarkClick(Futures model) {
-                // insert into database
 
-                FutureViewModel.insert(model);
-
-            }
-
-            @Override
-            public void onBookmarkUnClick(Futures model) {
-                // delete from database
-                FutureViewModel.delete(model);
-            }
-        },FutureActivity.this);
+        });
 
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(FutureAdapter);
+        rv.setAdapter(adapter);
 
 
     }
@@ -116,7 +105,7 @@ public class FuturesActivity extends AppCompatActivity {
 
                 list = Futures;
 
-                FutureAdapter.updateData(Futures);
+                adapter.updateData(Futures);
 
                 bar.setVisibility(View.GONE);
             }
@@ -148,7 +137,7 @@ public class FuturesActivity extends AppCompatActivity {
                         em.add(e);
                     }
                 }
-                FutureAdapter.updateData(em);
+                adapter.updateData(em);
 
 
                 return false;

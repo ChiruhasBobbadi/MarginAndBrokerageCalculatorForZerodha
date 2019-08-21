@@ -220,7 +220,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, CommodityActivity.class));
                 break;
             case R.id.futures:
-                Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, FuturesActivity.class));
+
                 break;
             case R.id.currency:
                 //startActivity(new Intent(MainActivity.this, CurrencyActivity.class));

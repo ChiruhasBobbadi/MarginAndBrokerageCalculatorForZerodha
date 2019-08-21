@@ -68,6 +68,24 @@
                 android:textColor="@color/bg_white"
                 android:textSize="18sp"
                 android:id="@+id/mcx"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:buttonTint="@color/bg_blue"
+                android:text="NFO"
+                android:textColor="@color/bg_white"
+                android:textSize="18sp"
+                android:id="@+id/nfo"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:buttonTint="@color/bg_blue"
+                android:text="CDS"
+                android:textColor="@color/bg_white"
+                android:textSize="18sp"
+                android:id="@+id/cds"/>
 
         </RadioGroup>
 

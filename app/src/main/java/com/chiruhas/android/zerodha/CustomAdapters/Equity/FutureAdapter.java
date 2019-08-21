@@ -1,5 +1,7 @@
 package com.chiruhas.android.zerodha.CustomAdapters.Equity;
 
+
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- class FuturesRecyclerAdapter extends RecyclerView.Adapter<FuturesRecyclerAdapter.ViewHolder> {
+public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder> {
 
     private List<Futures> myItems = new ArrayList<>();
     private ItemListener myListener;
 
-    public FuturesRecyclerAdapter(ItemListener listener) {
+    public FutureAdapter(ItemListener listener) {
 
         myListener = listener;
     }

@@ -1,7 +1,6 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,12 +8,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.CommodityAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
-import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
-import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodCommodity;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
 import com.chiruhas.android.zerodha.room.Commodity.CommodityViewModel;
@@ -22,22 +25,17 @@ import com.chiruhas.android.zerodha.room.Commodity.CommodityViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class CommodityActivity extends AppCompatActivity {
 
 
-    private static final String TAG ="Commodity Activity" ;
+    private static final String TAG = "Commodity Activity";
     RecyclerView recyclerView;
     ViewModel viewModel;
     CommodityAdapter commodityAdapter;
     ProgressBar bar;
     CommodityViewModel commodityViewModel;
     List<Commodity> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,26 +53,22 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     private void fetchCache() {
-       commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
-       commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
-           @Override
-           public void onChanged(List<Commodity> godCommodities) {
+        commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
+        commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
+            @Override
+            public void onChanged(List<Commodity> godCommodities) {
 
-                List<Commodity> lst = new ArrayList<>();
-               for(Commodity g : godCommodities){
-                   // GodCommodity to God Model
-                   lst.add(g);
-               }
-               commodityAdapter.setCache(lst);
-           }
-       });
+
+                commodityAdapter.setCache(godCommodities);
+            }
+        });
     }
 
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
         recyclerView = findViewById(R.id.rv);
-       commodityAdapter =new CommodityAdapter(new CommodityAdapter.ItemListener() {
+        commodityAdapter = new CommodityAdapter(new CommodityAdapter.ItemListener() {
             @Override
             public void onItemClick(Commodity item) {
                 // code for calculating and showing a popup
@@ -84,20 +78,20 @@ public class CommodityActivity extends AppCompatActivity {
 
             }
 
-           @Override
-           public void onBookmarkClick(Commodity model) {
-               // insert into database
+            @Override
+            public void onBookmarkClick(Commodity model) {
+                // insert into database
 
-               commodityViewModel.insert(model);
+                commodityViewModel.insert(model);
 
-           }
+            }
 
-           @Override
-           public void onBookmarkUnClick(Commodity model) {
+            @Override
+            public void onBookmarkUnClick(Commodity model) {
                 // delete from database
-               commodityViewModel.delete(model);
-           }
-       },CommodityActivity.this);
+                commodityViewModel.delete(model);
+            }
+        }, CommodityActivity.this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(commodityAdapter);
@@ -155,8 +149,6 @@ public class CommodityActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
 
 }

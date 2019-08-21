@@ -1,8 +1,6 @@
 package com.chiruhas.android.zerodha.Model.Equity;
 
 
-
-
 public class GodModel {
     private double margin;
     private double co_lower;
@@ -12,11 +10,27 @@ public class GodModel {
     private double co_upper;
     private int nrml_margin;
     private int mis_margin;
+    private double price;
+    private String lotsize;
+    private String expiry;
 
-    String lotsize;
+    public double getPrice() {
+        return price;
+    }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-    public GodModel(double margin, double co_lower, float mis_multiplier, String tradingsymbol, double co_upper, int nrml_margin, int mis_margin) {
+    public String getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(String expiry) {
+        this.expiry = expiry;
+    }
+
+    public GodModel(double margin, double co_lower, float mis_multiplier, String tradingsymbol, double price, double co_upper, int nrml_margin, int mis_margin, String expiry, String lot) {
         this.margin = margin;
         this.co_lower = co_lower;
         this.mis_multiplier = mis_multiplier;
@@ -24,6 +38,9 @@ public class GodModel {
         this.co_upper = co_upper;
         this.nrml_margin = nrml_margin;
         this.mis_margin = mis_margin;
+        this.price = price;
+        this.expiry = expiry;
+        this.lotsize = lot;
     }
 
 
