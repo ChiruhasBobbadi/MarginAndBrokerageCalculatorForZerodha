@@ -105,7 +105,6 @@ public class Normal_BO extends Fragment {
 
         // change network calls depending on the radio button later
 
-
         // default adapter
 
         viewModel.fetchEquity().observe(this, new Observer<List<GodModel>>() {
@@ -148,8 +147,10 @@ public class Normal_BO extends Fragment {
                         lot.setVisibility(View.VISIBLE);
                         break;
 
-                        case R.id.cds:
-
+                    case R.id.cds:
+                        lst = fetchCurrency();
+                        lot.setVisibility(View.VISIBLE);
+                        break;
 
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
@@ -160,6 +161,9 @@ public class Normal_BO extends Fragment {
         auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                price.setText("");
+                qty.setText("");
+                sl.setText("");
                 if (rg.getCheckedRadioButtonId() == R.id.mcx) {
                     String str = auto.getText().toString().trim();
                     Commodity commodity = null;
@@ -169,15 +173,40 @@ public class Normal_BO extends Fragment {
                             break;
                         }
                     }
-
-
                     lot.setText("Lot Size : " + commodity.getLot());
                     lot_size = Integer.parseInt(commodity.getLot());
-                    price.setText("");
-                    qty.setText("");
-                    sl.setText("");
+
 
                 }
+               else  if (rg.getCheckedRadioButtonId() == R.id.nfo) {
+                    String str = auto.getText().toString().trim();
+                    Futures futures = null;
+                    for (Futures c : futuresList) {
+                        if (c.getScrip().equals(str)) {
+                            futures = c;
+                            break;
+                        }
+                    }
+                    lot.setText("Lot Size : " + futures.getLot());
+                    lot_size = Integer.parseInt(futures.getLot());
+
+
+                }
+                else  if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                    String str = auto.getText().toString().trim();
+                    Currency currency = null;
+                    for (Currency c : currencyList) {
+                        if (c.getScrip().equals(str)) {
+                            currency = c;
+                            break;
+                        }
+                    }
+                    lot.setText("Lot Size : " + currency.getLot());
+                    lot_size = Integer.parseInt(currency.getLot());
+
+
+                }
+
             }
         });
 
@@ -202,6 +231,7 @@ public class Normal_BO extends Fragment {
                     Commodity commodity = null;
                     GodModel equity = null;
                     Futures futures = null;
+                    Currency currency = null;
 
                     if (list == null && commodityList == null && futuresList == null)
                         Toast.makeText(getContext(), "Oops Something happened", Toast.LENGTH_SHORT).show();
@@ -232,6 +262,14 @@ public class Normal_BO extends Fragment {
                                 }
                             }
                             type = "nfo";
+                        } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                            for (Currency c : currencyList) {
+                                if (c.getScrip().equals(auto.getText().toString())) {
+                                    currency = c;
+                                    break;
+                                }
+                            }
+                            type = "cds";
                         }
 
                         // checking lot size mapping
@@ -264,12 +302,20 @@ public class Normal_BO extends Fragment {
                                             sl.getText().toString(), type, status, ObjectConverter.future2God(futures));
                                 }
                             }
-                        }
-                        else if(type.equals("cds")){
+                        } else if (type.equals("cds")) {
+                            if (q < lot_size) {
+                                Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), currency.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.currency2God(currency));
+                                }
+                            }
+
 
                         }
-
-
                     }
 
                 }
@@ -322,6 +368,8 @@ public class Normal_BO extends Fragment {
 
             }
         });
+        if (commodityList.isEmpty())
+            noNetwork();
         return NameExtractHelper.commodityName(commodityList);
     }
 
@@ -333,6 +381,8 @@ public class Normal_BO extends Fragment {
 
             }
         });
+        if (futuresList.isEmpty())
+            noNetwork();
         return NameExtractHelper.futureNames(futuresList);
     }
 
@@ -344,7 +394,26 @@ public class Normal_BO extends Fragment {
 
             }
         });
+        if (list.isEmpty())
+            noNetwork();
         return NameExtractHelper.EquityNames(list);
+    }
+
+    public String[] fetchCurrency() {
+        viewModel.fetchCurrency().observe(this, new Observer<List<Currency>>() {
+            @Override
+            public void onChanged(List<Currency> godModels) {
+                currencyList = godModels;
+
+            }
+        });
+        if (currencyList.isEmpty())
+            noNetwork();
+        return NameExtractHelper.currencyNames(currencyList);
+    }
+
+    public void noNetwork() {
+        Toast.makeText(getContext(), "Internet Connection is Required..", Toast.LENGTH_SHORT).show();
     }
 
     public interface OnFragmentInteractionListener {

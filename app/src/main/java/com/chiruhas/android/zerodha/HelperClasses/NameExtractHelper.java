@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.HelperClasses;
 
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
@@ -31,6 +32,15 @@ public class NameExtractHelper {
         return str;
     }
     public static  String[] futureNames(List<Futures> lst)
+    {
+        String[] str = new String[lst.size()];
+
+        for (int i = 0; i < lst.size(); i++) {
+            str[i] =lst.get(i).getScrip();
+        }
+        return str;
+    }
+    public static  String[] currencyNames(List<Currency> lst)
     {
         String[] str = new String[lst.size()];
 

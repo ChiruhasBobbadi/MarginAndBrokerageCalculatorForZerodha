@@ -95,12 +95,13 @@ public class EquityActivity extends AppCompatActivity {
 
                 GodModel godModel = new GodModel();
                 List<GodModel> lst = new ArrayList<>();
-                for(GodEquity godCommodity : godEquities){
+                for (GodEquity godEquity : godEquities) {
                     // GodEquity to God Model
-                    lst.add(new GodModel(godCommodity.getMargin(), godCommodity.getCo_lower(), godCommodity.getMis_multiplier(),
-                            godCommodity.getTradingsymbol(), godCommodity.getCo_upper(), godCommodity.getNrml_margin(), godCommodity.getMis_margin()));
-                }
+                    lst.add(new GodModel(godEquity.getMargin(), godEquity.getCo_lower(), godEquity.getMis_multiplier()
+                            , godEquity.getTradingsymbol(), 0.0, godEquity.getCo_upper(), godEquity.getNrml_margin(), godEquity.getMis_margin(), "", ""));
 
+
+                }
                 recyclerViewAdapter.setCache(lst);
             }
         });

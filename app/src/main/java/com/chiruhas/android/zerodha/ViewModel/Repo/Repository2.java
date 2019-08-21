@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
@@ -23,7 +24,7 @@ public class Repository2 {
     Retrofit retrofit;
     ZerodhaClient zerodhaClient;
     MutableLiveData<List<Commodity>> commodity;
-    MutableLiveData<List<GodModel>> currency;
+    MutableLiveData<List<Currency>> currency;
     MutableLiveData<List<Futures>> futures;
 
   public  Repository2(){

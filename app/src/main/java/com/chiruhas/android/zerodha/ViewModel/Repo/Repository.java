@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
@@ -25,8 +26,8 @@ public class Repository {
     ZerodhaClient zerodhaClient;
 
     MutableLiveData<List<GodModel>> GodModels;
-    MutableLiveData<List<Commodity>> commodity;
-    MutableLiveData<List<GodModel>> currency;
+
+    MutableLiveData<List<Currency>> currency;
     MutableLiveData<List<Futures>> futures;
 
     public Repository()
@@ -61,11 +62,11 @@ public class Repository {
     }
 
 
-    public LiveData<List<GodModel>> getCurrency(){
-        Call<List<GodModel>> call = zerodhaClient.getCurrency();
-        call.enqueue(new Callback<List<GodModel>>() {
+    public LiveData<List<Currency>> getCurrency(){
+        Call<List<Currency>> call = zerodhaClient.getCurrency();
+        call.enqueue(new Callback<List<Currency>>() {
             @Override
-            public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
+            public void onResponse(Call<List<Currency>> call, Response<List<Currency>> response) {
                 if(!response.isSuccessful()){
                     return;
                 }
@@ -73,7 +74,8 @@ public class Repository {
             }
 
             @Override
-            public void onFailure(Call<List<GodModel>> call, Throwable t) {
+            public void onFailure(Call<List<Currency>> call, Throwable t) {
+
                 Log.d(TAG, "onFailure: inside getCurrency: "+t.getLocalizedMessage());
             }
         });

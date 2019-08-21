@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.ViewModel.Repo;
 
 
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
@@ -17,7 +18,7 @@ public interface ZerodhaClient {
     @GET("test.json")
     Call<List<Commodity>> getCommodity();
     @GET("currency")
-    Call<List<GodModel>> getCurrency();
+    Call<List<Currency>> getCurrency();
     @GET("futures")
     Call<List<Futures>> getFutures();
 

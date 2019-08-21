@@ -67,8 +67,8 @@ public class EquityFrag extends Fragment {
             public void onChanged(List<GodEquity> GodModels) {
 
 
-                adapter.updateData(ObjectConverter.godEquitytoGodModel(GodModels));
-                adapter.setCache(ObjectConverter.godEquitytoGodModel(GodModels));
+//                adapter.updateData(ObjectConverter.godEquitytoGodModel(GodModels));
+//                adapter.setCache(ObjectConverter.godEquitytoGodModel(GodModels));
 
             }
         });
