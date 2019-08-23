@@ -10,6 +10,7 @@ import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,15 +24,17 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class Repository2 {
     Retrofit retrofit;
     ZerodhaClient zerodhaClient;
-    MutableLiveData<List<Commodity>> commodity;
-    MutableLiveData<List<Currency>> currency;
-    MutableLiveData<List<Futures>> futures;
+    MutableLiveData<List<Commodity>> commodity ;
+    MutableLiveData<List<Currency>> currency ;
+    MutableLiveData<List<Futures>> futures ;
 
   public  Repository2(){
-        retrofit = new Retrofit.Builder().baseUrl("https://zerodhamargincalculator.web.app/").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("http://ec2-user@ec2-18-222-28-191.us-east-2.compute.amazonaws.com:5000").addConverterFactory(GsonConverterFactory.create()).build();
 
         zerodhaClient= retrofit.create(ZerodhaClient.class);
         commodity= new MutableLiveData<>();
+      currency = new MutableLiveData<>();
+      futures = new MutableLiveData<>();
     }
 
     public LiveData<List<Commodity>> getCommodity(){
@@ -40,17 +43,60 @@ public class Repository2 {
             @Override
             public void onResponse(Call<List<Commodity>> call, Response<List<Commodity>> response) {
                 if(!response.isSuccessful()){
+                    Log.d(TAG, "onResponse: Commodity request failed.");
                     return;
                 }
-                commodity.setValue(response.body());
+                commodity.postValue(response.body());
+                Log.d(TAG, "onResponse: commodity");
             }
 
             @Override
             public void onFailure(Call<List<Commodity>> call, Throwable t) {
-                Log.d(TAG, "onFailure: inside getCommodity: "+t.getLocalizedMessage());
+                if(t instanceof SocketTimeoutException){
+                    Log.d(TAG, "Socket Time out. Please try again. commodity");
+                }
             }
         });
         return commodity;
+    }
+
+    public LiveData<List<Futures>> getFutures(){
+        Call<List<Futures>> call = zerodhaClient.getFutures();
+        call.enqueue(new Callback<List<Futures>>() {
+            @Override
+            public void onResponse(Call<List<Futures>> call, Response<List<Futures>> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                futures.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Futures>> call, Throwable t) {
+                Log.d(TAG, "onFailure: inside getFutures: "+t.getLocalizedMessage());
+            }
+        });
+        return futures;
+    }
+
+    public LiveData<List<Currency>> getCurrency(){
+        Call<List<Currency>> call = zerodhaClient.getCurrency();
+        call.enqueue(new Callback<List<Currency>>() {
+            @Override
+            public void onResponse(Call<List<Currency>> call, Response<List<Currency>> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                currency.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Currency>> call, Throwable t) {
+
+                Log.d(TAG, "onFailure: inside getCurrency: "+t.getLocalizedMessage());
+            }
+        });
+        return currency;
     }
 
 }

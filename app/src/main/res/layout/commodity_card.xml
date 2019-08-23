@@ -15,17 +15,17 @@
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView
         android:id="@+id/scrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="72dp"
 
         android:text="3MINDIA:EQ"
@@ -38,7 +38,7 @@
         android:id="@+id/lot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Lot Size :1 MT"
@@ -52,45 +52,42 @@
         android:id="@+id/mis_mul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="48dp"
         android:text="MIS Multiplier : 14X"
         android:textAlignment="center"
         android:textColor="#9e9e9e"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lot" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cnc_mul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="48dp"
         android:textAlignment="center"
         android:textColor="#9e9e9e"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mis_mul"
-        app:layout_constraintVertical_bias="0.153"
         tools:text="CNC Multiplier : 1X" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="Price : "
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/card"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cnc_mul"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <Button
         android:id="@+id/cal"
@@ -108,17 +105,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.455" />
 
-    <ImageView
-        android:id="@+id/bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/bg_blue"
-        android:src="@drawable/ic_star_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toStartOf="@+id/card" />
 </androidx.constraintlayout.widget.ConstraintLayout>

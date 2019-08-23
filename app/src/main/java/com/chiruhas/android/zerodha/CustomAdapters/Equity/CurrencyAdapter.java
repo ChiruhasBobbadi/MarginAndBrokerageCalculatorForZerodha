@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chiruhas.android.zerodha.Model.Equity.Futures;
+import com.chiruhas.android.zerodha.Model.Currency;
+
 import com.chiruhas.android.zerodha.R;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -19,17 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder> {
+public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHolder> {
 
-    private List<Futures> myItems = new ArrayList<>();
+    private List<Currency> myItems = new ArrayList<>();
     private ItemListener myListener;
 
-    public FutureAdapter(ItemListener listener) {
+    public CurrencyAdapter(ItemListener listener) {
 
         myListener = listener;
     }
 
-    public void updateData(List<Futures> GodModels) {
+    public void updateData(List<Currency> GodModels) {
         myItems = GodModels;
         notifyDataSetChanged();
     }
@@ -50,18 +51,18 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
 
 
-        Futures Futures = myItems.get(position);
+        Currency Currency = myItems.get(position);
 
-        holder.mis.setText("MIS Margin : " + Futures.getMis());
-        holder.cnc.setText("NRML Magin : " + Futures.getNrml());
-        holder.lot.setText("Lot size : " + Futures.getLot());
-        holder.price.setText("Price : " + Futures.getPrice());
-        holder.scrip.setText(Futures.getScrip());
-        holder.expiry.setText(Futures.getExpiry());
+        holder.mis.setText("MIS Margin : " + Currency.getMis());
+        holder.cnc.setText("NRML Magin : " + Currency.getNrml());
+        holder.lot.setText("Lot size : " + Currency.getLot());
+        holder.price.setText("Price : " + Currency.getPrice());
+        holder.scrip.setText(Currency.getScrip());
+        holder.expiry.setText(Currency.getExpiry());
         holder.cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myListener.onItemClick(Futures);
+                myListener.onItemClick(Currency);
             }
         });
         YoYo.with(Techniques.FadeIn)
@@ -77,7 +78,7 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder
     }
 
     public interface ItemListener {
-        void onItemClick(Futures item);
+        void onItemClick(Currency item);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

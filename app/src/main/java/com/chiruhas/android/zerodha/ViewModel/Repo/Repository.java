@@ -27,8 +27,8 @@ public class Repository {
 
     MutableLiveData<List<GodModel>> GodModels;
 
-    MutableLiveData<List<Currency>> currency;
-    MutableLiveData<List<Futures>> futures;
+
+
 
     public Repository()
     {
@@ -49,7 +49,7 @@ public class Repository {
                 {
                     return;
                 }
-               GodModels.setValue(response.body());
+               GodModels.postValue(response.body());
             }
 
             @Override
@@ -62,42 +62,7 @@ public class Repository {
     }
 
 
-    public LiveData<List<Currency>> getCurrency(){
-        Call<List<Currency>> call = zerodhaClient.getCurrency();
-        call.enqueue(new Callback<List<Currency>>() {
-            @Override
-            public void onResponse(Call<List<Currency>> call, Response<List<Currency>> response) {
-                if(!response.isSuccessful()){
-                    return;
-                }
-                currency.setValue(response.body());
-            }
 
-            @Override
-            public void onFailure(Call<List<Currency>> call, Throwable t) {
 
-                Log.d(TAG, "onFailure: inside getCurrency: "+t.getLocalizedMessage());
-            }
-        });
-        return currency;
-    }
 
-    public LiveData<List<Futures>> getFutures(){
-        Call<List<Futures>> call = zerodhaClient.getFutures();
-        call.enqueue(new Callback<List<Futures>>() {
-            @Override
-            public void onResponse(Call<List<Futures>> call, Response<List<Futures>> response) {
-                if(!response.isSuccessful()){
-                    return;
-                }
-                futures.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Futures>> call, Throwable t) {
-                Log.d(TAG, "onFailure: inside getCommodity: "+t.getLocalizedMessage());
-            }
-        });
-        return futures;
-    }
 }

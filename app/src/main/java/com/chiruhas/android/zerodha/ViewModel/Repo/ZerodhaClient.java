@@ -15,11 +15,11 @@ import retrofit2.http.GET;
 public interface ZerodhaClient {
     @GET("equity")
     Call<List<GodModel>> getEquity();
-    @GET("test.json")
+    @GET("commodity")
     Call<List<Commodity>> getCommodity();
     @GET("currency")
     Call<List<Currency>> getCurrency();
-    @GET("futures")
+    @GET("/futures")
     Call<List<Futures>> getFutures();
 
 }

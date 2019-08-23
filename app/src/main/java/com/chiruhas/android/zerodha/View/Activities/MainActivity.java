@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 switch (menuItem.getItemId()) {
                     case R.id.book:
                         // open bookmark Activity
-                        startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
+                        //startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
                         break;
 
                     case R.id.pp:
@@ -225,8 +225,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
                 break;
             case R.id.currency:
-                //startActivity(new Intent(MainActivity.this, CurrencyActivity.class));
-               Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, CurrencyActivity.class));
                 break;
             case R.id.bracket:
 

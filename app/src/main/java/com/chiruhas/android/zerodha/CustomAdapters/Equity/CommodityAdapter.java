@@ -33,16 +33,16 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
     private List<Commodity> Commoditys = new ArrayList<>();
    // private List<GodCommodity> bookmarks = new ArrayList<>();
     private ItemListener myListener;
-    private List<Commodity> cacheList = new ArrayList<>();
+    //private List<Commodity> cacheList = new ArrayList<>();
     public CommodityAdapter(ItemListener listener, Context context) {
 
         myListener = listener;
         this.context = context;
     }
 
-    public void setListener(ItemListener listener) {
-        myListener = listener;
-    }
+//    public void setListener(ItemListener listener) {
+//        myListener = listener;
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,9 +55,9 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         notifyDataSetChanged();
     }
 
-    public void setCache(List<Commodity> cache) {
-    cacheList=cache;
-    }
+//    public void setCache(List<Commodity> cache) {
+//    cacheList=cache;
+//    }
 
     @Override
     public int getItemCount() {
@@ -85,21 +85,21 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         //BookmarkHelper.checkBookmark(cacheList,Commodity,holder.bookmark);
 
         //cahnging the image of star based on conditions
-        holder.bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
-                    h.bookmark.setTag(R.drawable.ic_star);
-                    myListener.onBookmarkClick(Commodity);
-                }
-                else{
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
-                    h.bookmark.setTag(R.drawable.ic_star_border);
-                    myListener.onBookmarkUnClick(Commodity);
-                }
-            }
-        });
+//        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
+//                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
+//                    h.bookmark.setTag(R.drawable.ic_star);
+//                    myListener.onBookmarkClick(Commodity);
+//                }
+//                else{
+//                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
+//                    h.bookmark.setTag(R.drawable.ic_star_border);
+//                    myListener.onBookmarkUnClick(Commodity);
+//                }
+//            }
+//        });
 
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
@@ -114,8 +114,8 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
 
     public interface ItemListener {
         void onItemClick(Commodity item);
-        void onBookmarkClick(Commodity model);
-        void onBookmarkUnClick(Commodity model);
+//        void onBookmarkClick(Commodity model);
+//        void onBookmarkUnClick(Commodity model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -124,7 +124,7 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         TextView scrip, mis, cnc,lot,price;
         Button cal;
         CardView card;
-        public ImageView bookmark;
+        //public ImageView bookmark;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,8 +134,8 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
             cal = itemView.findViewById(R.id.cal);
             card = itemView.findViewById(R.id.card);
             price = itemView.findViewById(R.id.price);
-            bookmark = itemView.findViewById(R.id.bookmark);
-            bookmark.setTag(R.drawable.ic_star_border);
+//            bookmark = itemView.findViewById(R.id.bookmark);
+//            bookmark.setTag(R.drawable.ic_star_border);
             lot = itemView.findViewById(R.id.lot);
         }
     }

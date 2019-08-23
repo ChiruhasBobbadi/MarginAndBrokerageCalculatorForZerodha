@@ -2,6 +2,7 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class FuturesActivity extends AppCompatActivity {
 
-    ViewModel view;
+    ViewModel viewModel;
     RecyclerView rv;
 
    FutureAdapter adapter;
@@ -97,14 +98,16 @@ public class FuturesActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchFutures().observe(this, new Observer<List<Futures>>() {
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.fetchFutures().observe(this, new Observer<List<Futures>>() {
             @Override
             public void onChanged(List<Futures> Futures) {
 
 
                 list = Futures;
-
+                for (int i = 0; i < list.size(); i++) {
+                    Log.d(TAG, "onChanged: "+list.get(i).getScrip());
+                }
                 adapter.updateData(Futures);
 
                 bar.setVisibility(View.GONE);

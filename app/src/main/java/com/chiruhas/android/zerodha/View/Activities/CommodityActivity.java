@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +21,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
-import com.chiruhas.android.zerodha.room.Commodity.CommodityViewModel;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CommodityActivity extends AppCompatActivity {
     ViewModel viewModel;
     CommodityAdapter commodityAdapter;
     ProgressBar bar;
-    CommodityViewModel commodityViewModel;
+    //CommodityViewModel commodityViewModel;
     List<Commodity> list = new ArrayList<>();
 
     @Override
@@ -46,23 +47,24 @@ public class CommodityActivity extends AppCompatActivity {
         AdViewHelper.loadBanner(view);
         getSupportActionBar().setTitle("Commodity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Log.d(TAG, "onCreate: CommodityActivity");
         setAdapter();
         fetchData();
-        fetchCache();
+        //fetchCache();
 
     }
 
-    private void fetchCache() {
-        commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
-        commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
-            @Override
-            public void onChanged(List<Commodity> godCommodities) {
-
-
-                commodityAdapter.setCache(godCommodities);
-            }
-        });
-    }
+//    private void fetchCache() {
+//        commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
+//        commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
+//            @Override
+//            public void onChanged(List<Commodity> godCommodities) {
+//
+//
+//                commodityAdapter.setCache(godCommodities);
+//            }
+//        });
+//    }
 
     public void setAdapter() {
         bar = findViewById(R.id.progress);
@@ -78,19 +80,19 @@ public class CommodityActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onBookmarkClick(Commodity model) {
-                // insert into database
+//            @Override
+//            public void onBookmarkClick(Commodity model) {
+//                // insert into database
+//
+//                commodityViewModel.insert(model);
+//
+//            }
 
-                commodityViewModel.insert(model);
-
-            }
-
-            @Override
-            public void onBookmarkUnClick(Commodity model) {
-                // delete from database
-                commodityViewModel.delete(model);
-            }
+//            @Override
+//            public void onBookmarkUnClick(Commodity model) {
+//                // delete from database
+//                commodityViewModel.delete(model);
+//            }
         }, CommodityActivity.this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -100,14 +102,14 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(CommodityActivity.this).get(ViewModel.class);
         viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
             @Override
             public void onChanged(List<Commodity> Commoditys) {
 
 
                 list = Commoditys;
-
+                Log.d(TAG, "onChanged: inside fetch commodity data");
                 commodityAdapter.updateData(Commoditys);
 
                 bar.setVisibility(View.GONE);
