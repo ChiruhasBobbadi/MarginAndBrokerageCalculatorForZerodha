@@ -146,7 +146,7 @@ public class AlertHelper {
         mis_mux.setText("MIS : " + commodity.getMis());
         nrml.setText("CNC : " + 1.0);
 
-        mis1 = commodity.getMis();
+        mis1 = Float.parseFloat(commodity.getMis());
         cnc1 = 1.0f;
 
 
@@ -344,9 +344,9 @@ public class AlertHelper {
      */
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Commodity commodity) {
         int res[] = new int[2];
-        int mval = commodity.getMis();
-        int nval = commodity.getNrml();
-        double aprice = commodity.getPrice();
+        int mval = Integer.parseInt(commodity.getMis());
+        int nval = Integer.parseInt(commodity.getNrml());
+        double aprice = Double.parseDouble(commodity.getPrice());
         int new_mval = 0, new_nval = 0;
 
         new_mval = (int) ((uprice * (mval)) / aprice);

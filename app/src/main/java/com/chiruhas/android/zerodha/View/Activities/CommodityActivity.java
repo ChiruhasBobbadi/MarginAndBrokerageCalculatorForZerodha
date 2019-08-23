@@ -102,7 +102,7 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        viewModel = ViewModelProviders.of(CommodityActivity.this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
             @Override
             public void onChanged(List<Commodity> Commoditys) {
