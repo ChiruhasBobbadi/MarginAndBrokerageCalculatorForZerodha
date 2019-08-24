@@ -1,7 +1,9 @@
 package com.chiruhas.android.zerodha.HelperClasses;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -32,6 +34,7 @@ public class BrokerageHelper {
     String state;
     // Brokerage function here
 
+    @SuppressLint("ClickableViewAccessibility")
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
 
@@ -45,7 +48,17 @@ public class BrokerageHelper {
         list = view.findViewById(R.id.list);
         ArrayList<String> a = new ArrayList<>();
 
-        state=states;
+        list.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        state = states;
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
@@ -103,8 +116,8 @@ public class BrokerageHelper {
             }
         }
 
-        total_tax+=data[9];
-        lst.add("Stamp Duty : "+data[9]);
+        total_tax += data[9];
+        lst.add("Stamp Duty : " + data[9]);
         lst.add("Total tax and charges : " + Math.round(total_tax * 100.0) / 100.0);
 
         double net = 0;
@@ -220,23 +233,23 @@ public class BrokerageHelper {
                 c[1] = 0.01;
                 c[2] = 0.0019;
                 c[3] = 0.003;
-                c[4] = 0.0002;
+                c[4] = 0;
                 c[5] = 18;
             } else if (type.equals("E3")) {
                 c[0] = 0;
                 c[1] = 0.05;
                 c[2] = 0.05;
                 c[3] = 0.003;
-                c[4] = 0.002;
+                c[4] = 0;
                 c[5] = 18;
             }
         } else if (type.startsWith("C")) {
             if (type.equals("CU0")) {
                 c[0] = 0.01;
-                c[1] = 0.01;
+                c[1] = 0;
                 c[2] = 0.0009;
                 c[3] = 0.00022;
-                c[4] = 0.0002;
+                c[4] = 0;
                 c[5] = 18;
 
             } else if (type.equals("CU1")) {
@@ -244,7 +257,7 @@ public class BrokerageHelper {
                 c[1] = 0.05;
                 c[2] = 0.04;
                 c[3] = 0.001;
-                c[4] = 0.002;
+                c[4] = 0;
                 c[5] = 18;
             }
         }
@@ -258,14 +271,14 @@ public class BrokerageHelper {
                 c[1] = 0;
                 c[2] = 0.04;
                 c[3] = 0;
-                c[4] = 0.01;
+                c[4] = 0;
                 c[5] = 18;
             } else if (type.equals("c1")) {
                 c[0] = 0.01;
                 c[1] = 0;
                 c[2] = 0.04;
                 c[3] = 0;
-                c[4] = 0.002;
+                c[4] = 0;
                 c[5] = 18;
             }
         }
@@ -343,7 +356,7 @@ public class BrokerageHelper {
         tax[8] = sebi;
 
         // fetching data
-        tax[9] = StateTaxHelper.stampDuty(type,tax[0],state);
+        tax[9] = StateTaxHelper.stampDuty(type, tax[0], state);
 
         return tax;
     }

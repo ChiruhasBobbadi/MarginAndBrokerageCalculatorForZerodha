@@ -1,248 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Activities.MainActivity"
-    android:background="#000">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/equity"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
-        android:onClick="onMarginFragment"
-        app:cardBackgroundColor="@color/bg_blue"
-        app:cardCornerRadius="19dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    android:background="@color/bg_black"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="69dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="25dp"
-                android:src="@drawable/ic_equity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        tools:context=".View.Activities.MainActivity">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/aileron_semibold"
-                android:gravity="center"
-                android:text="Equity"
-                android:textColor="@color/bg_white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/equity"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
+            android:onClick="onMarginFragment"
+            app:cardBackgroundColor="@color/bg_blue"
+            app:cardCornerRadius="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/commodity"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="onMarginFragment"
-        app:cardBackgroundColor="@color/bg_blue"
-        app:cardCornerRadius="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="69dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/ic_equity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="54dp"
-                android:layout_height="61dp"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="31dp"
-                android:src="@drawable/ic_commodity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginEnd="33dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/aileron_semibold"
+                    android:gravity="center"
+                    android:text="Equity"
+                    android:textColor="@color/bg_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="11dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/aileron_semibold"
-                android:gravity="center"
-                android:text="Commodity"
-                android:textColor="@color/bg_white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/commodity"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="40dp"
+            android:onClick="onMarginFragment"
+            app:cardBackgroundColor="@color/bg_blue"
+            app:cardCornerRadius="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/futures"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:onClick="onMarginFragment"
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="61dp"
+                    android:layout_marginStart="31dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="31dp"
+                    android:src="@drawable/ic_commodity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        app:cardBackgroundColor="@color/bg_blue"
-        app:cardCornerRadius="19dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/equity">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/aileron_semibold"
+                    android:gravity="center"
+                    android:text="Commodity"
+                    android:textColor="@color/bg_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="23dp"
-                android:src="@drawable/ic_futures"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.476"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/futures"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:onClick="onMarginFragment"
 
-            <TextView
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/aileron_semibold"
-                android:gravity="center"
-                android:text="Futures"
-                android:textColor="@color/bg_white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+            app:cardBackgroundColor="@color/bg_blue"
+            app:cardCornerRadius="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/equity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/currency"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="onMarginFragment"
-        app:cardBackgroundColor="@color/bg_blue"
-        app:cardCornerRadius="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commodity">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="23dp"
+                    android:src="@drawable/ic_futures"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.476"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="27dp"
-                android:src="@drawable/ic_currency"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.55"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/aileron_semibold"
+                    android:gravity="center"
+                    android:text="Futures"
+                    android:textColor="@color/bg_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="98dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="11dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/aileron_semibold"
-                android:gravity="center"
-                android:text="Currency"
-                android:textColor="@color/bg_white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/currency"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="40dp"
+            android:onClick="onMarginFragment"
+            app:cardBackgroundColor="@color/bg_blue"
+            app:cardCornerRadius="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commodity">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="27dp"
+                    android:src="@drawable/ic_currency"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.55"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="98dp"
+                    android:layout_height="21dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/aileron_semibold"
+                    android:gravity="center"
+                    android:text="Currency"
+                    android:textColor="@color/bg_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bracket"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bracket"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:foregroundGravity="center"
-        android:onClick="onMarginFragment"
-        app:cardBackgroundColor="@color/bg_blue"
-        app:cardCornerRadius="19dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="8dp"
+            android:foregroundGravity="center"
+            android:onClick="onMarginFragment"
+            app:cardBackgroundColor="@color/bg_blue"
+            app:cardCornerRadius="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currency">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="61dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="23dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_bracket_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.538"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="61dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="23dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_bracket_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.538"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="161dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/aileron_semibold"
-                android:gravity="center"
-                android:text="Bracket\nOrder"
-                android:textColor="@color/bg_white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:layout_constraintVertical_bias="0.666" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="161dp"
+                    android:layout_height="53dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="3dp"
+                    android:fontFamily="@font/aileron_semibold"
+                    android:gravity="center"
+                    android:text="@string/bracket_order"
+                    android:textColor="@color/bg_white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>a
+</androidx.core.widget.NestedScrollView>
+

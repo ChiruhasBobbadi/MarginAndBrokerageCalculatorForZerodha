@@ -38,7 +38,7 @@
         android:id="@+id/lot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Lot Size :1 MT"
@@ -52,7 +52,7 @@
         android:id="@+id/mis_mul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="16dp"
         android:text="MIS Multiplier : 14X"
         android:textAlignment="center"
@@ -65,7 +65,7 @@
         android:id="@+id/cnc_mul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:textAlignment="center"
@@ -74,14 +74,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mis_mul"
-        app:layout_constraintVertical_bias="0.153"
+        app:layout_constraintVertical_bias="0.076"
         tools:text="CNC Multiplier : 1X" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="Price : "
@@ -90,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cnc_mul"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/cal"

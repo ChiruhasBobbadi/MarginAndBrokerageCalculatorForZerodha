@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.BracketOrder;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
@@ -50,6 +51,7 @@ public class Normal_BO extends Fragment {
     int lot_size = 0;
     Map<String, Integer> map = new HashMap<>();
     List<GodModel> list = new ArrayList<>();
+    List<Commodity> commodityList = new ArrayList<>();
     // add additional radio buttons for different segments
     RadioButton equity;
 
@@ -273,14 +275,14 @@ public class Normal_BO extends Fragment {
 
     public String[] fetchCommodity() {
 
-        viewModel.fetchCommodity().observe(this, new Observer<List<GodModel>>() {
+        viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
             @Override
-            public void onChanged(List<GodModel> godModels) {
-                list = godModels;
+            public void onChanged(List<Commodity> godModels) {
+                commodityList = godModels;
 
             }
         });
-        return NameExtractHelper.EquityNames(list);
+        return NameExtractHelper.commodityName(commodityList);
     }
 
     public String[] fetchEquity() {

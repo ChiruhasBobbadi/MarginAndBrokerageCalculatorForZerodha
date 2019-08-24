@@ -1,245 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bg_black">
+    android:background="@color/bg_black"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/brokerage_bg"
+        android:padding="5dp">
 
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
-        android:elevation="0dp"
-        app:cardBackgroundColor="@color/bg_grey"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        <EditText
+            android:id="@+id/buy"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_calculate_btn"
+            android:gravity="center"
+            android:hint="Buy Price"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/bg_white"
+            android:textColorHint="@color/bg_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <EditText
+            android:id="@+id/sell"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/rounded_calculate_btn"
+            android:gravity="center"
+            android:hint="Sell Price"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/bg_white"
+            android:textColorHint="@color/bg_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/lot"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/rounded_calculate_btn"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:hint="Quantity"
+            android:inputType="numberDecimal"
+            android:textColor="@color/bg_white"
+            android:textColorHint="@color/bg_white"
+            app:layout_constraintEnd_toEndOf="@+id/sell"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toStartOf="@+id/buy"
+            app:layout_constraintTop_toBottomOf="@+id/sell" />
+
+        <RadioGroup
+            android:id="@+id/rgroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="57dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lot">
 
-            <EditText
-                android:id="@+id/buy"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="24dp"
-                android:background="@color/bg_blue"
-                android:gravity="center"
-                android:hint="Buy Price"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textColor="@color/bg_white"
-                android:textColorHint="@color/bg_white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/sell"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="12dp"
-                android:background="@color/bg_blue"
-                android:gravity="center"
-                android:hint="Sell Price"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-                android:textColor="@color/bg_white"
-                android:textColorHint="@color/bg_white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/lot"
-                android:layout_width="200dp"
+            <RadioButton
+                android:id="@+id/nse"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="60dp"
-                android:background="@color/bg_blue"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:hint="Quantity"
-                android:inputType="numberDecimal"
+                android:layout_marginRight="20dp"
+                android:buttonTint="@color/bg_blue"
+                android:checked="true"
+                android:text="NSE"
                 android:textColor="@color/bg_white"
-                android:textColorHint="@color/bg_white"
-                app:layout_constraintEnd_toEndOf="@+id/sell"
-                app:layout_constraintHorizontal_bias="0.375"
-                app:layout_constraintStart_toStartOf="@+id/buy"
-                app:layout_constraintTop_toBottomOf="@+id/sell" />
+                android:textSize="20sp"
 
-            <RadioGroup
-                android:id="@+id/rgroup"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
+                />
+
+            <RadioButton
+                android:id="@+id/bse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lot">
 
-                <RadioButton
-                    android:id="@+id/nse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:buttonTint="@color/bg_blue"
-                    android:checked="true"
-                    android:text="NSE"
-                    android:textColor="@color/bg_white"
-                    android:textSize="20sp"
-
-                    />
-
-                <RadioButton
-                    android:id="@+id/bse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-
-                    android:buttonTint="@color/bg_blue"
-                    android:text="BSE"
-                    android:textColor="@color/bg_white"
-                    android:textSize="20sp"
-
-                    />
-
-            </RadioGroup>
-
-            <TextView
-
-                android:id="@+id/textView6"
-                android:layout_width="159dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="15dp"
-
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="Net Profit/Loss"
-                android:textColor="@color/white_grey"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.005"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/list" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/states"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                style=""
-                android:layout_marginStart="8dp"
-                android:hapticFeedbackEnabled="true"
-                android:backgroundTint="@color/white_grey"
-                android:dropDownSelector="@color/white_grey"
-                android:layout_marginEnd="8dp"
-
-                android:foregroundTint="@color/white_grey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rgroup"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ListView
-                android:id="@+id/list"
-
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/bg_grey"
-                android:divider="@color/bg_blue"
-                android:dividerHeight="0.5dp"
-                android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/states"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-
-                android:id="@+id/pl"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:textColor="@color/bg_green"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.97"
-                app:layout_constraintStart_toEndOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/list"
-                app:layout_constraintVertical_bias="0.01999998" />
-
-            <Button
-                android:id="@+id/calculate"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/rounded_calculate_btn"
-                android:text="Calculate"
+                android:buttonTint="@color/bg_blue"
+                android:text="BSE"
                 android:textColor="@color/bg_white"
-                app:layout_constraintBottom_toTopOf="@+id/adView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                app:layout_constraintVertical_bias="0.0" />
+                android:textSize="20sp"
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="10dp"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/brokerage_banner"
-                ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toBottomOf="@+id/textView6" />
+                />
+
+        </RadioGroup>
+
+        <TextView
+
+            android:id="@+id/textView6"
+            android:layout_width="159dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="Net Profit/Loss"
+            android:textColor="@color/white_grey"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.005"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/states"
+            style=""
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/white_grey"
+            android:dropDownSelector="@color/white_grey"
+            android:foregroundTint="@color/white_grey"
+
+            android:hapticFeedbackEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgroup"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ListView
+            android:id="@+id/list"
+
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/bg_grey"
+            android:divider="@color/bg_blue"
+            android:dividerHeight="0.5dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/states"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+
+            android:id="@+id/pl"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:textColor="@color/bg_green"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/list"
+            app:layout_constraintVertical_bias="0.01999998" />
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_calculate_btn"
+            android:text="Calculate"
+            android:textColor="@color/bg_white"
+            app:layout_constraintBottom_toTopOf="@+id/adView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/brokerage_banner"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+

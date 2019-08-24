@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import com.chiruhas.android.zerodha.CustomAdapters.Equity.CommodityAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
-import com.chiruhas.android.zerodha.Model.Equity.GodModel;
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodCommodity;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
@@ -29,16 +30,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommodityActivity extends AppCompatActivity {
 
-    String lotsize[] = {"5 MT", "1 MT","1 MT", "5 MT", "1 MT", "100 KGS", "110 MT", "1 MT", "250 KGS", "25 BALES", "10 MT", "100 BBL", "10 BBL", "1 KGS",
-            "8 GRMS", "100 GRMS", "1 GRMS", "5 MT", "1 MT", "360 KGS", "1250 MMBTU", "250 KGS", "100 KGS", "1 MT", "10 MT"
-            ,"30 KGS", "5 KGS", "1 KGS"};
 
+    private static final String TAG ="Commodity Activity" ;
     RecyclerView recyclerView;
     ViewModel viewModel;
     CommodityAdapter commodityAdapter;
     ProgressBar bar;
     CommodityViewModel commodityViewModel;
-    List<GodModel> list = new ArrayList<>();
+    List<Commodity> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +46,6 @@ public class CommodityActivity extends AppCompatActivity {
         //loading adview
         View view = getWindow().getDecorView().getRootView();
         AdViewHelper.loadBanner(view);
-
-
-
         getSupportActionBar().setTitle("Commodity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setAdapter();
@@ -60,15 +56,14 @@ public class CommodityActivity extends AppCompatActivity {
 
     private void fetchCache() {
        commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
-       commodityViewModel.getAll().observe(this, new Observer<List<GodCommodity>>() {
+       commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
            @Override
-           public void onChanged(List<GodCommodity> godCommodities) {
-               GodModel godModel = new GodModel();
-                List<GodModel> lst = new ArrayList<>();
-               for(GodCommodity godCommodity : godCommodities){
+           public void onChanged(List<Commodity> godCommodities) {
+
+                List<Commodity> lst = new ArrayList<>();
+               for(Commodity g : godCommodities){
                    // GodCommodity to God Model
-                   lst.add(new GodModel(godCommodity.getMargin(), godCommodity.getCo_lower(), godCommodity.getMis_multiplier(),
-                           godCommodity.getTradingsymbol(), godCommodity.getCo_upper(), godCommodity.getNrml_margin(), godCommodity.getMis_margin()));
+                   lst.add(g);
                }
                commodityAdapter.setCache(lst);
            }
@@ -81,26 +76,26 @@ public class CommodityActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv);
        commodityAdapter =new CommodityAdapter(new CommodityAdapter.ItemListener() {
             @Override
-            public void onItemClick(GodModel item) {
+            public void onItemClick(Commodity item) {
                 // code for calculating and showing a popup
                 AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
 
-                alertHelper.loadEquityPopup(item);
+                alertHelper.loadCommodityPopUp(item);
 
             }
 
            @Override
-           public void onBookmarkClick(GodModel model) {
+           public void onBookmarkClick(Commodity model) {
                // insert into database
 
-               commodityViewModel.insert(ObjectConverter.GodModeltoGodCommodity(model));
+               commodityViewModel.insert(model);
 
            }
 
            @Override
-           public void onBookmarkUnClick(GodModel model) {
+           public void onBookmarkUnClick(Commodity model) {
                 // delete from database
-               commodityViewModel.delete(ObjectConverter.GodModeltoGodCommodity(model));
+               commodityViewModel.delete(model);
            }
        },CommodityActivity.this);
 
@@ -112,16 +107,14 @@ public class CommodityActivity extends AppCompatActivity {
 
     public void fetchData() {
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.fetchCommodity().observe(this, new Observer<List<GodModel>>() {
+        viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
             @Override
-            public void onChanged(List<GodModel> godModels) {
+            public void onChanged(List<Commodity> Commoditys) {
 
-                for (int i = 0; i < godModels.size(); i++) {
-                    godModels.get(i).setLotsize(lotsize[i]);
-                }
-                list = godModels;
 
-                commodityAdapter.updateData(godModels);
+                list = Commoditys;
+
+                commodityAdapter.updateData(Commoditys);
 
                 bar.setVisibility(View.GONE);
             }
@@ -147,9 +140,9 @@ public class CommodityActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
-                List<GodModel> em = new ArrayList<>();
-                for (GodModel e : list) {
-                    if (e.getTradingsymbol().toLowerCase().startsWith(s)) {
+                List<Commodity> em = new ArrayList<>();
+                for (Commodity e : list) {
+                    if (e.getScrip().toLowerCase().startsWith(s)) {
                         em.add(e);
                     }
                 }

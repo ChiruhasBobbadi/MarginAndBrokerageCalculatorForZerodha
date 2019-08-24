@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
+import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 
@@ -19,15 +21,21 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Repository {
     Retrofit retrofit;
+    Retrofit retrofit2;
     ZerodhaClient zerodhaClient;
+
     MutableLiveData<List<GodModel>> GodModels;
-    MutableLiveData<List<GodModel>> commodity;
+    MutableLiveData<List<Commodity>> commodity;
+    MutableLiveData<List<GodModel>> currency;
+    MutableLiveData<List<Futures>> futures;
+
     public Repository()
     {
          retrofit= new Retrofit.Builder().baseUrl("https://api.kite.trade/margins/").addConverterFactory(GsonConverterFactory.create()).build();
-        zerodhaClient= retrofit.create(ZerodhaClient.class);
+
+         zerodhaClient = retrofit.create(ZerodhaClient.class);
         GodModels=new MutableLiveData<>();
-        commodity= new MutableLiveData<>();
+
     }
 
     public LiveData<List<GodModel>> getEquity()
@@ -52,22 +60,42 @@ public class Repository {
 
     }
 
-    public LiveData<List<GodModel>> getCommodity(){
-        Call<List<GodModel>> call = zerodhaClient.getCommodity();
+
+    public LiveData<List<GodModel>> getCurrency(){
+        Call<List<GodModel>> call = zerodhaClient.getCurrency();
         call.enqueue(new Callback<List<GodModel>>() {
             @Override
             public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
                 if(!response.isSuccessful()){
                     return;
                 }
-                commodity.setValue(response.body());
+                currency.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<GodModel>> call, Throwable t) {
+                Log.d(TAG, "onFailure: inside getCurrency: "+t.getLocalizedMessage());
+            }
+        });
+        return currency;
+    }
+
+    public LiveData<List<Futures>> getFutures(){
+        Call<List<Futures>> call = zerodhaClient.getFutures();
+        call.enqueue(new Callback<List<Futures>>() {
+            @Override
+            public void onResponse(Call<List<Futures>> call, Response<List<Futures>> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
+                futures.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Futures>> call, Throwable t) {
                 Log.d(TAG, "onFailure: inside getCommodity: "+t.getLocalizedMessage());
             }
         });
-        return commodity;
+        return futures;
     }
 }

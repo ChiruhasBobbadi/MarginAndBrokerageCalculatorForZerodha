@@ -2,13 +2,14 @@ package com.chiruhas.android.zerodha.room.Commodity;
 
 import android.content.Context;
 
+import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodCommodity;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {GodCommodity.class},version = 1,exportSchema = false)
+@Database(entities = {Commodity.class},version = 2,exportSchema = false)
 public abstract class CommodityDatabase extends RoomDatabase {
 
     private static CommodityDatabase instance;
