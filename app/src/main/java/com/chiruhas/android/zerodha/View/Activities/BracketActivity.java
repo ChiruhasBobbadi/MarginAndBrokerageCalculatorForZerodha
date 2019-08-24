@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.chiruhas.android.zerodha.R;
 
-public class BracketActivity extends AppCompatActivity implements Normal_BO.OnFragmentInteractionListener,Reverse_BO.OnFragmentInteractionListener {
+public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnFragmentInteractionListener {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;

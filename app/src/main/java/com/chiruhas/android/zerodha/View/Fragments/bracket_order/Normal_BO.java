@@ -45,33 +45,29 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class Normal_BO extends Fragment {
 
 
-    AutoCompleteTextView auto;
-    EditText price, qty, sl;
-    RadioGroup rg;
-    ViewModel viewModel;
+    private AutoCompleteTextView auto;
+    private EditText price, qty, sl;
+    private RadioGroup rg;
+    private ViewModel viewModel;
 
     int lot_size = 0;
-    Map<String, Integer> map = new HashMap<>();
-    List<GodModel> list = new ArrayList<>();
-    List<Commodity> commodityList = new ArrayList<>();
-    List<Futures> futuresList = new ArrayList<>();
-    List<Currency> currencyList = new ArrayList<>();
+    private Map<String, Integer> map = new HashMap<>();
+    private List<GodModel> list = new ArrayList<>();
+    private List<Commodity> commodityList = new ArrayList<>();
+    private List<Futures> futuresList = new ArrayList<>();
+   private List<Currency> currencyList = new ArrayList<>();
     // add additional radio buttons for different segments
 
 
     RadioButton buy, sell;
-    private OnFragmentInteractionListener mListener;
 
     public Normal_BO() {
         // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static Normal_BO newInstance(String param1, String param2) {
         Normal_BO fragment = new Normal_BO();
-
-
         return fragment;
     }
 
@@ -131,23 +127,27 @@ public class Normal_BO extends Fragment {
 
                 switch (checkedId) {
                     case R.id.equity:
+                        resetAll();
                         lst = fetchEquity();
 
                         lot.setVisibility(View.GONE);
                         break;
 
                     case R.id.mcx:
-
+                        resetAll();
+                        setMap();
                         lst = fetchCommodity();
                         lot.setVisibility(View.VISIBLE);
 
                         break;
                     case R.id.nfo:
+                        resetAll();
                         lst = fetchFutures();
                         lot.setVisibility(View.VISIBLE);
                         break;
 
                     case R.id.cds:
+                        resetAll();
                         lst = fetchCurrency();
                         lot.setVisibility(View.VISIBLE);
                         break;
@@ -161,9 +161,9 @@ public class Normal_BO extends Fragment {
         auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                price.setText("");
-                qty.setText("");
-                sl.setText("");
+               price.setText("");
+               qty.setText("");
+               sl.setText("");
                 if (rg.getCheckedRadioButtonId() == R.id.mcx) {
                     String str = auto.getText().toString().trim();
                     Commodity commodity = null;
@@ -173,8 +173,8 @@ public class Normal_BO extends Fragment {
                             break;
                         }
                     }
-                    lot.setText("Lot Size : " + commodity.getLot());
-                    lot_size = Integer.parseInt(commodity.getLot());
+                    lot.setText("Lot Size : " + map.get(str));
+                    lot_size = map.get(str);
 
 
                 }
@@ -223,8 +223,8 @@ public class Normal_BO extends Fragment {
 
 
                 if (TextUtils.isEmpty(auto.getText().toString()) ||
-                        price.getText().toString().equals("") || !price.getText().toString().startsWith(".") || qty.getText().toString().equals("")
-                        || sl.getText().toString().equals("") || !sl.getText().toString().startsWith("."))
+                        price.getText().toString().equals("") || price.getText().toString().startsWith(".") || qty.getText().toString().equals("")
+                        || sl.getText().toString().equals("") || sl.getText().toString().startsWith("."))
                     Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
                 else {
 
@@ -253,6 +253,7 @@ public class Normal_BO extends Fragment {
                                     break;
                                 }
                             }
+
                             type = "mcx";
                         } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
                             for (Futures c : futuresList) {
@@ -261,6 +262,7 @@ public class Normal_BO extends Fragment {
                                     break;
                                 }
                             }
+
                             type = "nfo";
                         } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
                             for (Currency c : currencyList) {
@@ -269,6 +271,7 @@ public class Normal_BO extends Fragment {
                                     break;
                                 }
                             }
+
                             type = "cds";
                         }
 
@@ -329,10 +332,7 @@ public class Normal_BO extends Fragment {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auto.setText("");
-                price.setText("");
-                qty.setText("");
-                sl.setText("");
+             resetAll();
 
             }
         });
@@ -341,22 +341,24 @@ public class Normal_BO extends Fragment {
         return view;
     }
 
+    public void resetAll(){
+        auto.setText("");
+        price.setText("");
+        qty.setText("");
+        sl.setText("");
+    }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+
     }
 
     public String[] fetchCommodity() {
@@ -416,10 +418,40 @@ public class Normal_BO extends Fragment {
         Toast.makeText(getContext(), "Internet Connection is Required..", Toast.LENGTH_SHORT).show();
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void setMap() {
+
+        map.put("ALUMINI", 1000);
+        map.put("ALUMINIUM", 5000);
+        map.put("BRASSPHY", 1000);
+        map.put("CARDAMOM", 100);
+        map.put("CASTORSEED", 1000);
+        map.put("COPPER", 1000);
+        map.put("COPPERM", 250);
+        map.put("COTTON", 25);
+        map.put("CPO", 1000);
+        map.put("CRUDEOIL", 100);
+
+        map.put("CRUDEOILM", 10);
+        map.put("GOLD", 100);
+        map.put("GOLDGUINEA", 1);
+        map.put("GOLDM", 10);
+        map.put("GOLDPETAL", 1);
+        map.put("LEAD", 5000);
+        map.put("LEADMINI", 1000);
+        map.put("MENTHAOIL", 360);
+        map.put("NATURALGAS", 1250);
+        map.put("NICKEL", 250);
+        map.put("NICKELM", 100);
+        map.put("PEPPER", 10);
+        map.put("RBDPMOLEIN", 1000);
+        map.put("SILVER", 30);
+        map.put("SILVERM", 5);
+
+        map.put("SILVERMIC", 1);
+        map.put("ZINC", 5000);
+        map.put("ZINCINI", 1000);
     }
+
 
 
 }

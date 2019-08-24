@@ -36,7 +36,7 @@ public class NameExtractHelper {
         String[] str = new String[lst.size()];
 
         for (int i = 0; i < lst.size(); i++) {
-            str[i] =lst.get(i).getScrip();
+            str[i] =lst.get(i).getScrip()+" "+lst.get(i).getExpiry();
         }
         return str;
     }
