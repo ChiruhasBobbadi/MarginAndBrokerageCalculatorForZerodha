@@ -125,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 switch (menuItem.getItemId()) {
-                    case R.id.book:
-                        // open bookmark Activity
-                        //startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
-                        break;
+//                    case R.id.book:
+//                        // open bookmark Activity
+//                        //startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
+//                        break;
 
                     case R.id.pp:
                         String url = "http://chiruhas.in/privacy_policy.html";

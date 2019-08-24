@@ -64,8 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final ViewHolder h=holder;
       final GodModel model = GodModels.get(position);
 
-      // bookmark helper class
-        BookmarkHelper.checkBookmark(equitycache,model,holder.bookmark);
+         // bookmark helper class
+        //BookmarkHelper.checkBookmark(equitycache,model,holder.bookmark);
 
         holder.scrip.setText(model.getTradingsymbol());
         holder.mis.setText("MIS Multiplier : "+model.getMis_multiplier()+"X");
@@ -80,21 +80,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         //cahnging the image of star based on conditions
-        holder.bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
-                    h.bookmark.setTag(R.drawable.ic_star);
-                    myListener.onBookmarkClick(model);
-                }
-                else{
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
-                    h.bookmark.setTag(R.drawable.ic_star_border);
-                    myListener.onBookmarkUnClick(model);
-                }
-            }
-        });
+//        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
+//                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
+//                    h.bookmark.setTag(R.drawable.ic_star);
+//                    myListener.onBookmarkClick(model);
+//                }
+//                else{
+//                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
+//                    h.bookmark.setTag(R.drawable.ic_star_border);
+//                    myListener.onBookmarkUnClick(model);
+//                }
+//            }
+//        });
 
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
@@ -122,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView scrip,mis,cnc;
         Button cal;
         CardView card;
-      public  ImageView bookmark;
+      //public  ImageView bookmark;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             scrip = itemView.findViewById(R.id.scrip);
@@ -130,8 +130,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cnc = itemView.findViewById(R.id.cnc_mul);
             cal=itemView.findViewById(R.id.cal);
             card =itemView.findViewById(R.id.card);
-            bookmark = itemView.findViewById(R.id.bookmark);
-            bookmark.setTag(R.drawable.ic_star_border);
+            //bookmark = itemView.findViewById(R.id.bookmark);
+            //bookmark.setTag(R.drawable.ic_star_border);
         }
     }
 

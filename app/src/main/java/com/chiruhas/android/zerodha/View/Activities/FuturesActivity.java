@@ -1,6 +1,10 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -63,6 +67,13 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
 
         videoAd = MobileAds.getRewardedVideoAdInstance(this);
         videoAd.setRewardedVideoAdListener(this);
+        //TODO
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
+        boolean first = sharedPreferences.getBoolean("first",true);
+//        if(first){
+            showWarning();
+       // }
+
         loadRewardedVideoAd();
         setAdapter();
         fetchData();
@@ -70,6 +81,21 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
         
     }
 
+    private void showWarning()
+    {
+        new AlertDialog.Builder(this).setTitle("Attention Required !").setMessage("Thank you for downloading the app, currently this app is able to fetch future's data but calculating margins is not accurate(only for future's) as zerodha has some internal formula .\n\nI am searching for alternate ways,if you still wish to use it you can use it.\n\nBut please don't post threatening reviews after using it, I will publish an update as soon as i figure it.\n\nIt's my responsibility to notify you, and i did.\n\nHappy Trading!. ")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("first",false);
+        editor.apply();
+    }
     /**
      * Reward video helper method
      */
