@@ -141,13 +141,21 @@ public class AlertHelper {
         price = myDialog.findViewById(R.id.price);
         amt = myDialog.findViewById(R.id.amount);
 
-
+        price.setText(commodity.getPrice());
         scrip.setText(commodity.getScrip());
-        mis_mux.setText("MIS : " + commodity.getMis());
-        nrml.setText("CNC : " + 1.0);
+        nrml.setText("CNC : " + commodity.getNrml());
 
-        mis1 = Float.parseFloat(commodity.getMis());
-        cnc1 = 1.0f;
+
+        if(commodity.getMis().equals("N/A")) {
+            mis_mux.setText("MIS : " + Integer.parseInt(commodity.getNrml()) / 2);
+            commodity.setMis((Integer.parseInt(commodity.getNrml()) / 2)+"");
+        }
+        else{
+            mis_mux.setText("MIS : " + commodity.getMis());
+        }
+
+
+
 
 
         cal.setOnClickListener(new View.OnClickListener() {
@@ -167,8 +175,8 @@ public class AlertHelper {
 
                         prc = Double.parseDouble(price.getText().toString());
                         int res[] = changeParams(mis_mux, nrml, prc, commodity);
-                        misqty.setText(Math.floor(((am * res[0]) / prc)) + "");
-                        cncqty.setText(Math.floor(((am * res[1]) / prc)) + "");
+                        misqty.setText(Math.floor(((am / res[0]))) + "");
+                        cncqty.setText(Math.floor(((am / res[1]))) + "");
                     } else
                         Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
 
@@ -195,14 +203,10 @@ public class AlertHelper {
     public void loadFuturePopUp(Futures futures) {
 
         myDialog.setContentView(R.layout.equitycalculate);
-
-
         TextView scrip;
         final TextView mis_mux, nrml;
         Button cal;
         final EditText price, amt;
-
-
         scrip = myDialog.findViewById(R.id.scrip);
         mis_mux = myDialog.findViewById(R.id.mis_mux);
         nrml = myDialog.findViewById(R.id.mis_mux2);
@@ -214,9 +218,8 @@ public class AlertHelper {
         scrip.setText(futures.getScrip());
         mis_mux.setText("MIS : " + futures.getMis());
         nrml.setText("NRML : " + futures.getNrml());
+        price.setText(futures.getPrice()+"");
 
-        mis1 = futures.getMis();
-        cnc1 = 1.0f;
 
 
         cal.setOnClickListener(new View.OnClickListener() {
@@ -236,8 +239,8 @@ public class AlertHelper {
                         //TODO
                         prc = Double.parseDouble(price.getText().toString());
                         int res[] = changeParams(mis_mux, nrml, prc, futures);
-                        misqty.setText(Math.floor(((am * res[0]) / prc)) + "");
-                        cncqty.setText(Math.floor(((am * res[1]) / prc)) + "");
+                        misqty.setText(Math.floor(((am / res[0]) )) + "");
+                        cncqty.setText(Math.floor(((am / res[1]))) + "");
                     } else
                         Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
 
@@ -286,9 +289,7 @@ public class AlertHelper {
         mis_mux.setText("MIS : " + futures.getMis());
         nrml.setText("NRML : " + futures.getNrml());
 
-        mis1 = futures.getMis();
-        cnc1 = 1.0f;
-
+        price.setText(futures.getPrice()+"");
 
         cal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,11 +305,11 @@ public class AlertHelper {
                     double am = 0, prc = 0;
                     if (!amt.getText().toString().startsWith(".") && !price.getText().toString().startsWith(".")) {
                         am = Double.parseDouble(amt.getText().toString());
-                        //TODO
-//                        prc = Double.parseDouble(price.getText().toString());
-//                        int res[] = changeParams(mis_mux, nrml, prc, futures);
-//                        misqty.setText(Math.floor(((am * res[0]) / prc)) + "");
-//                        cncqty.setText(Math.floor(((am * res[1]) / prc)) + "");
+
+                        prc = Double.parseDouble(price.getText().toString());
+                        int res[] = changeParams(mis_mux, nrml, prc, futures);
+                        misqty.setText(Math.floor(((am / res[0]) )) + "");
+                        cncqty.setText(Math.floor(((am / res[1]) )) + "");
                     } else
                         Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
 
@@ -350,12 +351,14 @@ public class AlertHelper {
         int new_mval = 0, new_nval = 0;
 
         new_mval = (int) ((uprice * (mval)) / aprice);
-        new_nval = (int) ((aprice * (nval)) / uprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
 
         mis.setText("MIS : " + new_mval);
         cnc.setText("CNC : " + new_nval);
         res[0] = new_mval;
         res[1] = new_nval;
+
+
 
         return res;
 
@@ -369,7 +372,26 @@ public class AlertHelper {
         int new_mval = 0, new_nval = 0;
 
         new_mval = (int) ((uprice * (mval)) / aprice);
-        new_nval = (int) ((aprice * (nval)) / uprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
+
+        mis.setText("MIS : " + new_mval);
+        cnc.setText("CNC : " + new_nval);
+        res[0] = new_mval;
+        res[1] = new_nval;
+
+        return res;
+
+
+    }
+    public int[] changeParams(TextView mis, TextView cnc, double uprice, Currency currency) {
+        int res[] = new int[2];
+        int mval = currency.getMis();
+        int nval = currency.getNrml();
+        double aprice = currency.getPrice();
+        int new_mval = 0, new_nval = 0;
+
+        new_mval = (int) ((uprice * (mval)) / aprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
 
         mis.setText("MIS : " + new_mval);
         cnc.setText("CNC : " + new_nval);

@@ -175,34 +175,46 @@ public class Normal_BO extends Fragment {
                     }
                     lot.setText("Lot Size : " + map.get(str));
                     lot_size = map.get(str);
-
+                    price.setText(commodity.getPrice());
+                    //qty.setText(map.get(str));
 
                 }
                else  if (rg.getCheckedRadioButtonId() == R.id.nfo) {
                     String str = auto.getText().toString().trim();
                     Futures futures = null;
+                    String arr[] = str.split(" ");
+                    String name = arr[0];
+                    String expiry = arr[1];
                     for (Futures c : futuresList) {
-                        if (c.getScrip().equals(str)) {
+                        if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
                             futures = c;
                             break;
                         }
+
                     }
                     lot.setText("Lot Size : " + futures.getLot());
                     lot_size = Integer.parseInt(futures.getLot());
-
+                    price.setText(futures.getPrice()+"");
+                    qty.setText(futures.getLot());
 
                 }
                 else  if (rg.getCheckedRadioButtonId() == R.id.cds) {
                     String str = auto.getText().toString().trim();
                     Currency currency = null;
+                    String arr[] = str.split(" ");
+                    String name = arr[0];
+                    String expiry = arr[1];
+
                     for (Currency c : currencyList) {
-                        if (c.getScrip().equals(str)) {
+                        if (c.getScrip().equals(name) && c.getExpiry().contains(expiry) ) {
                             currency = c;
                             break;
                         }
                     }
                     lot.setText("Lot Size : " + currency.getLot());
                     lot_size = Integer.parseInt(currency.getLot());
+                    price.setText(currency.getPrice()+"");
+                    qty.setText(currency.getLot());
 
 
                 }

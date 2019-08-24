@@ -41,17 +41,14 @@
         android:id="@+id/amount"
         android:layout_width="191dp"
         android:layout_height="45dp"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
         android:background="@null"
         android:fontFamily="@font/avenir_light"
+        android:gravity="center_vertical"
         android:inputType="numberDecimal"
         android:textSize="22sp"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrip" />
 
     <TextView
@@ -72,17 +69,15 @@
         android:id="@+id/price"
         android:layout_width="192dp"
         android:layout_height="43dp"
-        android:layout_marginStart="32dp"
-        android:gravity="center_vertical"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:background="@null"
         android:fontFamily="@font/avenir_light"
+        android:gravity="center_vertical"
+
         android:inputType="numberDecimal"
         android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/amount" />
 
     <TextView
