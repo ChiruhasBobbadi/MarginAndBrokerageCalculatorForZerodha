@@ -2,25 +2,6 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 
 import android.os.Bundle;
-
-import com.chiruhas.android.zerodha.CustomAdapters.Equity.CommodityAdapter;
-import com.chiruhas.android.zerodha.CustomAdapters.Equity.CurrencyAdapter;
-import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
-import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
-import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
-import com.chiruhas.android.zerodha.Model.Currency;
-import com.chiruhas.android.zerodha.Model.Equity.GodModel;
-import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodEquity;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,20 +9,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chiruhas.android.zerodha.CustomAdapters.Equity.CurrencyAdapter;
+import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
+import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyActivity extends AppCompatActivity {
+public class CurrencyActivity extends AppCompatActivity implements RewardedVideoAdListener {
+    private static final String TAG = "CurrencyActivity";
     private ViewModel view;
     private RecyclerView rv;
-    CurrencyAdapter adapter;
-    ProgressBar bar;
-    private static final String TAG = "CurrencyActivity";
-    List<Currency> currency = new ArrayList<>();
+    private CurrencyAdapter adapter;
+    private ProgressBar bar;
+    private List<Currency> currency = new ArrayList<>();
+    private RewardedVideoAd videoAd;
+    private Currency currencyItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,11 @@ public class CurrencyActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        videoAd = MobileAds.getRewardedVideoAdInstance(this);
+        videoAd.setRewardedVideoAdListener(this);
+
+        loadRewardedVideoAd();
+
 
         View rootView = getWindow().getDecorView().getRootView();
 
@@ -64,6 +67,18 @@ public class CurrencyActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Reward video helper method
+     */
+    private void loadRewardedVideoAd() {
+        // dummy
+        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+        //original
+//        videoAd.loadAd("ca-app-pub-4351116683020455/7888851318",
+//                new AdRequest.Builder().build());
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -101,9 +116,23 @@ public class CurrencyActivity extends AppCompatActivity {
         bar.setVisibility(View.VISIBLE);
         rv = findViewById(R.id.rv);
         adapter = new CurrencyAdapter(item -> {
-            AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
 
-            alertHelper.loadCurrencyPopUp(item);
+            currencyItem = item;
+
+            if(videoAd.isLoaded())
+           {
+               videoAd.show();
+           }else{
+               AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
+
+               alertHelper.loadCurrencyPopUp(item);
+           }
+
+
+
+
+
+
         });
 
 
@@ -111,6 +140,12 @@ public class CurrencyActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
 
+    }
+
+    public void showPopup(){
+        AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
+
+        alertHelper.loadCurrencyPopUp(currencyItem);
     }
 
     public void fetchData() {
@@ -127,6 +162,46 @@ public class CurrencyActivity extends AppCompatActivity {
                 bar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        showPopup();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
     }
 }
 

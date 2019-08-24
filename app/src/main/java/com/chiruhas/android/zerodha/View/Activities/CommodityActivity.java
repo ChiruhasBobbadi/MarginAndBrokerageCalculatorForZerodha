@@ -21,21 +21,28 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommodityActivity extends AppCompatActivity {
+public class CommodityActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
 
     private static final String TAG = "Commodity Activity";
-    RecyclerView recyclerView;
-    ViewModel viewModel;
-    CommodityAdapter commodityAdapter;
-    ProgressBar bar;
+    private RecyclerView recyclerView;
+    private ViewModel viewModel;
+    private CommodityAdapter commodityAdapter;
+    private ProgressBar bar;
     //CommodityViewModel commodityViewModel;
-    List<Commodity> list = new ArrayList<>();
+    private List<Commodity> list = new ArrayList<>();
+    private RewardedVideoAd videoAd;
+    private Commodity commodity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,13 @@ public class CommodityActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Commodity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.d(TAG, "onCreate: CommodityActivity");
+        // initializing add
+        videoAd = MobileAds.getRewardedVideoAdInstance(this);
+        videoAd.setRewardedVideoAdListener(this);
+
+        loadRewardedVideoAd();
+
+
         setAdapter();
         fetchData();
         //fetchCache();
@@ -73,10 +87,16 @@ public class CommodityActivity extends AppCompatActivity {
         commodityAdapter = new CommodityAdapter(new CommodityAdapter.ItemListener() {
             @Override
             public void onItemClick(Commodity item) {
-                // code for calculating and showing a popup
-                AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
+                commodity = item;
+                //showing add
+                if(videoAd.isLoaded()){
+                    videoAd.show();
+                }else{
+                    // code for calculating and showing a popup
+                    AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
+                    alertHelper.loadCommodityPopUp(item);
+                }
 
-                alertHelper.loadCommodityPopUp(item);
 
             }
 
@@ -100,6 +120,11 @@ public class CommodityActivity extends AppCompatActivity {
 
 
     }
+    public void showPopup(){
+        AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
+
+        alertHelper.loadCommodityPopUp(commodity);
+    }
 
     public void fetchData() {
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
@@ -117,6 +142,16 @@ public class CommodityActivity extends AppCompatActivity {
         });
     }
 
+    //video add
+    private void loadRewardedVideoAd() {
+        // dummy
+        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+        //original
+//        videoAd.loadAd("ca-app-pub-4351116683020455/7014753344",
+//                new AdRequest.Builder().build());
+    }
 
     // searchview
 
@@ -153,4 +188,43 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        showPopup();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
 }

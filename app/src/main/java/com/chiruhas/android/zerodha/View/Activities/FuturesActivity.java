@@ -23,19 +23,27 @@ import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.ViewModel;
 import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.ads.rewarded.RewardedAd;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuturesActivity extends AppCompatActivity {
+public class FuturesActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
-    ViewModel viewModel;
-    RecyclerView rv;
-
-   FutureAdapter adapter;
-    ProgressBar bar;
+    private  ViewModel viewModel;
+    private RecyclerView rv;
+    private FutureAdapter adapter;
+    private  ProgressBar bar;
     private static final String TAG = "FuturesActivity";
-    List<Futures> list = new ArrayList<>();
+    private List<Futures> list = new ArrayList<>();
+    private RewardedVideoAd videoAd;
+
+    private Futures futures;
 
     //room viewmodel
    // EquityViewModel futureViewModel;
@@ -52,10 +60,27 @@ public class FuturesActivity extends AppCompatActivity {
         AdViewHelper.loadBanner(view);
         getSupportActionBar().setTitle("Future Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        videoAd = MobileAds.getRewardedVideoAdInstance(this);
+        videoAd.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
         setAdapter();
         fetchData();
         //fetchCache();
         
+    }
+
+    /**
+     * Reward video helper method
+     */
+    private void loadRewardedVideoAd() {
+        // dummy
+        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+        //original
+//        videoAd.loadAd("ca-app-pub-4351116683020455/7948227926",
+//                new AdRequest.Builder().build());
     }
 //    private void fetchCache() {
 //        futureViewModel = ViewModelProviders.of(this).get(FutureViewModel.class);
@@ -81,10 +106,16 @@ public class FuturesActivity extends AppCompatActivity {
         adapter =new FutureAdapter(new FutureAdapter.ItemListener() {
             @Override
             public void onItemClick(Futures item) {
-                // code for calculating and showing a popup
-                AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
+                futures=item;
+                if(videoAd.isLoaded()){
+                    videoAd.show();
 
-                alertHelper.loadFuturePopUp(item);
+                }else {
+                    // code for calculating and showing a popup
+                    AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
+
+                    alertHelper.loadFuturePopUp(item);
+                }
 
             }
 
@@ -114,8 +145,11 @@ public class FuturesActivity extends AppCompatActivity {
             }
         });
     }
+    public void showPopup(){
+        AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
 
-
+        alertHelper.loadFuturePopUp(futures);
+    }
     // searchview
 
     @Override
@@ -150,4 +184,43 @@ public class FuturesActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        showPopup();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
 }
