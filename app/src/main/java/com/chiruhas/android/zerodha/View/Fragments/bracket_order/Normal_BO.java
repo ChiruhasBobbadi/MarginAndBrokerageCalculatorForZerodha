@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Fragments.bracket_order;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -161,6 +164,7 @@ public class Normal_BO extends Fragment {
         auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hideSoftKeyboard();
                price.setText("");
                qty.setText("");
                sl.setText("");
@@ -245,7 +249,7 @@ public class Normal_BO extends Fragment {
                     Futures futures = null;
                     Currency currency = null;
 
-                    if (list == null && commodityList == null && futuresList == null)
+                    if (list.isEmpty() && commodityList.isEmpty() && futuresList.isEmpty() && currencyList.isEmpty())
                         Toast.makeText(getContext(), "Oops Something happened", Toast.LENGTH_SHORT).show();
                     else {
                         String type = "";
@@ -268,8 +272,12 @@ public class Normal_BO extends Fragment {
 
                             type = "mcx";
                         } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
+                            String str = auto.getText().toString();
+                            String arr[] = str.split(" ");
+                            String name = arr[0];
+                            String expiry = arr[1];
                             for (Futures c : futuresList) {
-                                if (c.getScrip().equals(auto.getText().toString())) {
+                                if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
                                     futures = c;
                                     break;
                                 }
@@ -277,11 +285,19 @@ public class Normal_BO extends Fragment {
 
                             type = "nfo";
                         } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                            String str = auto.getText().toString().trim();
+
+                            String arr[] = str.split(" ");
+                            String name = arr[0];
+                            String expiry = arr[1];
+
+
                             for (Currency c : currencyList) {
-                                if (c.getScrip().equals(auto.getText().toString())) {
+                                if (c.getScrip().equals(name) && c.getExpiry().contains(expiry) ) {
                                     currency = c;
                                     break;
                                 }
+
                             }
 
                             type = "cds";
@@ -462,6 +478,11 @@ public class Normal_BO extends Fragment {
         map.put("SILVERMIC", 1);
         map.put("ZINC", 5000);
         map.put("ZINCINI", 1000);
+    }
+
+    public void hideSoftKeyboard() {
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 

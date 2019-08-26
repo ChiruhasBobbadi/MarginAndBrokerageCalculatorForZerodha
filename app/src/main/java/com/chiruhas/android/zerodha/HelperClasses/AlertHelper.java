@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IntegerRes;
+
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
@@ -107,6 +109,9 @@ public class AlertHelper {
         TextView av = myDialog.findViewById(R.id.values);
         av.setText(" RS " + Math.round(Double.parseDouble(avalue) * 100.0) / 100.0 + " /-");
         TextView lev = myDialog.findViewById(R.id.leverage);
+        if(leverage.equals("Infinity"))
+            lev.setText("Infinity");
+        else
         lev.setText(Math.round(Double.parseDouble(leverage) * 100.0) / 100.0 + " X");
         TextView close = myDialog.findViewById(R.id.close);
 
@@ -366,9 +371,9 @@ public class AlertHelper {
     }
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Futures futures) {
         int res[] = new int[2];
-        int mval = futures.getMis();
-        int nval = futures.getNrml();
-        double aprice = futures.getPrice();
+        int mval = Integer.parseInt(futures.getMis());
+        int nval = Integer.parseInt(futures.getNrml());
+        double aprice = Double.parseDouble(futures.getPrice());
         int new_mval = 0, new_nval = 0;
 
         new_mval = (int) ((uprice * (mval)) / aprice);

@@ -70,9 +70,9 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
         //TODO
         SharedPreferences sharedPreferences = getSharedPreferences("prefs",MODE_PRIVATE);
         boolean first = sharedPreferences.getBoolean("first",true);
-//        if(first){
+        if(first){
             showWarning();
-       // }
+       }
 
         loadRewardedVideoAd();
         setAdapter();

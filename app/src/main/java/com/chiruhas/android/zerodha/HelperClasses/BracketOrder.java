@@ -31,7 +31,8 @@ public class BracketOrder {
             new AlertHelper(context).nrml_bo(g.getTradingsymbol(), a[0] + "", a[1] + "", a[2] + "");
 
         } else if (type.equals("cds")) {
-
+            double a[] = cds(g,Double.parseDouble(price),Double.parseDouble(sl), Integer.parseInt(qty), trade_type);
+            new AlertHelper(context).nrml_bo(g.getTradingsymbol(), a[0] + "", a[1] + "", a[2] + "");
         }
 
 
@@ -162,28 +163,7 @@ public class BracketOrder {
 
     public double[] cds(GodModel g, double price, double stoploss, int quantity, String transaction_type) {
 
-//        co_lower = co_lower/100
-//        co_upper = co_upper/100
 //
-//        trigger = price - (co_upper * price)
-//
-//        if stoploss < trigger:
-//        stoploss = trigger
-//else:
-//        trigger = stoploss
-//
-//        x = 0
-//
-//        if transaction_type == 'buy':
-//        x = (price - trigger) * quantity
-//else:
-//        x = (trigger - price) * quantity
-//
-//        y = co_lower * price * quantity
-//
-//        margin = x > y ? x : y
-//        margin = margin + (margin * 0.2)
-
 
 
 
