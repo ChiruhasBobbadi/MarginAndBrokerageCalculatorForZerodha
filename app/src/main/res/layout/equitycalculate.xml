@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_gravity="center"
+    android:layout_margin="16dp"
     android:background="@drawable/ic_cal_bg">
 
 
@@ -41,7 +42,7 @@
         android:id="@+id/amount"
         android:layout_width="191dp"
         android:layout_height="45dp"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="132dp"
         android:layout_marginTop="36dp"
         android:background="@null"
         android:fontFamily="@font/avenir_light"
@@ -71,7 +72,7 @@
         android:id="@+id/price"
         android:layout_width="192dp"
         android:layout_height="43dp"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="132dp"
         android:layout_marginTop="20dp"
         android:background="@null"
         android:fontFamily="@font/avenir_light"
@@ -90,7 +91,7 @@
         android:layout_height="31dp"
         android:layout_marginStart="16dp"
 
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/avenir_light"
         android:text="MIS:3x"
         android:textColor="@color/bg_black"
@@ -103,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="31dp"
 
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/avenir_light"
         android:text="CNC:1x"
@@ -116,10 +117,10 @@
         android:id="@+id/misqty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="16dp"
 
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/aileron_semibold"
         android:text=""
         android:textAlignment="center"
@@ -135,8 +136,8 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/aileron_semibold"
         android:text=""
         android:textAlignment="center"
@@ -161,16 +162,17 @@
         android:layout_width="94dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_calculate_btn"
         android:elevation="10dp"
         android:fontFamily="@font/avenir_light"
         android:text="Calculate"
         android:textColor="@color/bg_white"
-        app:layout_constraintEnd_toStartOf="@+id/mis_mux2"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toEndOf="@+id/mis_mux"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <androidx.constraintlayout.widget.Guideline

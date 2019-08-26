@@ -21,9 +21,5 @@
 
 
     <string name = "commodity_reward">ca-app-pub-3940256099942544/5224354917</string>
-    <!--<string name="equitybookmark_banner">x</string>-->
 
-    <!--<string name="margin_banner">x</string>-->
-    <!--<string name="brokerage_banner">x</string>-->
-    <!--<string name="brokerage_banner_currency">x</string>-->
 </resources>
