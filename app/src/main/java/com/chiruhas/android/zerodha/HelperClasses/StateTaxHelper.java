@@ -107,6 +107,18 @@ public class StateTaxHelper {
                 }
 
             }
+            else if(type.equals("C0") || type.equals("C1")) {
+                per = (turnover * m.getCom1()) / 100;
+                if (per > m.getCom2()) {
+                    if (m.getCom2() == 0)
+                        tax = per;
+                    else tax = m.getCom2();
+
+                    per = tax;
+
+                }
+            }
+
         }
         /**
          * Currency OPTIONS Still under Development
@@ -121,16 +133,9 @@ public class StateTaxHelper {
 //                    per = tax;
 //                }
 
-        else if (type.startsWith("c")) {
-            per = (turnover * m.getCom1()) / 100;
-            if (per > m.getCom2()) {
-                if (m.getCom2() == 0)
-                    tax = per;
-                else tax = m.getCom2();
 
-                per = tax;
-            }
-        }
+
+
 
         return per;
     }

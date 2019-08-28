@@ -33,6 +33,7 @@
     <string name="title_activity_bracket">BracketActivity</string>
 
     <string name="bracket_order">Bracket\nOrder</string>
+    <string name="title_activity_currency">CurrencyActivity</string>
     <string-array name="states">
         <item>Select State</item>
         <item>Andhra Pradesh</item>
@@ -58,6 +59,5 @@
         <item>Others</item>
 
     </string-array>
-    <string name="title_activity_currency">CurrencyActivity</string>
 
 </resources>

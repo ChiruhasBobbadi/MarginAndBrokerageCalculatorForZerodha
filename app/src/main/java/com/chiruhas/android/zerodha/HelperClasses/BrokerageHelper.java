@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -17,7 +18,9 @@ import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,48 @@ public class BrokerageHelper {
     TextView pl;
     ListView list;
     String state;
+    int lot_size=0;
+    AutoCompleteTextView auto;
+
+    private Map<String, Integer> map = new HashMap<>();
+
+    public void setMap() {
+
+        map.put("ALUMINI", 1000);
+        map.put("ALUMINIUM", 5000);
+        map.put("BRASSPHY", 1000);
+        map.put("CARDAMOM", 100);
+        map.put("CASTORSEED", 1000);
+        map.put("COPPER", 1000);
+        map.put("COPPERM", 250);
+        map.put("COTTON", 25);
+        map.put("CPO", 1000);
+        map.put("CRUDEOIL", 100);
+
+        map.put("CRUDEOILM", 10);
+        map.put("GOLD", 100);
+        map.put("GOLDGUINEA", 1);
+        map.put("GOLDM", 10);
+        map.put("GOLDPETAL", 1);
+        map.put("LEAD", 5000);
+        map.put("LEADMINI", 1000);
+        map.put("MENTHAOIL", 360);
+        map.put("NATURALGAS", 1250);
+        map.put("NICKEL", 250);
+        map.put("NICKELM", 100);
+        map.put("PEPPER", 10);
+        map.put("RBDPMOLEIN", 1000);
+        map.put("SILVER", 30);
+        map.put("SILVERM", 5);
+
+        map.put("SILVERMIC", 1);
+        map.put("ZINC", 5000);
+        map.put("ZINCINI", 1000);
+    }
+
     // Brokerage function here
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
@@ -46,6 +90,7 @@ public class BrokerageHelper {
         bse = view.findViewById(R.id.bse);
         pl = view.findViewById(R.id.pl);
         list = view.findViewById(R.id.list);
+
         ArrayList<String> a = new ArrayList<>();
 
         list.setOnTouchListener(new View.OnTouchListener() {
@@ -62,23 +107,37 @@ public class BrokerageHelper {
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
-        int q = Integer.parseInt(qty.getText().toString());
+        int q = Integer.parseInt(qty.getText().toString().trim());
 
-        if (type == 'C' && position == 0) {
-            b *= 1000;
-            s *= 1000;
+        if(type=='C')
+            q=q*1000;
+        // calculating effective quantity for commodity
+
+        if(type=='c'){
+            auto = view.findViewById(R.id.auto_text);
+                setMap();
+                lot_size = map.get(auto.getText().toString().trim());
+                q= Integer.parseInt((lot_size*Integer.parseInt(qty.getText().toString())+""));
+
         }
+
+
 
         String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ", "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
 
 
         // flag for checking nse or bse
-        boolean flag = false;
+
+        //considering commodity txn charges in nse place holder.
+        //TODO
+        boolean flag = true;
         double data[] = calculate(b, s, q, findType(position, type));
         double total_tax = 0;
+        int id=-1;
         List lst = new ArrayList();
 
-        int id = rg.getCheckedRadioButtonId();
+        if(type!='c')
+         id= rg.getCheckedRadioButtonId();
 
         switch (id) {
             case R.id.nse:
@@ -86,6 +145,8 @@ public class BrokerageHelper {
                 break;
             case R.id.bse:
                 flag = false;
+                break;
+            case -1:
                 break;
         }
 
@@ -155,20 +216,7 @@ public class BrokerageHelper {
     }
 
 
-    public void brokerageCalculate(Context context, View view, List<GodModel> list) {
 
-        int pos = 0;
-        // lot size is decided by the pos selected by user from spinner
-
-        String lot = list.get(pos).getLotsize();
-        String name = list.get(pos).getTradingsymbol();
-
-        String splits[] = lot.split(" ");
-
-        int effective = getEffective(splits[0], splits[1]);
-
-
-    }
 
     int getEffective(String qty, String metric) {
 
@@ -194,7 +242,7 @@ public class BrokerageHelper {
      *             E1 indicates Equity Delivery
      *             E2 indicates Equity Futures
      *             E3 indicate Equity Options
-     *             CU0 indicates Currenxy Futures
+     *             CU0 indicates Currency Futures
      *             CU1 indicates Currency Options
      *             C0 indicates Commodity Futures
      *             C1 indicates Commodity Options
@@ -260,28 +308,28 @@ public class BrokerageHelper {
                 c[4] = 0;
                 c[5] = 18;
             }
-        }
-
-        /**
-         * for commodity since there is no NSE and BSE consider it as nse to maintain the flow
-         */
-        else if (type.startsWith("c")) {
-            if (type.equals("c0")) {
+            /**
+             * for commodity since there is no NSE and BSE consider it as nse to maintain the flow
+             */
+            else if (type.equals("C0")) {
                 c[0] = 0.01;
-                c[1] = 0;
-                c[2] = 0.04;
+                c[1] = 0.01;
+                c[2] = 0.0026;
                 c[3] = 0;
                 c[4] = 0;
                 c[5] = 18;
-            } else if (type.equals("c1")) {
+            } else if (type.equals("C1")) {
                 c[0] = 0.01;
-                c[1] = 0;
-                c[2] = 0.04;
+                c[1] = 0.05;
+                c[2] = 0;
                 c[3] = 0;
                 c[4] = 0;
                 c[5] = 18;
             }
         }
+
+
+
 
 
         return c;
@@ -321,7 +369,7 @@ public class BrokerageHelper {
         if (type.equals("E3"))
             brokerage = 40;
 
-
+        //TODO
         tax[1] = brokerage;
         double stt = 0;
 
@@ -330,6 +378,7 @@ public class BrokerageHelper {
             stt = ((per[1] * buy_amt) / 100) + ((per[1] * sell_amt) / 100);
         else
             stt = ((per[1]) * sell_amt) / 100;
+
 
 
         tax[2] = stt;
@@ -342,9 +391,9 @@ public class BrokerageHelper {
         // clearing charge
         //tax[5] = tax[0] * per[4] / 100;
         tax[5] = 0;
-        if (type.equals("c1")) {
-            tax[5] = ((buy_amt + sell_amt) * 200) / 10000000;
-        }
+//        if (type.equals("C1")) {
+//            tax[5] = ((buy_amt + sell_amt) * 200) / 10000000;
+//        }
 
         double gst = (((brokerage + tax[3]) * 18) / 100);
         tax[6] = gst;
@@ -385,7 +434,10 @@ public class BrokerageHelper {
             else if (pos == 1)
                 type = "CU1";
         } else if (ty == 'c') {
-
+            if (pos == 0)
+                type = "C0";
+            else if (pos == 1)
+                type = "C1";
         }
 
 

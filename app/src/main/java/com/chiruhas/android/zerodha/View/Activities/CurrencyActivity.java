@@ -78,6 +78,7 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
         //original
 //        videoAd.loadAd("ca-app-pub-4351116683020455/7888851318",
 //                new AdRequest.Builder().build());
+//    }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

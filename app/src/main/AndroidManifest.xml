@@ -35,7 +35,7 @@
             android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".View.Brokerage.commodity.commodityBrokerageActivity"
+            android:name=".View.Brokerage.commodity.CommodityBrokerageActivity"
             android:label="@string/title_activity_commodity_brokerage"
             android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

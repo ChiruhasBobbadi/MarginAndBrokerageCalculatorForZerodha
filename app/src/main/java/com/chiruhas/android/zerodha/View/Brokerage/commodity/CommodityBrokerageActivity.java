@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.chiruhas.android.zerodha.R;
 
-public class commodityBrokerageActivity extends AppCompatActivity implements CommBrokerageFrag.OnFragmentInteractionListener {
+public class CommodityBrokerageActivity extends AppCompatActivity implements CommBrokerageFrag.OnFragmentInteractionListener {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -86,9 +86,10 @@ public class commodityBrokerageActivity extends AppCompatActivity implements Com
             Fragment fragment = new CommBrokerageFrag();
             switch (position){
                 case 0:
-                    fragment =  new CommBrokerageFrag();
+                   fragment = new CommBrokerageFrag();
                     break;
                 case 1:
+                    fragment =  new CommodityOptionsBrokerageFragment();
                     break;
             }
 

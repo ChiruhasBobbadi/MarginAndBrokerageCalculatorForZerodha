@@ -100,7 +100,7 @@ public class EquityBrokerageFragment extends Fragment {
       cal.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              if(buy.getText().toString().isEmpty() || !buy.getText().toString().startsWith(".") || sell.getText().toString().isEmpty() || !sell.getText().toString().startsWith(".")  || qty.getText().toString().isEmpty())
+              if(buy.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().isEmpty() || sell.getText().toString().startsWith(".")  || qty.getText().toString().isEmpty())
                   Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
 
               else

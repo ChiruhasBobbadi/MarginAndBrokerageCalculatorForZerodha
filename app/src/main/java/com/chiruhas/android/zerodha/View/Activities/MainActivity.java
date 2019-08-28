@@ -2,7 +2,8 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
-import com.chiruhas.android.zerodha.View.Brokerage.commodity.commodityBrokerageActivity;
+import com.chiruhas.android.zerodha.View.Brokerage.commodity.CommodityBrokerageActivity;
+
 import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
 import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                         Intent intent2 = new Intent(Intent.ACTION_SENDTO);
                         intent2.setType("text/plain");
                         intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
-                        intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request");
+                        intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request version 2.0.2");
                         //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
                         startActivity(Intent.createChooser(intent2, "Send Email"));
                         break;
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
             case R.id.commodity:
                 //startActivity(new Intent(MainActivity.this, commodityBrokerageActivity.class));
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, CommodityBrokerageActivity.class));
                 break;
 
             case R.id.currency:
