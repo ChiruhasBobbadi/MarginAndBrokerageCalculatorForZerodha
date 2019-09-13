@@ -78,108 +78,110 @@ public class CommBrokerageFrag extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_comm_brokerage, container, false);
-        final View tview = view;
-        buy = view.findViewById(R.id.buy);
-        sell = view.findViewById(R.id.sell);
-        qty = view.findViewById(R.id.lot);
-        spinner = view.findViewById(R.id.states);
-        Button cal = view.findViewById(R.id.calculate);
-        auto = view.findViewById(R.id.auto_text);
+        try {
+            AdViewHelper.loadBanner(view);
+            final View tview = view;
+            buy = view.findViewById(R.id.buy);
+            sell = view.findViewById(R.id.sell);
+            qty = view.findViewById(R.id.lot);
+            spinner = view.findViewById(R.id.states);
+            Button cal = view.findViewById(R.id.calculate);
+            auto = view.findViewById(R.id.auto_text);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-
-        viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
-            @Override
-            public void onChanged(List<Commodity> godModels) {
-                list = godModels;
-                String lst[] = NameExtractHelper.commodityName(list);
-
-                if (godModels.isEmpty()) {
-                    Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
-
-                auto.setAdapter(adapter);
-                Log.d(TAG, "onChanged: Sucess");
-            }
-        });
-
-        auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-                String str = auto.getText().toString().trim();
+            viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
+                @Override
+                public void onChanged(List<Commodity> godModels) {
+                    list = godModels;
+                    String lst[] = NameExtractHelper.commodityName(list);
 
-                for (Commodity c : list) {
-                    if (c.getScrip().equals(str)) {
-                        commodity = c;
-                        break;
+                    if (godModels.isEmpty()) {
+                        Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
                     }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
+
+                    auto.setAdapter(adapter);
+                    Log.d(TAG, "onChanged: Sucess");
                 }
+            });
+
+            auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    String str = auto.getText().toString().trim();
+
+                    for (Commodity c : list) {
+                        if (c.getScrip().equals(str)) {
+                            commodity = c;
+                            break;
+                        }
+                    }
 
 
 //
 
-            }
-        });
+                }
+            });
 
 
-        spinner.setAdapter(adapter);
-        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
-            }
-        });
+            spinner.setAdapter(adapter);
+            spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
+                }
+            });
 
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
-                String s = parentView.getItemAtPosition(position).toString();
-                state = s;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-
-        cal.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-
-                if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith(".") ||list.isEmpty()||commodity==null ){
-                    if(list.isEmpty())
-                        Toast.makeText(getContext(), "Requires Internet Connection..", Toast.LENGTH_SHORT).show();
-                        else
-                    Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
+                    String s = parentView.getItemAtPosition(position).toString();
+                    state = s;
                 }
 
-                else {
-                    if (state.isEmpty() || state.equals("Select State"))
-                        Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                    else {
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
 
-                        new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c', state);
+
+            cal.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+
+                    if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith(".") || list.isEmpty() || commodity == null) {
+                        if (list.isEmpty())
+                            Toast.makeText(getContext(), "Requires Internet Connection..", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
+                    } else {
+                        if (state.isEmpty() || state.equals("Select State"))
+                            Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
+                        else {
+
+                            new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c', state);
+                        }
+
                     }
 
+
                 }
+            });
+        }
+        catch (Exception e){
+            Toast.makeText(getContext(), "Oops Something Happened", Toast.LENGTH_SHORT).show();
+        }
 
-
-            }
-        });
-        AdViewHelper.loadBanner(view);
 
         return view;
 

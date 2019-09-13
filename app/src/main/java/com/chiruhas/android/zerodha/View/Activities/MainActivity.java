@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private ViewPager mViewPager;
     private InterstitialAd bracket, equity;
 
@@ -77,6 +77,17 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
 //        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
 //        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+
+
+
+        equity.loadAd(new AdRequest.Builder().build());
+        equity.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityActivity.class));
+            }
+        });
+
         bracket.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
         bracket.setAdListener(new AdListener() {
@@ -85,13 +96,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, BracketActivity.class));
             }
         });
-        equity.loadAd(new AdRequest.Builder().build());
-        equity.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, EquityActivity.class));
-            }
-        });
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -221,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, CommodityActivity.class));
                 break;
             case R.id.futures:
-               // Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(MainActivity.this, FuturesActivity.class));
 
                 break;
@@ -241,6 +248,12 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     }
 
 
+    public void loadBracketInter(){
+
+    }
+    public void loadEquityInter(){
+
+    }
 //
 
 

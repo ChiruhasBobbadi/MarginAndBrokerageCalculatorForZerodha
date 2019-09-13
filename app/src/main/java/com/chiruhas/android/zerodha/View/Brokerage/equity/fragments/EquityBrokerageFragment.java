@@ -60,6 +60,7 @@ public class EquityBrokerageFragment extends Fragment {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
 
+        AdViewHelper.loadBanner(view);
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
         qty = view.findViewById(R.id.lot);
@@ -113,7 +114,7 @@ public class EquityBrokerageFragment extends Fragment {
 
           }
       });
-        AdViewHelper.loadBanner(view);
+
 
        return view;
 
