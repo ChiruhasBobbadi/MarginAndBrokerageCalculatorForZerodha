@@ -11,9 +11,10 @@ This app solves my problem of frequently calculating margins for intraday stocks
 2. MVVM Architecture
 3. Room Persistence library
 4. Firebase Analytics
-5. Firebase __
-6.
+5. NodeJS Backend
+6. Web Scraping
 
+#Server deployed on AWS 
 
 
 #Things learnt the hard way from this project
@@ -32,3 +33,5 @@ Happy Trading :)
 
 
 Check out this app on playstore :!
+
+https://play.google.com/store/apps/details?id=com.chiruhas.android.zerodha
