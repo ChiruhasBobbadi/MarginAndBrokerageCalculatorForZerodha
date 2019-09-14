@@ -1,331 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@color/bg_black"
-    android:fillViewport="true"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:padding="5dp">
+
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/rounded_calculate_btn"
+        android:text="Calculate"
+        android:textColor="@color/bg_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reset"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/rounded_calculate_btn"
+        android:text="Reset"
+        android:textColor="@color/bg_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:backgroundTint="@color/bg_blue"
+        android:hint="Ex : 150.5"
+        android:inputType="numberDecimal"
+        android:textColor="@color/bg_white"
+        android:textColorHint="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/qty"
+        android:layout_width="99dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="260dp"
+        android:backgroundTint="@color/bg_blue"
+        android:hint="Ex : 1500"
+        android:inputType="number"
+        android:textColor="@color/bg_white"
+        android:textColorHint="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/sl"
+        android:layout_width="75dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="@color/bg_blue"
+        android:hint="Ex : 1.8"
+        android:inputType="numberDecimal"
+        android:textColor="@color/bg_white"
+        android:textColorHint="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/brokerage_bg"
-        android:padding="5dp">
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
 
-        <Button
-            android:id="@+id/calculate"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp">
+
+        <RadioButton
+            android:id="@+id/equity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="76dp"
-            android:layout_marginBottom="200dp"
-            android:background="@drawable/rounded_calculate_btn"
-            android:text="Calculate"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="@color/bg_blue"
+            android:checked="true"
+            android:text="EQUITY"
             android:textColor="@color/bg_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/reset"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textSize="18sp"
 
-        <Button
-            android:id="@+id/reset"
+            />
+
+        <RadioButton
+            android:id="@+id/mcx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="68dp"
-            android:layout_marginBottom="200dp"
-            android:background="@drawable/rounded_calculate_btn"
-            android:text="Reset"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="@color/bg_blue"
+            android:text="MCX"
             android:textColor="@color/bg_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.984"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
-            android:backgroundTint="@color/bg_blue"
-            android:hint="Ex : 150.5"
-            android:inputType="numberDecimal"
-            android:textColor="@color/bg_white"
-            android:textColorHint="#808080"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <EditText
-            android:id="@+id/qty"
-            android:layout_width="99dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="260dp"
-            android:backgroundTint="@color/bg_blue"
-            android:hint="Ex : 1500"
-            android:inputType="number"
-            android:textColor="@color/bg_white"
-            android:textColorHint="#808080"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.337"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <EditText
-            android:id="@+id/sl"
-            android:layout_width="75dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="44dp"
-            android:backgroundTint="@color/bg_blue"
-            android:hint="Ex : 1.8"
-            android:inputType="numberDecimal"
-            android:textColor="@color/bg_white"
-            android:textColorHint="#808080"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.593"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:layout_editor_absoluteX="0dp">
-
-            <RadioButton
-                android:id="@+id/equity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/bg_blue"
-                android:checked="true"
-                android:text="EQUITY"
-                android:textColor="@color/bg_white"
-                android:textSize="18sp"
-
-                />
-
-            <RadioButton
-                android:id="@+id/mcx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/bg_blue"
-                android:text="MCX"
-                android:textColor="@color/bg_white"
-                android:textSize="18sp" />
-
-            <RadioButton
-                android:id="@+id/nfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/bg_blue"
-                android:text="NFO"
-                android:textColor="@color/bg_white"
-                android:textSize="18sp" />
-
-            <RadioButton
-                android:id="@+id/cds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/bg_blue"
-                android:text="CDS"
-                android:textColor="@color/bg_white"
-                android:textSize="18sp" />
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/radioGroup2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qty">
-
-            <RadioButton
-                android:id="@+id/buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:buttonTint="@color/bg_blue"
-                android:checked="true"
-                android:text="Buy"
-                android:textColor="@color/bg_white"
-                android:textSize="20sp" />
-
-            <RadioButton
-                android:id="@+id/sell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="75dp"
-                android:buttonTint="@color/bg_blue"
-                android:text="Sell"
-                android:textColor="@color/bg_white"
-                android:textSize="20sp" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView"
+        <RadioButton
+            android:id="@+id/nfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="8dp"
-            android:text="Segment"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="@color/bg_blue"
+            android:text="NFO"
             android:textColor="@color/bg_white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <RadioButton
+            android:id="@+id/cds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Symbol"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="@color/bg_blue"
+            android:text="CDS"
             android:textColor="@color/bg_white"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView3"
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qty">
+
+        <RadioButton
+            android:id="@+id/buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Price"
+            android:layout_marginLeft="0dp"
+            android:buttonTint="@color/bg_blue"
+            android:checked="true"
+            android:text="Buy"
             android:textColor="@color/bg_white"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/auto_text" />
+            android:textSize="20sp" />
 
-
-        <TextView
-            android:id="@+id/textView8"
+        <RadioButton
+            android:id="@+id/sell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Quantity"
+            android:layout_marginLeft="75dp"
+            android:buttonTint="@color/bg_blue"
+            android:text="Sell"
             android:textColor="@color/bg_white"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+            android:textSize="20sp" />
+    </RadioGroup>
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="Stop Loss (Abs Val)"
-            android:textColor="@color/bg_white"
-            android:textSize="20sp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:text="Segment"
+        android:textColor="@color/bg_white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.69"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Symbol"
+        android:textColor="@color/bg_white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-        <TextView
-            android:id="@+id/lot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Lot Size :"
-            android:textColor="#808080"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.007"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qty"
-            app:layout_constraintVertical_bias="0.0" />
-
-
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/auto_text"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="45dp"
-
-            android:layout_marginTop="8dp"
-
-            android:layout_marginEnd="45dp"
-            android:backgroundTint="@color/bg_blue"
-            android:completionThreshold="1"
-            android:textColor="@color/bg_white"
-            android:textColorHint="@color/bg_white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.055"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="8dp"
-            app:adSize="BANNER"
-            app:adUnitId="@string/margin_banner"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintVertical_bias="0.73" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Price"
+        android:textColor="@color/bg_white"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auto_text" />
 
 
-</ScrollView>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Quantity"
+        android:textColor="@color/bg_white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="Stop Loss (Abs Val)"
+        android:textColor="@color/bg_white"
+        android:textSize="20sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <TextView
+        android:id="@+id/lot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Lot Size :"
+        android:textColor="#808080"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qty"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/auto_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="45dp"
+
+        android:layout_marginTop="8dp"
+
+        android:layout_marginEnd="45dp"
+        android:backgroundTint="@color/bg_blue"
+        android:completionThreshold="1"
+        android:textColor="@color/bg_white"
+        android:textColorHint="@color/bg_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        app:adSize="BANNER"
+        app:adUnitId="@string/margin_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintVertical_bias="0.738" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
