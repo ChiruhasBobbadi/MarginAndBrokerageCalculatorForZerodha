@@ -13,18 +13,17 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.chiruhas.android.zerodha.Model.Equity.GodModel;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.chiruhas.android.zerodha.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class BrokerageHelper {
 
@@ -35,7 +34,7 @@ public class BrokerageHelper {
     TextView pl;
     ListView list;
     String state;
-    int lot_size=0;
+    int lot_size = 0;
     AutoCompleteTextView auto;
 
     private Map<String, Integer> map = new HashMap<>();
@@ -77,7 +76,6 @@ public class BrokerageHelper {
     // Brokerage function here
 
 
-
     @SuppressLint("ClickableViewAccessibility")
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
@@ -109,18 +107,21 @@ public class BrokerageHelper {
         double s = Double.parseDouble(sell.getText().toString());
         int q = Integer.parseInt(qty.getText().toString().trim());
 
-        if(type=='C')
-            q=q*1000;
+        if (type == 'C')
+            q = q * 1000;
         // calculating effective quantity for commodity
 
-        if(type=='c'){
+        if (type == 'c') {
             auto = view.findViewById(R.id.auto_text);
-                setMap();
+            setMap();
+            try {
                 lot_size = map.get(auto.getText().toString().trim());
-                q= Integer.parseInt((lot_size*Integer.parseInt(qty.getText().toString())+""));
+                q = Integer.parseInt((lot_size * Integer.parseInt(qty.getText().toString()) + ""));
+            } catch (Exception e) {
+                Toast.makeText(context, "Oops something happened, please try again... ", Toast.LENGTH_SHORT).show();
+            }
 
         }
-
 
 
         String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ", "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
@@ -133,11 +134,11 @@ public class BrokerageHelper {
         boolean flag = true;
         double data[] = calculate(b, s, q, findType(position, type));
         double total_tax = 0;
-        int id=-1;
+        int id = -1;
         List lst = new ArrayList();
 
-        if(type!='c')
-         id= rg.getCheckedRadioButtonId();
+        if (type != 'c')
+            id = rg.getCheckedRadioButtonId();
 
         switch (id) {
             case R.id.nse:
@@ -216,21 +217,6 @@ public class BrokerageHelper {
     }
 
 
-
-
-    int getEffective(String qty, String metric) {
-
-        int q = Integer.parseInt(qty);
-        int effective;
-        effective = q;
-        if (metric.equals("MT"))
-            effective = q * 1000;
-
-
-        return effective;
-
-
-    }
 
 
     /**
@@ -329,9 +315,6 @@ public class BrokerageHelper {
         }
 
 
-
-
-
         return c;
     }
 
@@ -378,7 +361,6 @@ public class BrokerageHelper {
             stt = ((per[1] * buy_amt) / 100) + ((per[1] * sell_amt) / 100);
         else
             stt = ((per[1]) * sell_amt) / 100;
-
 
 
         tax[2] = stt;

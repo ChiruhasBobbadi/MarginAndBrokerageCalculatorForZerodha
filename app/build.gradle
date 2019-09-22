@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.chiruhas.android.zerodha"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 14
-        versionName "2.0.3"
+        versionCode 16
+        versionName "2.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "en"
     }
@@ -28,6 +28,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -67,6 +68,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.0'
 
     implementation "com.vorlonsoft:androidrate:1.2.1"
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

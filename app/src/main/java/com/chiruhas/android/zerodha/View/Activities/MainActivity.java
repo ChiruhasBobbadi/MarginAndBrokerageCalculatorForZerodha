@@ -1,25 +1,15 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
-import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
-import com.chiruhas.android.zerodha.View.Brokerage.commodity.CommodityBrokerageActivity;
-
-import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
-import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
-import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -27,16 +17,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
+import com.chiruhas.android.zerodha.View.Brokerage.commodity.CommodityBrokerageActivity;
+import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
+import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
+import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.vorlonsoft.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity implements MarginFragment.OnFragmentInteractionListener, BrokerageFragment.OnFragmentInteractionListener {
@@ -70,14 +62,13 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         equity = new InterstitialAd(this);
 
         //test
-        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
-
+        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
 
 
         equity.loadAd(new AdRequest.Builder().build());
@@ -96,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, BracketActivity.class));
             }
         });
-
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -133,10 +122,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 switch (menuItem.getItemId()) {
-//                    case R.id.book:
-//                        // open bookmark Activity
-//                        //startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
-//                        break;
+
 
                     case R.id.pp:
                         String url = "http://chiruhas.in/privacy_policy.html";
@@ -175,10 +161,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-       //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
+        MobileAds.initialize(this, "ca-app-pub-4351116683020455~8691946225");
 //
         // test
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
 
     }
@@ -246,15 +232,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 break;
         }
     }
-
-
-    public void loadBracketInter(){
-
-    }
-    public void loadEquityInter(){
-
-    }
-//
 
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
