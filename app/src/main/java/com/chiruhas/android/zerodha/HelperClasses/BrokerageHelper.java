@@ -3,7 +3,6 @@ package com.chiruhas.android.zerodha.HelperClasses;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -45,8 +44,8 @@ public class BrokerageHelper {
         map.put("ALUMINIUM", 5000);
         map.put("BRASSPHY", 1000);
         map.put("CARDAMOM", 100);
-        map.put("CASTORSEED", 1000);
-        map.put("COPPER", 1000);
+        map.put("CASTORSEED", 100);
+        map.put("COPPER", 2500);
         map.put("COPPERM", 250);
         map.put("COTTON", 25);
         map.put("CPO", 1000);
@@ -57,6 +56,7 @@ public class BrokerageHelper {
         map.put("GOLDGUINEA", 1);
         map.put("GOLDM", 10);
         map.put("GOLDPETAL", 1);
+        map.put("KAPAS", 200);
         map.put("LEAD", 5000);
         map.put("LEADMINI", 1000);
         map.put("MENTHAOIL", 360);
@@ -70,7 +70,7 @@ public class BrokerageHelper {
 
         map.put("SILVERMIC", 1);
         map.put("ZINC", 5000);
-        map.put("ZINCINI", 1000);
+        map.put("ZINCMINI", 1000);
     }
 
     // Brokerage function here
@@ -89,16 +89,12 @@ public class BrokerageHelper {
         pl = view.findViewById(R.id.pl);
         list = view.findViewById(R.id.list);
 
-        ArrayList<String> a = new ArrayList<>();
 
-        list.setOnTouchListener(new View.OnTouchListener() {
-            // Setting on Touch Listener for handling the touch inside ScrollView
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // Disallow the touch request for parent scroll on touch of child view
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
+        // Setting on Touch Listener for handling the touch inside ScrollView
+        list.setOnTouchListener((v, event) -> {
+            // Disallow the touch request for parent scroll on touch of child view
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            return false;
         });
 
         state = states;
@@ -132,7 +128,10 @@ public class BrokerageHelper {
         //considering commodity txn charges in nse place holder.
         //TODO
         boolean flag = true;
-        double data[] = calculate(b, s, q, findType(position, type));
+        String types = findType(position, type);
+        double data[] = new double[10];
+        if (types.equals("C0") || types.equals("C1"))
+            data = calculate(b, s, q, types, auto.getText().toString().trim());
         double total_tax = 0;
         int id = -1;
         List lst = new ArrayList();
@@ -215,8 +214,6 @@ public class BrokerageHelper {
         }
 
     }
-
-
 
 
     /**
@@ -365,6 +362,66 @@ public class BrokerageHelper {
 
         tax[2] = stt;
 
+
+        tax[3] = ((per[2] * buy_amt) / 100) + ((per[2] * sell_amt) / 100);
+        tax[4] = ((per[3] * buy_amt) / 100) + (((per[3]) * sell_amt) / 100);
+
+        //TODO
+        // clearing charge
+        //tax[5] = tax[0] * per[4] / 100;
+        tax[5] = 0;
+//        if (type.equals("C1")) {
+//            tax[5] = ((buy_amt + sell_amt) * 200) / 10000000;
+//        }
+
+        double gst = (((brokerage + tax[3]) * 18) / 100);
+        tax[6] = gst;
+        gst = (((brokerage + tax[4]) * 18) / 100);
+        tax[7] = gst;
+
+        double sebi = ((buy_amt * 15) + (sell_amt * 15)) / (10000000);
+
+        tax[8] = sebi;
+
+        // fetching data
+        tax[9] = StateTaxHelper.stampDuty(type, tax[0], state);
+
+        return tax;
+    }
+
+    // overloaded method for commodity
+    public double[] calculate(double buy, double sell, int qty, String type, String scrip) {
+
+        double per[] = details(buy, sell, qty, type);
+
+        double buy_amt = buy * qty;
+        double sell_amt = sell * qty;
+        double tax[] = new double[10];
+
+        // checking if it is currency futures
+
+        double brokerage = (buy_amt * per[0]) / 100 > 20 ? 20 : (buy_amt * per[0]) / 100;
+        brokerage += (sell_amt * per[0]) / 100 > 20 ? 20 : (sell_amt * per[0]) / 100;
+
+        tax[0] = (buy_amt + sell_amt);
+
+
+        //TODO
+        tax[1] = brokerage;
+        double stt = 0;
+
+        if(scrip.equalsIgnoreCase("kapas"))
+            per[1]=0.001;
+        stt = ((per[1]) * sell_amt) / 100;
+
+
+        tax[2] = stt;
+
+
+        if (scrip.equalsIgnoreCase("KAPAS") || scrip.equalsIgnoreCase("CASTORSEED"))
+            per[2] = 0.0005;
+        else if (scrip.equalsIgnoreCase("PEPPER"))
+            per[2] = 0.00005;
 
         tax[3] = ((per[2] * buy_amt) / 100) + ((per[2] * sell_amt) / 100);
         tax[4] = ((per[3] * buy_amt) / 100) + (((per[3]) * sell_amt) / 100);

@@ -62,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         equity = new InterstitialAd(this);
 
         //test
-//        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
+//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
 
 
         equity.loadAd(new AdRequest.Builder().build());
@@ -117,54 +117,51 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
         navigationView.setCheckedItem(R.id.home);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
 
-                switch (menuItem.getItemId()) {
+            switch (menuItem.getItemId()) {
 
 
-                    case R.id.pp:
-                        String url = "http://chiruhas.in/privacy_policy.html";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        startActivity(i);
-                        break;
+                case R.id.pp:
+                    String url = "http://chiruhas.in/privacy_policy.html";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                    break;
 
-                    case R.id.about:
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                        break;
-                    case R.id.feedback:
-                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                        try {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                        }
-                        break;
-                    case R.id.feature:
+                case R.id.about:
+                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    break;
+                case R.id.feedback:
+                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                    break;
+                case R.id.feature:
 
-                        Intent intent2 = new Intent(Intent.ACTION_SENDTO);
-                        intent2.setType("text/plain");
-                        intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
-                        intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request version 2.0.2");
-                        //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
-                        startActivity(Intent.createChooser(intent2, "Send Email"));
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-
-                return true;
+                    Intent intent2 = new Intent(Intent.ACTION_SENDTO);
+                    intent2.setType("text/plain");
+                    intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
+                    intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request version 2.0.8");
+                    //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
+                    startActivity(Intent.createChooser(intent2, "Send Email"));
+                    break;
             }
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            return true;
         });
 
         //add initialization
 
         // original
-        MobileAds.initialize(this, "ca-app-pub-4351116683020455~8691946225");
+        //MobileAds.initialize(this, "ca-app-pub-4351116683020455~8691946225");
 //
         // test
-        //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
 
     }

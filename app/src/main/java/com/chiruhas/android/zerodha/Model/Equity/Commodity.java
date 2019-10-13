@@ -1,9 +1,6 @@
 package com.chiruhas.android.zerodha.Model.Equity;
 
-import androidx.annotation.NonNull;
 
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 
 //public class Commodity {
