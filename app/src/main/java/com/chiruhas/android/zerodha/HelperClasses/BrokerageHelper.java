@@ -3,13 +3,13 @@ package com.chiruhas.android.zerodha.HelperClasses;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,21 +24,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.ContentValues.TAG;
+
 public class BrokerageHelper {
 
-
-    EditText buy, sell, qty;
-    RadioGroup rg;
-    RadioButton nse, bse;
-    TextView pl;
-    ListView list;
-    String state;
-    int lot_size = 0;
-    AutoCompleteTextView auto;
+    private EditText percent;
+    private String state;
+    private AutoCompleteTextView auto;
 
     private Map<String, Integer> map = new HashMap<>();
 
-    public void setMap() {
+    private void setMap() {
 
         map.put("ALUMINI", 1000);
         map.put("ALUMINIUM", 5000);
@@ -80,14 +76,16 @@ public class BrokerageHelper {
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
 
-        buy = view.findViewById(R.id.buy);
-        sell = view.findViewById(R.id.sell);
-        qty = view.findViewById(R.id.lot);
-        rg = view.findViewById(R.id.rgroup);
-        nse = view.findViewById(R.id.nse);
-        bse = view.findViewById(R.id.bse);
-        pl = view.findViewById(R.id.pl);
-        list = view.findViewById(R.id.list);
+        EditText buy = view.findViewById(R.id.buy);
+        EditText sell = view.findViewById(R.id.sell);
+        EditText qty = view.findViewById(R.id.lot);
+        RadioGroup rg = view.findViewById(R.id.rgroup);
+
+        percent = view.findViewById(R.id.per);
+
+
+        TextView pl = view.findViewById(R.id.pl);
+        ListView list = view.findViewById(R.id.list);
 
 
         // Setting on Touch Listener for handling the touch inside ScrollView
@@ -111,7 +109,7 @@ public class BrokerageHelper {
             auto = view.findViewById(R.id.auto_text);
             setMap();
             try {
-                lot_size = map.get(auto.getText().toString().trim());
+                int lot_size = map.get(auto.getText().toString().trim());
                 q = Integer.parseInt((lot_size * Integer.parseInt(qty.getText().toString()) + ""));
             } catch (Exception e) {
                 Toast.makeText(context, "Oops something happened, please try again... ", Toast.LENGTH_SHORT).show();
@@ -129,9 +127,13 @@ public class BrokerageHelper {
         //TODO
         boolean flag = true;
         String types = findType(position, type);
-        double data[] = new double[10];
+        double[] data;
         if (types.equals("C0") || types.equals("C1"))
             data = calculate(b, s, q, types, auto.getText().toString().trim());
+        else
+            data = calculate(b, s, q, types);
+
+
         double total_tax = 0;
         int id = -1;
         List lst = new ArrayList();
@@ -230,7 +232,7 @@ public class BrokerageHelper {
      *             C0 indicates Commodity Futures
      *             C1 indicates Commodity Options
      */
-    public double[] details(double buy, double sell, int qty, String type) {
+    private double[] details(String type) {
 
 
         double c[] = new double[6];
@@ -333,7 +335,16 @@ public class BrokerageHelper {
 
     public double[] calculate(double buy, double sell, int qty, String type) {
 
-        double per[] = details(buy, sell, qty, type);
+
+        double per[] = details(type);
+
+        try {
+            if (percent.getVisibility() == View.VISIBLE) {
+                per[0] = Double.parseDouble(percent.getText().toString());
+            }
+        }catch(Exception e){
+            Log.d(TAG, "calculate: exception");
+        }
 
         double buy_amt = buy * qty;
         double sell_amt = sell * qty;
@@ -346,8 +357,6 @@ public class BrokerageHelper {
 
         tax[0] = (buy_amt + sell_amt);
 
-        if (type.equals("E3"))
-            brokerage = 40;
 
         //TODO
         tax[1] = brokerage;
@@ -386,13 +395,20 @@ public class BrokerageHelper {
         // fetching data
         tax[9] = StateTaxHelper.stampDuty(type, tax[0], state);
 
+        if (type.equals("E3"))
+            brokerage = 40;
+        else if(type.equals("E1"))
+            brokerage = 13.5+tax[6]+tax[7];
+
+        tax[1] = brokerage;
+
         return tax;
     }
 
     // overloaded method for commodity
     public double[] calculate(double buy, double sell, int qty, String type, String scrip) {
 
-        double per[] = details(buy, sell, qty, type);
+        double per[] = details(type);
 
         double buy_amt = buy * qty;
         double sell_amt = sell * qty;
@@ -410,8 +426,8 @@ public class BrokerageHelper {
         tax[1] = brokerage;
         double stt = 0;
 
-        if(scrip.equalsIgnoreCase("kapas"))
-            per[1]=0.001;
+        if (scrip.equalsIgnoreCase("kapas"))
+            per[1] = 0.001;
         stt = ((per[1]) * sell_amt) / 100;
 
 
@@ -455,7 +471,7 @@ public class BrokerageHelper {
      * @param ty
      * @return string indicating the type of order
      */
-    public String findType(int pos, char ty) {
+    private String findType(int pos, char ty) {
         String type = "";
         if (ty == 'e') {
             if (pos == 0)

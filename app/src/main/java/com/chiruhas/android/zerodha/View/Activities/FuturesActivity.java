@@ -100,13 +100,11 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
      * Reward video helper method
      */
     private void loadRewardedVideoAd() {
-        // dummy
-        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
+
 
         //original
-//        videoAd.loadAd("ca-app-pub-4351116683020455/7948227926",
-//                new AdRequest.Builder().build());
+        videoAd.loadAd(getResources().getString(R.string.future_reward),
+                new AdRequest.Builder().build());
     }
 //    private void fetchCache() {
 //        futureViewModel = ViewModelProviders.of(this).get(FutureViewModel.class);

@@ -71,13 +71,11 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
      * Reward video helper method
      */
     private void loadRewardedVideoAd() {
-        // dummy
-        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
+
 
         //original
-//        videoAd.loadAd("ca-app-pub-4351116683020455/7888851318",
-//                new AdRequest.Builder().build());
+        videoAd.loadAd(getResources().getString(R.string.currency_reward),
+                new AdRequest.Builder().build());
 //    }
     }
     @Override

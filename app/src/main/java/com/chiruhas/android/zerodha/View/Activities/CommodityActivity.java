@@ -144,13 +144,9 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
     //video add
     private void loadRewardedVideoAd() {
-        // dummy
-        videoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+      //original
+        videoAd.loadAd(getResources().getString(R.string.commodity_reward),
                 new AdRequest.Builder().build());
-
-        //original
-//        videoAd.loadAd("ca-app-pub-4351116683020455/7014753344",
-//                new AdRequest.Builder().build());
     }
 
     // searchview

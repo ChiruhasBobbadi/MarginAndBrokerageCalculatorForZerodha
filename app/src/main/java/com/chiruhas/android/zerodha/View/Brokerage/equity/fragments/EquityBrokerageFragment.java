@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +31,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class EquityBrokerageFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-     int pos=0;
-    String state;
+     private int pos=0;
+    private String state;
 
-    EditText buy,sell,qty;
-    Spinner spinner;
+    private EditText buy;
+    private EditText sell;
+    private EditText qty;
+    private Spinner spinner;
+
     public EquityBrokerageFragment() {
         // Required empty public constructor
 
@@ -61,22 +65,37 @@ public class EquityBrokerageFragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
 
         AdViewHelper.loadBanner(view);
+        RadioGroup rg2 = view.findViewById(R.id.rgroup2);
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
         qty = view.findViewById(R.id.lot);
         spinner = view.findViewById(R.id.states);
+        EditText per = view.findViewById(R.id.per);
+        per.setVisibility(View.GONE);
+
+
+        rg2.setOnCheckedChangeListener((group, checkedId) -> {
+
+            switch (checkedId){
+                case R.id.def:
+                    Log.d(TAG, "onCreateView: def");
+                    per.setVisibility(View.GONE);
+                    break;
+                case R.id.custom:
+                    Log.d(TAG, "onCreateView: cust");
+                    per.setVisibility(View.VISIBLE);
+                    break;
+            }
+        });
+
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.states,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 
         spinner.setAdapter(adapter);
-        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
-            }
-        });
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
 
 
 
@@ -98,21 +117,19 @@ public class EquityBrokerageFragment extends Fragment {
       final View vi = view;
 
       Button cal = view.findViewById(R.id.calculate);
-      cal.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              if(buy.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().isEmpty() || sell.getText().toString().startsWith(".")  || qty.getText().toString().isEmpty())
-                  Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
+      cal.setOnClickListener(v -> {
+          if(buy.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().isEmpty() || sell.getText().toString().startsWith(".")  || qty.getText().toString().isEmpty() || per.getVisibility()== View.VISIBLE && (per.getText().toString().startsWith(".") || per.getText().toString().isEmpty()) )
 
+              Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
+
+          else
+          {
+              if(state.isEmpty() || state.equals("Select State"))
+                  Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
               else
-              {
-                  if(state.isEmpty() || state.equals("Select State"))
-                      Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                  else
-                      new BrokerageHelper().brokerageCalculate(getContext(),vi,pos,'e',state);
-              }
-
+                  new BrokerageHelper().brokerageCalculate(getContext(),vi,pos,'e',state);
           }
+
       });
 
 

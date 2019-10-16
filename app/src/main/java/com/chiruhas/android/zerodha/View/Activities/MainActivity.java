@@ -3,10 +3,8 @@ package com.chiruhas.android.zerodha.View.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -61,14 +59,11 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 
-        //test
-        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+        bracket.setAdUnitId(getResources().getString(R.string.bracket));
+        equity.setAdUnitId(getResources().getString(R.string.equity));
 
 
         equity.loadAd(new AdRequest.Builder().build());
@@ -158,10 +153,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         //add initialization
 
         // original
-        //MobileAds.initialize(this, "ca-app-pub-4351116683020455~8691946225");
-//
-        // test
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, getResources().getString(R.string.app_id));
 
 
     }
