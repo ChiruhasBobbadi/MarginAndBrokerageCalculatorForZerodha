@@ -64,7 +64,7 @@ public class EquityBrokerageFragment extends Fragment {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
 
-        AdViewHelper.loadBanner(view);
+//        AdViewHelper.loadBanner(view);
         RadioGroup rg2 = view.findViewById(R.id.rgroup2);
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);

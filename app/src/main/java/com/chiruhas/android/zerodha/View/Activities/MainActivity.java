@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ViewPager mViewPager;
-    private InterstitialAd bracket, equity;
+    private InterstitialAd bracket, equity, brokerage;
 
 
     @Override
@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 .monitor();                                // Monitors the app launch times
         AppRate.showRateDialogIfMeetsConditions(this);
 
+        brokerage = new InterstitialAd(this);
+
+
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 
@@ -64,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
         bracket.setAdUnitId(getResources().getString(R.string.bracket));
         equity.setAdUnitId(getResources().getString(R.string.equity));
+        brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
+
+        brokerage.loadAd(new AdRequest.Builder().build());
+        brokerage.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+            }
+        });
 
 
         equity.loadAd(new AdRequest.Builder().build());
@@ -172,7 +184,11 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     public void onBrokerageFragment(View v) {
         switch (v.getId()) {
             case R.id.equity:
-                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+                if (brokerage.isLoaded())
+                    brokerage.show();
+
+                else
+                    startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
                 break;
 
             case R.id.commodity:
