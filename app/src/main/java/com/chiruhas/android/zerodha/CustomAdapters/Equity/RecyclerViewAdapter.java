@@ -71,12 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mis.setText("MIS Multiplier : "+model.getMis_multiplier()+"X");
         holder.cnc.setText("CNC Multiplier : 1X");
 
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myListener.onItemClick(model);
-            }
-        });
+        holder.cal.setOnClickListener(view -> myListener.onItemClick(model));
 
 
         //cahnging the image of star based on conditions
@@ -115,9 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onBookmarkUnClick(GodModel GodModel);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-
+     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView scrip,mis,cnc;
         Button cal;

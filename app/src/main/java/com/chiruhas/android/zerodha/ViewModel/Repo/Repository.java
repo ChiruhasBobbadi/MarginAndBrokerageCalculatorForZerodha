@@ -22,7 +22,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Repository {
     Retrofit retrofit;
-    Retrofit retrofit2;
+
     ZerodhaClient zerodhaClient;
 
     MutableLiveData<List<GodModel>> GodModels;

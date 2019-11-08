@@ -66,7 +66,6 @@ public class EquityActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(new RecyclerViewAdapter.ItemListener() {
             @Override
             public void onItemClick(final GodModel item) {
-
                 loadAlert(item);
             }
 
@@ -89,35 +88,29 @@ public class EquityActivity extends AppCompatActivity {
         });
        
         //room data of equity margins
-        equityViewModel.getAll().observe(this, new Observer<List<GodEquity>>() {
-            @Override
-            public void onChanged(List<GodEquity> godEquities) {
-
-                GodModel godModel = new GodModel();
-                List<GodModel> lst = new ArrayList<>();
-                for (GodEquity godEquity : godEquities) {
-                    // GodEquity to God Model
-                    lst.add(new GodModel(godEquity.getMargin(), godEquity.getCo_lower(), godEquity.getMis_multiplier()
-                            , godEquity.getTradingsymbol(), 0.0, godEquity.getCo_upper(), godEquity.getNrml_margin(), godEquity.getMis_margin(), "", ""));
+        equityViewModel.getAll().observe(this, godEquities -> {
 
 
-                }
-                recyclerViewAdapter.setCache(lst);
+            List<GodModel> lst = new ArrayList<>();
+            for (GodEquity godEquity : godEquities) {
+                // GodEquity to God Model
+                lst.add(new GodModel(godEquity.getMargin(), godEquity.getCo_lower(), godEquity.getMis_multiplier()
+                        , godEquity.getTradingsymbol(), 0.0, godEquity.getCo_upper(), godEquity.getNrml_margin(), godEquity.getMis_margin(), "", ""));
+
+
             }
+            recyclerViewAdapter.setCache(lst);
         });
         
         rv.setAdapter(recyclerViewAdapter);
         // retrofit call
         view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchEquity().observe(this, new Observer<List<GodModel>>() {
-            @Override
-            public void onChanged(@Nullable List<GodModel> GodModels) {
-                equity = GodModels;
+        view.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
 
-                recyclerViewAdapter.updateData(GodModels);
+            recyclerViewAdapter.updateData(GodModels);
 
-                bar.setVisibility(View.GONE);
-            }
+            bar.setVisibility(View.GONE);
         });
 
         //TODO
