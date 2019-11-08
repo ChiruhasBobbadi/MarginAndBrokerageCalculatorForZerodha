@@ -56,7 +56,7 @@ public class CurrencyBrokerageFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_currency_brokerage, container, false);
         final View tview = view;
-        AdViewHelper.loadBanner(view);
+       // AdViewHelper.loadBanner(view);
         try{
 
             buy = view.findViewById(R.id.buy);

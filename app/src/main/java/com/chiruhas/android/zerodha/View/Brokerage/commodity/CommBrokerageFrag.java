@@ -73,7 +73,7 @@ public class CommBrokerageFrag extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_comm_brokerage, container, false);
 
-        AdViewHelper.loadBanner(view);
+        //AdViewHelper.loadBanner(view);
         final View tview = view;
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);

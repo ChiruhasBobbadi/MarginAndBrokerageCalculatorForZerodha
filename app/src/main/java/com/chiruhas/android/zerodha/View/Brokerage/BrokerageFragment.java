@@ -48,12 +48,7 @@ BrokerageFragment extends Fragment  {
         View v =  inflater.inflate(R.layout.fragment_brokerage, container, false);
 
         CardView equity = v.findViewById(R.id.equity);
-        equity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onBrokerageFragment(v);
-            }
-        });
+        equity.setOnClickListener(v1 -> mListener.onBrokerageFragment(v1));
 
         return v;
 
