@@ -30,9 +30,9 @@ public class AstaRepository {
     MutableLiveData<List<Currency>> currency ;
     MutableLiveData<List<Futures>> futures ;
 
-    //http://ec2-user@ec2-18-222-28-191.us-east-2.compute.amazonaws.com:5000
+
     public  AstaRepository(){
-        retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.105:5000/astha/").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("http://ec2-user@ec2-18-222-28-191.us-east-2.compute.amazonaws.com:5000/astha/").addConverterFactory(GsonConverterFactory.create()).build();
 
        astaClient= retrofit.create(AstaClient.class);
        equity = new MutableLiveData<>();

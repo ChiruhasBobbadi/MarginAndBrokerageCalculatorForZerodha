@@ -40,7 +40,7 @@ public class EquityActivity extends AppCompatActivity {
     ProgressBar bar;
     List<GodModel> equity = new ArrayList<>();
     //room viewmodel
-    EquityViewModel equityViewModel;
+
     private RadioGroup rg;
 
     @Override
