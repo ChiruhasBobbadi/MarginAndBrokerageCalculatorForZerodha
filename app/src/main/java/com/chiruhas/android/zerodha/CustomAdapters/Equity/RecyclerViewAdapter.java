@@ -42,10 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
 
-    public void setCache(List<GodModel> equity){
-        equitycache=equity;
-       // notifyDataSetChanged();
-    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,27 +66,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.scrip.setText(model.getTradingsymbol());
         holder.mis.setText("MIS Multiplier : "+model.getMis_multiplier()+"X");
-        holder.cnc.setText("CNC Multiplier : 1X");
+        if(model.getNrml_multiplier()==0)
+            model.setNrml_multiplier(1);
+        holder.cnc.setText("CNC Multiplier : "+model.getNrml_multiplier()+"X");
 
         holder.cal.setOnClickListener(view -> myListener.onItemClick(model));
 
 
-        //cahnging the image of star based on conditions
-//        holder.bookmark.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
-//                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
-//                    h.bookmark.setTag(R.drawable.ic_star);
-//                    myListener.onBookmarkClick(model);
-//                }
-//                else{
-//                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
-//                    h.bookmark.setTag(R.drawable.ic_star_border);
-//                    myListener.onBookmarkUnClick(model);
-//                }
-//            }
-//        });
+
 
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
@@ -106,8 +90,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public interface ItemListener {
         void onItemClick(GodModel item);
-        void onBookmarkClick(GodModel GodModel);
-        void onBookmarkUnClick(GodModel GodModel);
+
     }
 
      class ViewHolder extends RecyclerView.ViewHolder {

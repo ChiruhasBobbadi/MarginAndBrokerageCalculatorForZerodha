@@ -59,12 +59,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         holder.price.setText("Price : " + Currency.getPrice());
         holder.scrip.setText(Currency.getScrip());
         holder.expiry.setText(Currency.getExpiry());
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myListener.onItemClick(Currency);
-            }
-        });
+        holder.cal.setOnClickListener(view -> myListener.onItemClick(Currency));
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
                 .repeat(0)

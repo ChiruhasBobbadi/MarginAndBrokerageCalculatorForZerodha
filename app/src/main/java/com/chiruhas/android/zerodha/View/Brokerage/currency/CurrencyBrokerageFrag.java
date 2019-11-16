@@ -70,12 +70,7 @@ public class CurrencyBrokerageFrag extends Fragment {
 
 
             spinner.setAdapter(adapter);
-            spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
-                }
-            });
+            spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
 
 
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -92,21 +87,18 @@ public class CurrencyBrokerageFrag extends Fragment {
             });
 
 
-            cal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith("."))
-                        Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
-                    else {
-                        if (state.isEmpty() || state.equals("Select State"))
-                            Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                        else
-                            new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
-
-                    }
-
+            cal.setOnClickListener(v -> {
+                if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith("."))
+                    Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
+                else {
+                    if (state.isEmpty() || state.equals("Select State"))
+                        Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
+                    else
+                        new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
 
                 }
+
+
             });
 
 

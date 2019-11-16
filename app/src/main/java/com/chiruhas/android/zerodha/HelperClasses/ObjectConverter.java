@@ -53,14 +53,13 @@ public class ObjectConverter {
         return godCommodity;
     }
 
-    public static List<GodModel> godEquitytoGodModel(List<GodEquity> godEquities){
-        List<GodModel> godModels = new ArrayList<>();
-
-        for(GodEquity godEquity : godEquities){
-            // God Equity to God Model
-            godModels.add(new GodModel(godEquity.getMargin(),godEquity.getCo_lower(),godEquity.getMis_multiplier()
-                    ,godEquity.getTradingsymbol(),0.0,godEquity.getCo_upper(),godEquity.getNrml_margin(),godEquity.getMis_margin(),"",""));
-        }
-        return godModels;
-    }
+//    public static List<GodModel> godEquitytoGodModel(List<GodEquity> godEquities){
+//        List<GodModel> godModels = new ArrayList<>();
+//
+//        for(GodEquity godEquity : godEquities){
+//            // God Equity to God Model
+//            godModels.add(new GodModel(godEquity.getMargin(),godEquity.getCo_lower(),godEquity.getMis_multiplier(),godEquity.getTradingsymbol(),godEquity.getCo_upper(),0.0,godEquity.getNrml_margin(),godEquity.getMis_margin(),,"",""));
+//        }
+//        return godModels;
+//    }
 }

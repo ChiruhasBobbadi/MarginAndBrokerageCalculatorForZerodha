@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo;
+package com.chiruhas.android.zerodha.ViewModel.Repo.asta;
 
 import android.util.Log;
 
@@ -21,24 +21,51 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class Repository2 {
+public class AstaRepository {
+
     Retrofit retrofit;
-    ZerodhaClient zerodhaClient;
+   AstaClient astaClient;
+    MutableLiveData<List<GodModel>> equity;
     MutableLiveData<List<Commodity>> commodity ;
     MutableLiveData<List<Currency>> currency ;
     MutableLiveData<List<Futures>> futures ;
 
-  public  Repository2(){
-        retrofit = new Retrofit.Builder().baseUrl("http://ec2-user@ec2-18-222-28-191.us-east-2.compute.amazonaws.com:5000").addConverterFactory(GsonConverterFactory.create()).build();
+    //http://ec2-user@ec2-18-222-28-191.us-east-2.compute.amazonaws.com:5000
+    public  AstaRepository(){
+        retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.105:5000/astha/").addConverterFactory(GsonConverterFactory.create()).build();
 
-        zerodhaClient= retrofit.create(ZerodhaClient.class);
-        commodity= new MutableLiveData<>();
-      currency = new MutableLiveData<>();
-      futures = new MutableLiveData<>();
+       astaClient= retrofit.create(AstaClient.class);
+       equity = new MutableLiveData<>();
+       commodity= new MutableLiveData<>();
+        currency = new MutableLiveData<>();
+        futures = new MutableLiveData<>();
+    }
+
+    public LiveData<List<GodModel>> getEquity(){
+        Call<List<GodModel>> call = astaClient.getEquity();
+        call.enqueue(new Callback<List<GodModel>>() {
+            @Override
+            public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
+                if(!response.isSuccessful()){
+                    Log.d(TAG, "onResponse: Commodity request failed.");
+                    return;
+                }
+                equity.postValue(response.body());
+                Log.d(TAG, "onResponse: commodity");
+            }
+
+            @Override
+            public void onFailure(Call<List<GodModel>> call, Throwable t) {
+                if(t instanceof SocketTimeoutException){
+                    Log.d(TAG, "Socket Time out. Please try again. astha equity");
+                }
+            }
+        });
+        return equity;
     }
 
     public LiveData<List<Commodity>> getCommodity(){
-        Call<List<Commodity>> call = zerodhaClient.getCommodity();
+        Call<List<Commodity>> call = astaClient.getCommodity();
         call.enqueue(new Callback<List<Commodity>>() {
             @Override
             public void onResponse(Call<List<Commodity>> call, Response<List<Commodity>> response) {
@@ -53,7 +80,7 @@ public class Repository2 {
             @Override
             public void onFailure(Call<List<Commodity>> call, Throwable t) {
                 if(t instanceof SocketTimeoutException){
-                    Log.d(TAG, "Socket Time out. Please try again. commodity");
+                    Log.d(TAG, "Socket Time out. Please try again. astha commodity");
                 }
             }
         });
@@ -61,7 +88,7 @@ public class Repository2 {
     }
 
     public LiveData<List<Futures>> getFutures(){
-        Call<List<Futures>> call = zerodhaClient.getFutures();
+        Call<List<Futures>> call = astaClient.getFutures();
         call.enqueue(new Callback<List<Futures>>() {
             @Override
             public void onResponse(Call<List<Futures>> call, Response<List<Futures>> response) {
@@ -80,7 +107,7 @@ public class Repository2 {
     }
 
     public LiveData<List<Currency>> getCurrency(){
-        Call<List<Currency>> call = zerodhaClient.getCurrency();
+        Call<List<Currency>> call = astaClient.getCurrency();
         call.enqueue(new Callback<List<Currency>>() {
             @Override
             public void onResponse(Call<List<Currency>> call, Response<List<Currency>> response) {

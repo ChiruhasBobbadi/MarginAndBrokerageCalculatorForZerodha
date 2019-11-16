@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel;
+package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
 
 import android.app.Application;
 import android.util.Log;
@@ -12,14 +12,14 @@ import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
-import com.chiruhas.android.zerodha.ViewModel.Repo.Repository;
-import com.chiruhas.android.zerodha.ViewModel.Repo.Repository2;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.Repository;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.Repository2;
 
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class ViewModel extends AndroidViewModel {
+public class ZerodhaViewModel extends AndroidViewModel {
     Repository r;
     Repository2 r2;
     LiveData<List<GodModel>> list ;
@@ -27,9 +27,9 @@ public class ViewModel extends AndroidViewModel {
     LiveData<List<Currency>> currency;
     LiveData<List<Futures>> futures;
 
-    public ViewModel(@NonNull Application application) {
+    public ZerodhaViewModel(@NonNull Application application) {
         super(application);
-        r = new Repository();
+            r = new Repository();
         r2 = new Repository2();
         list = r.getEquity();
         
@@ -42,7 +42,7 @@ public class ViewModel extends AndroidViewModel {
         return list;
     }
     public LiveData<List<Commodity>> fetchCommodity(){
-        Log.d(TAG, "fetchCommodity: ViewModel");
+        Log.d(TAG, "fetchCommodity: ZerodhaViewModel");
         Log.d(TAG, "fetchCommodity: "+commodity.toString());
         return commodity;
     }

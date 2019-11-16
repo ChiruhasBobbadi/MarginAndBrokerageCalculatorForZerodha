@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "33955510626-906n80lp5u4f1op419cor45fr19pqurp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chiruhas.android.zerodha",
+            "certificate_hash": "519aa90691706cd25652972ff23f3262aa311442"
+          }
+        },
+        {
           "client_id": "33955510626-mm4lvglfa663daob5dm4lv10vuj1j9bq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

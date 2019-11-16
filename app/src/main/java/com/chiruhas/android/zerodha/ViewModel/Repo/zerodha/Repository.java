@@ -1,12 +1,9 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo;
+package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.chiruhas.android.zerodha.Model.Currency;
-import com.chiruhas.android.zerodha.Model.Equity.Commodity;
-import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 
@@ -17,8 +14,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Repository {
     Retrofit retrofit;

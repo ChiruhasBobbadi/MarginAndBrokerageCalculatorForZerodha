@@ -7,10 +7,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +20,13 @@ import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +36,46 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
     private static final String TAG = "Commodity Activity";
     private RecyclerView recyclerView;
-    private ViewModel viewModel;
+    private ZerodhaViewModel viewModel;
+    private AstaViewModel astaViewModel;
     private CommodityAdapter commodityAdapter;
     private ProgressBar bar;
     //CommodityViewModel commodityViewModel;
     private List<Commodity> list = new ArrayList<>();
     private RewardedVideoAd videoAd;
     private Commodity commodity;
+    private RadioGroup rg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commodity);
 
+        init();
+
+
+        setAdapter();
+        zerodhaCall();
+
+
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+            commodityAdapter.updateData(new ArrayList<>());
+            bar.setVisibility(View.VISIBLE);
+            switch (checkedId) {
+                case R.id.zerodha:
+                    zerodhaCall();
+                    break;
+                case R.id.asta:
+                    astaCall();
+                    break;
+            }
+
+        });
+
+    }
+
+    private void init() {
+        rg = findViewById(R.id.radioGroup);
         //loading adview
         View view = getWindow().getDecorView().getRootView();
         AdViewHelper.loadBanner(view);
@@ -60,59 +87,26 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         videoAd.setRewardedVideoAdListener(this);
 
         loadRewardedVideoAd();
-
-
-        setAdapter();
-        fetchData();
-        //fetchCache();
-
     }
 
-//    private void fetchCache() {
-//        commodityViewModel = ViewModelProviders.of(this).get(CommodityViewModel.class);
-//        commodityViewModel.getAll().observe(this, new Observer<List<Commodity>>() {
-//            @Override
-//            public void onChanged(List<Commodity> godCommodities) {
-//
-//
-//                commodityAdapter.setCache(godCommodities);
-//            }
-//        });
-//    }
 
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
         recyclerView = findViewById(R.id.rv);
-        commodityAdapter = new CommodityAdapter(new CommodityAdapter.ItemListener() {
-            @Override
-            public void onItemClick(Commodity item) {
-                commodity = item;
-                //showing add
-                if(videoAd.isLoaded()){
-                    videoAd.show();
-                }else{
-                    // code for calculating and showing a popup
-                    AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
-                    alertHelper.loadCommodityPopUp(item);
-                }
 
-
+        commodityAdapter = new CommodityAdapter(item -> {
+            commodity = item;
+            //showing add
+            if (videoAd.isLoaded()) {
+                videoAd.show();
+            } else {
+                // code for calculating and showing a popup
+                AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
+                alertHelper.loadCommodityPopUp(item);
             }
 
-//            @Override
-//            public void onBookmarkClick(Commodity model) {
-//                // insert into database
-//
-//                commodityViewModel.insert(model);
-//
-//            }
 
-//            @Override
-//            public void onBookmarkUnClick(Commodity model) {
-//                // delete from database
-//                commodityViewModel.delete(model);
-//            }
         }, CommodityActivity.this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -120,31 +114,40 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
 
     }
-    public void showPopup(){
+
+    public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
 
         alertHelper.loadCommodityPopUp(commodity);
     }
 
-    public void fetchData() {
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
-            @Override
-            public void onChanged(List<Commodity> Commoditys) {
+    public void zerodhaCall() {
+        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        viewModel.fetchCommodity().observe(this, Commoditys -> {
 
+            list = Commoditys;
+            Log.d(TAG, "onChanged: inside fetch commodity data");
+            commodityAdapter.updateData(Commoditys);
 
-                list = Commoditys;
-                Log.d(TAG, "onChanged: inside fetch commodity data");
-                commodityAdapter.updateData(Commoditys);
+            bar.setVisibility(View.GONE);
+        });
+    }
 
-                bar.setVisibility(View.GONE);
-            }
+    public void astaCall() {
+        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        astaViewModel.fetchCommodity().observe(this, Commoditys -> {
+
+            list = Commoditys;
+            Log.d(TAG, "onChanged: inside fetch commodity data");
+            commodityAdapter.updateData(Commoditys);
+
+            bar.setVisibility(View.GONE);
         });
     }
 
     //video add
     private void loadRewardedVideoAd() {
-      //original
+        //original
         videoAd.loadAd(getResources().getString(R.string.commodity_reward),
                 new AdRequest.Builder().build());
     }

@@ -58,12 +58,7 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder
         holder.price.setText("Price : " + Futures.getPrice());
         holder.scrip.setText(Futures.getScrip());
         holder.expiry.setText(Futures.getExpiry());
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myListener.onItemClick(Futures);
-            }
-        });
+        holder.cal.setOnClickListener(view -> myListener.onItemClick(Futures));
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
                 .repeat(0)

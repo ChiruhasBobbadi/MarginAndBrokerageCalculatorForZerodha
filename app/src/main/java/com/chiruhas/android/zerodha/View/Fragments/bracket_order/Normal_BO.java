@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.BracketOrder;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
 import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
@@ -31,7 +30,7 @@ import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class Normal_BO extends Fragment {
     private AutoCompleteTextView auto;
     private EditText price, qty, sl;
     private RadioGroup rg;
-    private ViewModel viewModel;
+    private ZerodhaViewModel viewModel;
     private Map<String, Integer> map = new HashMap<>();
     private List<GodModel> list = new ArrayList<>();
     private List<Commodity> commodityList = new ArrayList<>();
@@ -84,7 +83,7 @@ public class Normal_BO extends Fragment {
 
         //AdViewHelper.loadBanner(view);
         auto = view.findViewById(R.id.auto_text);
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         rg = view.findViewById(R.id.radioGroup);
         final TextView lot = view.findViewById(R.id.lot);
         lot.setVisibility(View.GONE);
@@ -101,265 +100,246 @@ public class Normal_BO extends Fragment {
 
         // default adapter
 
-        viewModel.fetchEquity().observe(this, new Observer<List<GodModel>>() {
-            @Override
-            public void onChanged(List<GodModel> godModels) {
-                list = godModels;
-                String lst[] = NameExtractHelper.EquityNames(list);
+        viewModel.fetchEquity().observe(this, godModels -> {
+            list = godModels;
+            String lst[] = NameExtractHelper.EquityNames(list);
 
-                if (godModels.isEmpty()) {
-                    Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
-
-                auto.setAdapter(adapter);
-                Log.d(TAG, "onChanged: Sucess");
+            if (godModels.isEmpty()) {
+                Toast.makeText(getContext(), "Requires Internet Connection", Toast.LENGTH_LONG).show();
             }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
+
+            auto.setAdapter(adapter);
+            Log.d(TAG, "onChanged: Sucess");
         });
 
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String lst[] = null;
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+            String lst[] = null;
 
-                switch (checkedId) {
-                    case R.id.equity:
-                        resetAll();
-                        lst = fetchEquity();
+            switch (checkedId) {
+                case R.id.equity:
+                    resetAll();
+                    lst = fetchEquity();
 
-                        lot.setVisibility(View.GONE);
-                        break;
+                    lot.setVisibility(View.GONE);
+                    break;
 
-                    case R.id.mcx:
-                        resetAll();
-                        setMap();
-                        lst = fetchCommodity();
-                        lot.setVisibility(View.VISIBLE);
+                case R.id.mcx:
+                    resetAll();
+                    setMap();
+                    lst = fetchCommodity();
+                    lot.setVisibility(View.VISIBLE);
 
-                        break;
-                    case R.id.nfo:
-                        resetAll();
-                        lst = fetchFutures();
-                        lot.setVisibility(View.VISIBLE);
-                        break;
+                    break;
+                case R.id.nfo:
+                    resetAll();
+                    lst = fetchFutures();
+                    lot.setVisibility(View.VISIBLE);
+                    break;
 
-                    case R.id.cds:
-                        resetAll();
-                        lst = fetchCurrency();
-                        lot.setVisibility(View.VISIBLE);
-                        break;
+                case R.id.cds:
+                    resetAll();
+                    lst = fetchCurrency();
+                    lot.setVisibility(View.VISIBLE);
+                    break;
 
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
-                auto.setAdapter(adapter);
             }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
+            auto.setAdapter(adapter);
         });
 
-        auto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //hideSoftKeyboard();
-                price.setText("");
-                qty.setText("");
-                sl.setText("");
-                if (rg.getCheckedRadioButtonId() == R.id.mcx) {
-                    String str = auto.getText().toString().trim();
+        auto.setOnItemClickListener((parent, view1, position, id) -> {
+            //hideSoftKeyboard();
+            price.setText("");
+            qty.setText("");
+            sl.setText("");
+            if (rg.getCheckedRadioButtonId() == R.id.mcx) {
+                String str = auto.getText().toString().trim();
+                Commodity commodity = null;
+                for (Commodity c : commodityList) {
+                    if (c.getScrip().equals(str)) {
+                        commodity = c;
+                        break;
+                    }
+                }
+                lot.setText("Lot Size : " + map.get(str));
+                lot_size = map.get(str);
+                price.setText(commodity.getPrice());
+                //qty.setText(map.get(str));
+
+            } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
+                String str = auto.getText().toString().trim();
+                Futures futures = null;
+                String arr[] = str.split(" ");
+                String name = arr[0];
+                String expiry = arr[1];
+                for (Futures c : futuresList) {
+                    if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
+                        futures = c;
+                        break;
+                    }
+
+                }
+                lot.setText("Lot Size : " + futures.getLot());
+                lot_size = Integer.parseInt(futures.getLot());
+                price.setText(futures.getPrice() + "");
+                qty.setText(futures.getLot());
+
+            } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                String str = auto.getText().toString().trim();
+                Currency currency = null;
+                String arr[] = str.split(" ");
+                String name = arr[0];
+                String expiry = arr[1];
+
+                for (Currency c : currencyList) {
+                    if (c.getScrip().equals(name) && c.getExpiry().contains(expiry)) {
+                        currency = c;
+                        break;
+                    }
+                }
+                lot.setText("Lot Size : " + currency.getLot());
+                lot_size = Integer.parseInt(currency.getLot());
+                price.setText(currency.getPrice() + "");
+                qty.setText(currency.getLot());
+
+
+            }
+
+        });
+
+
+        cal.setOnClickListener(v -> {
+            try {
+                // for BUY or sell
+                String status = "";
+                if (buy.isChecked())
+                    status = "buy";
+                else
+                    status = "sell";
+
+
+                if (TextUtils.isEmpty(auto.getText().toString()) ||
+                        price.getText().toString().equals("") || price.getText().toString().startsWith(".") || qty.getText().toString().equals("")
+                        || sl.getText().toString().equals("") || sl.getText().toString().startsWith("."))
+                    Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
+                else {
+
                     Commodity commodity = null;
-                    for (Commodity c : commodityList) {
-                        if (c.getScrip().equals(str)) {
-                            commodity = c;
-                            break;
-                        }
-                    }
-                    lot.setText("Lot Size : " + map.get(str));
-                    lot_size = map.get(str);
-                    price.setText(commodity.getPrice());
-                    //qty.setText(map.get(str));
-
-                } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
-                    String str = auto.getText().toString().trim();
+                    GodModel equity = null;
                     Futures futures = null;
-                    String arr[] = str.split(" ");
-                    String name = arr[0];
-                    String expiry = arr[1];
-                    for (Futures c : futuresList) {
-                        if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
-                            futures = c;
-                            break;
-                        }
-
-                    }
-                    lot.setText("Lot Size : " + futures.getLot());
-                    lot_size = Integer.parseInt(futures.getLot());
-                    price.setText(futures.getPrice() + "");
-                    qty.setText(futures.getLot());
-
-                } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
-                    String str = auto.getText().toString().trim();
                     Currency currency = null;
-                    String arr[] = str.split(" ");
-                    String name = arr[0];
-                    String expiry = arr[1];
 
-                    for (Currency c : currencyList) {
-                        if (c.getScrip().equals(name) && c.getExpiry().contains(expiry)) {
-                            currency = c;
-                            break;
-                        }
-                    }
-                    lot.setText("Lot Size : " + currency.getLot());
-                    lot_size = Integer.parseInt(currency.getLot());
-                    price.setText(currency.getPrice() + "");
-                    qty.setText(currency.getLot());
-
-
-                }
-
-            }
-        });
-
-
-        cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    // for BUY or sell
-                    String status = "";
-                    if (buy.isChecked())
-                        status = "buy";
-                    else
-                        status = "sell";
-
-
-                    if (TextUtils.isEmpty(auto.getText().toString()) ||
-                            price.getText().toString().equals("") || price.getText().toString().startsWith(".") || qty.getText().toString().equals("")
-                            || sl.getText().toString().equals("") || sl.getText().toString().startsWith("."))
-                        Toast.makeText(getContext(), "Field's can't be empty", Toast.LENGTH_SHORT).show();
+                    if (list.isEmpty() && commodityList.isEmpty() && futuresList.isEmpty() && currencyList.isEmpty())
+                        Toast.makeText(getContext(), "Requires Internet Connectivity", Toast.LENGTH_LONG).show();
                     else {
-
-                        Commodity commodity = null;
-                        GodModel equity = null;
-                        Futures futures = null;
-                        Currency currency = null;
-
-                        if (list.isEmpty() && commodityList.isEmpty() && futuresList.isEmpty() && currencyList.isEmpty())
-                            Toast.makeText(getContext(), "Requires Internet Connectivity", Toast.LENGTH_LONG).show();
-                        else {
-                            String type = "";
-                            if (rg.getCheckedRadioButtonId() == R.id.equity) {
-                                for (GodModel model : list) {
-                                    if (model.getTradingsymbol().equals(auto.getText().toString())) {
-                                        equity = model;
-                                        break;
-
-                                    }
-                                }
-                                type = "equity";
-                            } else if (rg.getCheckedRadioButtonId() == R.id.mcx) {
-                                for (Commodity c : commodityList) {
-                                    if (c.getScrip().equals(auto.getText().toString())) {
-                                        commodity = c;
-                                        break;
-                                    }
-                                }
-
-                                type = "mcx";
-                            } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
-                                String str = auto.getText().toString();
-                                String arr[] = str.split(" ");
-                                String name = arr[0];
-                                String expiry = arr[1];
-                                for (Futures c : futuresList) {
-                                    if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
-                                        futures = c;
-                                        break;
-                                    }
-                                }
-
-                                type = "nfo";
-                            } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
-                                String str = auto.getText().toString().trim();
-
-                                String arr[] = str.split(" ");
-                                String name = arr[0];
-                                String expiry = arr[1];
-
-
-                                for (Currency c : currencyList) {
-                                    if (c.getScrip().equals(name) && c.getExpiry().contains(expiry)) {
-                                        currency = c;
-                                        break;
-                                    }
+                        String type = "";
+                        if (rg.getCheckedRadioButtonId() == R.id.equity) {
+                            for (GodModel model : list) {
+                                if (model.getTradingsymbol().equals(auto.getText().toString())) {
+                                    equity = model;
+                                    break;
 
                                 }
-
-                                type = "cds";
+                            }
+                            type = "equity";
+                        } else if (rg.getCheckedRadioButtonId() == R.id.mcx) {
+                            for (Commodity c : commodityList) {
+                                if (c.getScrip().equals(auto.getText().toString())) {
+                                    commodity = c;
+                                    break;
+                                }
                             }
 
-                            // checking lot size mapping
-                            int q = Integer.parseInt(qty.getText().toString().trim());
-
-                            if (type.equals("mcx")) {
-                                if (q < lot_size) {
-
-                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    if (q % lot_size != 0)
-                                        Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                                    else {
-                                        new BracketOrder().calculate(getContext(), commodity.getScrip(), price.getText().toString(), qty.getText().toString(),
-                                                sl.getText().toString(), type, status, ObjectConverter.commodity2God(commodity));
-                                    }
+                            type = "mcx";
+                        } else if (rg.getCheckedRadioButtonId() == R.id.nfo) {
+                            String str = auto.getText().toString();
+                            String arr[] = str.split(" ");
+                            String name = arr[0];
+                            String expiry = arr[1];
+                            for (Futures c : futuresList) {
+                                if (c.getScrip().equals(name) && c.getExpiry().equals(expiry)) {
+                                    futures = c;
+                                    break;
                                 }
-                            } else if (type.equals("equity")) {
-                                new BracketOrder().calculate(getContext(), equity.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
-                                        sl.getText().toString(), type, status, equity);
-                            } else if (type.equals("nfo")) {
-                                if (q < lot_size) {
-                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (q % lot_size != 0)
-                                        Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                                    else {
-                                        new BracketOrder().calculate(getContext(), futures.getScrip(), price.getText().toString(), qty.getText().toString(),
-                                                sl.getText().toString(), type, status, ObjectConverter.future2God(futures));
-                                    }
-                                }
-                            } else if (type.equals("cds")) {
-                                if (q < lot_size) {
-                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (q % lot_size != 0)
-                                        Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
-                                    else {
-                                        new BracketOrder().calculate(getContext(), currency.getScrip(), price.getText().toString(), qty.getText().toString(),
-                                                sl.getText().toString(), type, status, ObjectConverter.currency2God(currency));
-                                    }
-                                }
+                            }
 
+                            type = "nfo";
+                        } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                            String str = auto.getText().toString().trim();
+
+                            String arr[] = str.split(" ");
+                            String name = arr[0];
+                            String expiry = arr[1];
+
+
+                            for (Currency c : currencyList) {
+                                if (c.getScrip().equals(name) && c.getExpiry().contains(expiry)) {
+                                    currency = c;
+                                    break;
+                                }
 
                             }
+
+                            type = "cds";
                         }
 
+                        // checking lot size mapping
+                        int q = Integer.parseInt(qty.getText().toString().trim());
+
+                        if (type.equals("mcx")) {
+                            if (q < lot_size) {
+
+                                Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), commodity.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.commodity2God(commodity));
+                                }
+                            }
+                        } else if (type.equals("equity")) {
+                            new BracketOrder().calculate(getContext(), equity.getTradingsymbol(), price.getText().toString(), qty.getText().toString(),
+                                    sl.getText().toString(), type, status, equity);
+                        } else if (type.equals("nfo")) {
+                            if (q < lot_size) {
+                                Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), futures.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.future2God(futures));
+                                }
+                            }
+                        } else if (type.equals("cds")) {
+                            if (q < lot_size) {
+                                Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                            } else {
+                                if (q % lot_size != 0)
+                                    Toast.makeText(getContext(), "Enter a valid Quantity....", Toast.LENGTH_SHORT).show();
+                                else {
+                                    new BracketOrder().calculate(getContext(), currency.getScrip(), price.getText().toString(), qty.getText().toString(),
+                                            sl.getText().toString(), type, status, ObjectConverter.currency2God(currency));
+                                }
+                            }
+
+
+                        }
                     }
 
-
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), "Invalid Symbol", Toast.LENGTH_LONG).show();
                 }
-            }
 
+
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Invalid Symbol", Toast.LENGTH_LONG).show();
+            }
         });
         Button reset = view.findViewById(R.id.reset);
 
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetAll();
-
-            }
-        });
+        reset.setOnClickListener(v -> resetAll());
 
 
         return view;
@@ -387,52 +367,28 @@ public class Normal_BO extends Fragment {
 
     public String[] fetchCommodity() {
 
-        viewModel.fetchCommodity().observe(this, new Observer<List<Commodity>>() {
-            @Override
-            public void onChanged(List<Commodity> godModels) {
-                commodityList = godModels;
-
-            }
-        });
+        viewModel.fetchCommodity().observe(this, godModels -> commodityList = godModels);
         if (commodityList.isEmpty())
             noNetwork();
         return NameExtractHelper.commodityName(commodityList);
     }
 
     public String[] fetchFutures() {
-        viewModel.fetchFutures().observe(this, new Observer<List<Futures>>() {
-            @Override
-            public void onChanged(List<Futures> godModels) {
-                futuresList = godModels;
-
-            }
-        });
+        viewModel.fetchFutures().observe(this, godModels -> futuresList = godModels);
         if (futuresList.isEmpty())
             noNetwork();
         return NameExtractHelper.futureNames(futuresList);
     }
 
     public String[] fetchEquity() {
-        viewModel.fetchEquity().observe(this, new Observer<List<GodModel>>() {
-            @Override
-            public void onChanged(List<GodModel> godModels) {
-                list = godModels;
-
-            }
-        });
+        viewModel.fetchEquity().observe(this, godModels -> list = godModels);
         if (list.isEmpty())
             noNetwork();
         return NameExtractHelper.EquityNames(list);
     }
 
     public String[] fetchCurrency() {
-        viewModel.fetchCurrency().observe(this, new Observer<List<Currency>>() {
-            @Override
-            public void onChanged(List<Currency> godModels) {
-                currencyList = godModels;
-
-            }
-        });
+        viewModel.fetchCurrency().observe(this, godModels -> currencyList = godModels);
         if (currencyList.isEmpty())
             noNetwork();
         return NameExtractHelper.currencyNames(currencyList);

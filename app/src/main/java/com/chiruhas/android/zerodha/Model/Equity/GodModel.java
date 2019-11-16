@@ -13,6 +13,7 @@ public class GodModel {
     private double price;
     private String lotsize;
     private String expiry;
+    private float nrml_multiplier;
 
     public double getPrice() {
         return price;
@@ -42,7 +43,30 @@ public class GodModel {
         this.expiry = expiry;
         this.lotsize = lot;
     }
+    public GodModel(double margin, double co_lower, float mis_multiplier, String tradingsymbol, double price, double co_upper, int nrml_margin, int mis_margin, String expiry, String lot,float nrml_multiplier) {
+        this.margin = margin;
+        this.co_lower = co_lower;
+        this.mis_multiplier = mis_multiplier;
+        this.tradingsymbol = tradingsymbol;
+        this.co_upper = co_upper;
+        this.nrml_margin = nrml_margin;
+        this.mis_margin = mis_margin;
+        this.price = price;
+        this.expiry = expiry;
+        this.lotsize = lot;
+        if(nrml_multiplier==0)
+            this.nrml_multiplier=1;
+        else
+            this.nrml_multiplier=nrml_multiplier;
+    }
 
+    public float getNrml_multiplier() {
+        return nrml_multiplier;
+    }
+
+    public void setNrml_multiplier(float nrml_multiplier) {
+        this.nrml_multiplier = nrml_multiplier;
+    }
 
     public GodModel() {
     }

@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                     Intent intent2 = new Intent(Intent.ACTION_SENDTO);
                     intent2.setType("text/plain");
                     intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
-                    intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request version 2.0.8");
+                    intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Suggestion version 2.0.9");
                     //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
                     startActivity(Intent.createChooser(intent2, "Send Email"));
                     break;

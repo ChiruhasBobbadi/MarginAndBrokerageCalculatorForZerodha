@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo;
+package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
 
 
 import com.chiruhas.android.zerodha.Model.Currency;

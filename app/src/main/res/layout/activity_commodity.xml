@@ -7,6 +7,40 @@
     tools:context=".View.Activities.CommodityActivity"
     android:background="@color/bg_black">
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_vertical|center_horizontal|left">
+
+        <RadioButton
+            android:id="@+id/zerodha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zerodha"
+            android:buttonTint="@color/bg_blue"
+            android:checked="true"
+            android:textSize="20sp"
+            android:textColor="@color/white_grey"
+            android:padding="10dp"/>
+
+        <RadioButton
+            android:id="@+id/asta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Astha Trade"
+            android:buttonTint="@color/bg_blue"
+            android:padding="10dp"
+            android:textColor="@color/white_grey"/>
+    </RadioGroup>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -16,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <include
         layout="@layout/loading"

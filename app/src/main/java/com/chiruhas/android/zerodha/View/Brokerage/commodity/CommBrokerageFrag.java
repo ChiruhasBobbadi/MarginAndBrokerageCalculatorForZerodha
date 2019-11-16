@@ -20,12 +20,11 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class CommBrokerageFrag extends Fragment {
     String state;
     EditText buy, sell, qty;
     Spinner spinner;
-    ViewModel viewModel;
+    ZerodhaViewModel viewModel;
     private AutoCompleteTextView auto;
     private OnFragmentInteractionListener mListener;
 
@@ -82,7 +81,7 @@ public class CommBrokerageFrag extends Fragment {
         Button cal = view.findViewById(R.id.calculate);
         auto = view.findViewById(R.id.auto_text);
 
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

@@ -74,12 +74,9 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         holder.cnc.setText("NRML Magin : "+Commodity.getNrml());
         holder.lot.setText("Lot size : "+Commodity.getLot());
         holder.price.setText("Price : "+Commodity.getPrice());
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(context, "Coming soon...", Toast.LENGTH_SHORT).show();
-                myListener.onItemClick(Commodity);
-            }
+        holder.cal.setOnClickListener(view -> {
+            //Toast.makeText(context, "Coming soon...", Toast.LENGTH_SHORT).show();
+            myListener.onItemClick(Commodity);
         });
 
         //BookmarkHelper.checkBookmark(cacheList,Commodity,holder.bookmark);

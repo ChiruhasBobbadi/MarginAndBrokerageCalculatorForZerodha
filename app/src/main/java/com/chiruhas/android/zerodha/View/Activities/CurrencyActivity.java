@@ -21,7 +21,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -33,7 +33,7 @@ import java.util.List;
 
 public class CurrencyActivity extends AppCompatActivity implements RewardedVideoAdListener {
     private static final String TAG = "CurrencyActivity";
-    private ViewModel view;
+    private ZerodhaViewModel view;
     private RecyclerView rv;
     private CurrencyAdapter adapter;
     private ProgressBar bar;
@@ -148,18 +148,15 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
     }
 
     public void fetchData() {
-        view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchCurrency().observe(this, new Observer<List<Currency>>() {
-            @Override
-            public void onChanged(List<Currency> godModels) {
+        view = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        view.fetchCurrency().observe(this, godModels -> {
 
 
-                currency = godModels;
+            currency = godModels;
 
-                adapter.updateData(godModels);
+            adapter.updateData(godModels);
 
-                bar.setVisibility(View.GONE);
-            }
+            bar.setVisibility(View.GONE);
         });
     }
 

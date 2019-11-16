@@ -16,10 +16,10 @@
             android:id="@+id/feedback"
             android:title="Feedback"
             android:icon="@drawable/ic_feedback"/>
-        <item android:title="Request Feature"
+        <item
             android:id="@+id/feature"
             android:icon="@drawable/ic_lightbulb"
-            />
+            android:title="Suggest Feature" />
         <item android:title="Privacy Policy"
             android:id="@+id/pp"
             android:icon="@drawable/ic_padlock"
