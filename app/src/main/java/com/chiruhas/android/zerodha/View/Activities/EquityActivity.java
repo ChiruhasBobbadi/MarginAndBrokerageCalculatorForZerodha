@@ -150,6 +150,8 @@ public class EquityActivity extends AppCompatActivity {
         view.fetchEquity().observe(this, GodModels -> {
             equity = GodModels;
 
+            Log.d(TAG, "zerodhaCall: "+equity.size());
+
             recyclerViewAdapter.updateData(GodModels);
 
             bar.setVisibility(View.GONE);

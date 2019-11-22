@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         AppRate.showRateDialogIfMeetsConditions(this);
 
         brokerage = new InterstitialAd(this);
-
-
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 

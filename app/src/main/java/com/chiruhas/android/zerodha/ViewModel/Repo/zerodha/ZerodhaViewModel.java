@@ -39,6 +39,7 @@ public class ZerodhaViewModel extends AndroidViewModel {
     }
     public LiveData<List<GodModel>> fetchEquity()
     {
+
         return list;
     }
     public LiveData<List<Commodity>> fetchCommodity(){
