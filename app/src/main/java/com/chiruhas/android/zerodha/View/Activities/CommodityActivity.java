@@ -51,6 +51,7 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commodity);
 
+
         init();
 
 
@@ -75,6 +76,8 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
     }
 
     private void init() {
+
+
         rg = findViewById(R.id.radioGroup);
         //loading adview
         View view = getWindow().getDecorView().getRootView();

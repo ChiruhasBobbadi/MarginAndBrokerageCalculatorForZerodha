@@ -15,6 +15,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.airbnb.lottie.L.TAG;
+
 public class Repository {
     Retrofit retrofit;
 
@@ -37,8 +39,11 @@ public class Repository {
             @Override
             public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
                 if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: failed "+response.body());
+
                     return;
                 }
+
                 GodModels.postValue(response.body());
             }
 

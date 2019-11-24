@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
