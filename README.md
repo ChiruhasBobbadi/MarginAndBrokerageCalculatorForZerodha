@@ -2,7 +2,7 @@
 
 This app is developed by me because of my habbit of day trading in Zerodha.
 
-This app solves my problem of frequently calculating margins for intraday stocks in zerodha platform and saves my most valuable trading time and i hope it saves your valuable time too.
+This app solves my(and probably your's too) problem of frequently calculating margins for intraday stocks in zerodha platform and saves my most valuable trading time and i hope it saves your valuable time too.
 
 Margin and Brokerage calculator is built with the goal of cutting down the time taken by us(The Trader's) to calculate margins and Brokerage for various types of stocks and commodities.
 
@@ -38,7 +38,8 @@ Use this app to calculate margins of your trade for one day and see the differen
 6. Web Scraping
 
 # Server deployed on AWS 
-
+Server Repo.
+https://github.com/ChiruhasBobbadi/MarginCalculator--Server
 
 # Things learnt the hard way from this project
 
