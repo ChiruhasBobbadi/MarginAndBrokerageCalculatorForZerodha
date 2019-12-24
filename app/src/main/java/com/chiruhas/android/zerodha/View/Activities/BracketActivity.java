@@ -48,7 +48,7 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
 
     private void init() {
         View view = getWindow().getDecorView().getRootView();
-        AdViewHelper.loadBanner(view);
+        //AdViewHelper.loadBanner(view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

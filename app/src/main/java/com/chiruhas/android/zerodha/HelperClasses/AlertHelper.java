@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 public class AlertHelper {
     Context context;
@@ -33,6 +36,7 @@ public class AlertHelper {
 
     public void loadEquityPopup(GodModel item) {
 
+        final View view = LayoutInflater.from(context).inflate(R.layout.equitycalculate, null);
 
         myDialog.setContentView(R.layout.equitycalculate);
 
@@ -81,11 +85,15 @@ public class AlertHelper {
         // closing
 
         TextView close = myDialog.findViewById(R.id.close);
-        close.setOnClickListener(view -> myDialog.dismiss());
+        close.setOnClickListener(v -> myDialog.dismiss());
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(view);
         myDialog.show();
     }
 
@@ -182,6 +190,8 @@ public class AlertHelper {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
+
+
         myDialog.show();
     }
     public void loadFuturePopUp(Futures futures) {

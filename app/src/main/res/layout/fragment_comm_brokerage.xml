@@ -30,7 +30,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_calculate_btn"
@@ -40,8 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/pl" />
 
             <EditText
                 android:id="@+id/sell"
@@ -49,6 +48,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
+                android:textCursorDrawable="@null"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
@@ -67,6 +67,7 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="60dp"
+                android:textCursorDrawable="@null"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/rounded_calculate_btn"
@@ -86,6 +87,7 @@
                 android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
+                android:textCursorDrawable="@null"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
@@ -121,7 +123,7 @@
 
                 android:id="@+id/pl"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="36dp"
@@ -145,10 +147,12 @@
                 android:layout_marginTop="15dp"
 
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="Net Profit/Loss"
                 android:textColor="@color/white_grey"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/calculate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.005"
                 app:layout_constraintStart_toStartOf="parent"

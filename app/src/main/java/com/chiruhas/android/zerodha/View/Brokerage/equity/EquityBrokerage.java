@@ -39,7 +39,7 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
     private void init() {
         View view = getWindow().getDecorView().getRootView();
-        AdViewHelper.loadBanner(view);
+       // AdViewHelper.loadBanner(view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

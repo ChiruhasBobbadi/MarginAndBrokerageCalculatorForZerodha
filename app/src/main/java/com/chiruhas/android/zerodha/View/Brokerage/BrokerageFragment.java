@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chiruhas.android.zerodha.R;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -20,7 +22,7 @@ BrokerageFragment extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;
-
+    private CardView equity,commodity,currency;
     public BrokerageFragment() {
         // Required empty public constructor
     }
@@ -47,8 +49,26 @@ BrokerageFragment extends Fragment  {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_brokerage, container, false);
 
-        CardView equity = v.findViewById(R.id.equity);
+         equity = v.findViewById(R.id.equity);
+        commodity = v.findViewById(R.id.commodity);
+        currency = v.findViewById(R.id.currency);
         equity.setOnClickListener(v1 -> mListener.onBrokerageFragment(v1));
+
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(equity);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(commodity);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(currency);
+
+
+
 
         return v;
 
