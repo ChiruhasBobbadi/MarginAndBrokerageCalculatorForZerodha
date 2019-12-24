@@ -1,11 +1,11 @@
 package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.chiruhas.android.zerodha.Model.Equity.GodModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 import java.util.List;
 
@@ -23,41 +23,33 @@ public class Repository {
     MutableLiveData<List<GodModel>> GodModels;
 
 
+    public Repository() {
+        retrofit = new Retrofit.Builder().baseUrl("https://api.kite.trade/margins/").addConverterFactory(GsonConverterFactory.create()).build();
 
-
-    public Repository()
-    {
-         retrofit= new Retrofit.Builder().baseUrl("https://api.kite.trade/margins/").addConverterFactory(GsonConverterFactory.create()).build();
-
-         zerodhaClient = retrofit.create(ZerodhaClient.class);
-        GodModels=new MutableLiveData<>();
+        zerodhaClient = retrofit.create(ZerodhaClient.class);
+        GodModels = new MutableLiveData<>();
 
     }
 
-    public LiveData<List<GodModel>> getEquity()
-    {
+    public LiveData<List<GodModel>> getEquity() {
         Call<List<GodModel>> call = zerodhaClient.getEquity();
         call.enqueue(new Callback<List<GodModel>>() {
             @Override
             public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
-                if(!response.isSuccessful())
-                {
+                if (!response.isSuccessful()) {
                     return;
                 }
-               GodModels.postValue(response.body());
+                GodModels.postValue(response.body());
             }
 
             @Override
             public void onFailure(Call<List<GodModel>> call, Throwable t) {
-                Log.d("Repository","Failure "+t.getLocalizedMessage());
+                Log.d("Repository", "Failure " + t.getLocalizedMessage());
             }
         });
         return GodModels;
 
     }
-
-
-
 
 
 }
