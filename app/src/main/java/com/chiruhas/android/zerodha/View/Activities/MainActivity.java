@@ -1,24 +1,13 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
-import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
-import com.chiruhas.android.zerodha.View.Brokerage.commodity.commodityBrokerageActivity;
-import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
-import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
-import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -26,16 +15,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.View.Brokerage.BrokerageFragment;
+import com.chiruhas.android.zerodha.View.Brokerage.commodity.CommodityBrokerageActivity;
+import com.chiruhas.android.zerodha.View.Brokerage.currency.CurrencyBrokerage;
+import com.chiruhas.android.zerodha.View.Brokerage.equity.EquityBrokerage;
+import com.chiruhas.android.zerodha.View.Fragments.MarginFragment;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.vorlonsoft.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity implements MarginFragment.OnFragmentInteractionListener, BrokerageFragment.OnFragmentInteractionListener {
@@ -43,10 +34,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private ViewPager mViewPager;
-    private InterstitialAd bracket, equity;
+    private InterstitialAd bracket, equity, brokerage;
 
 
     @Override
@@ -65,17 +56,34 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 .monitor();                                // Monitors the app launch times
         AppRate.showRateDialogIfMeetsConditions(this);
 
+        brokerage = new InterstitialAd(this);
         bracket = new InterstitialAd(this);
         equity = new InterstitialAd(this);
 
-        //test
-        bracket.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        equity.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         // original
 
-//        bracket.setAdUnitId("ca-app-pub-4351116683020455/7631704868");
-//        equity.setAdUnitId("ca-app-pub-4351116683020455/7352473382");
+        bracket.setAdUnitId(getResources().getString(R.string.bracket));
+        equity.setAdUnitId(getResources().getString(R.string.equity));
+        brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
+
+        brokerage.loadAd(new AdRequest.Builder().build());
+        brokerage.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+            }
+        });
+
+
+        equity.loadAd(new AdRequest.Builder().build());
+        equity.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityActivity.class));
+            }
+        });
+
         bracket.loadAd(new AdRequest.Builder().build());
         // navigating user to bracket activity
         bracket.setAdListener(new AdListener() {
@@ -84,13 +92,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, BracketActivity.class));
             }
         });
-        equity.loadAd(new AdRequest.Builder().build());
-        equity.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, EquityActivity.class));
-            }
-        });
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,57 +122,48 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
         navigationView.setCheckedItem(R.id.home);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
 
-                switch (menuItem.getItemId()) {
-                    case R.id.book:
-                        // open bookmark Activity
-                        startActivity(new Intent(MainActivity.this, BookmarkActivity.class));
-                        break;
+            switch (menuItem.getItemId()) {
 
-                    case R.id.pp:
-                        String url = "http://chiruhas.in/privacy_policy.html";
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        startActivity(i);
-                        break;
 
-                    case R.id.about:
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                        break;
-                    case R.id.feedback:
-                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                        try {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                        }
-                        break;
-                    case R.id.feature:
+                case R.id.pp:
+                    String url = "http://chiruhas.in/privacy_policy.html";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                    break;
 
-                        Intent intent2 = new Intent(Intent.ACTION_SENDTO);
-                        intent2.setType("text/plain");
-                        intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
-                        intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Request");
-                        //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
-                        startActivity(Intent.createChooser(intent2, "Send Email"));
-                        break;
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
+                case R.id.about:
+                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    break;
+                case R.id.feedback:
+                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    }
+                    break;
+                case R.id.feature:
 
-                return true;
+                    Intent intent2 = new Intent(Intent.ACTION_SENDTO);
+                    intent2.setType("text/plain");
+                    intent2.setData(Uri.parse("mailto:chiruhas.bobbadi123@gmail.com"));
+                    intent2.putExtra(Intent.EXTRA_SUBJECT, "Margin & Brokerage Calculator App Feature Suggestion version 2.0.9");
+                    //intent.putExtra(Intent.EXTRA_TEXT, "Place your email message here ...");
+                    startActivity(Intent.createChooser(intent2, "Send Email"));
+                    break;
             }
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            return true;
         });
 
         //add initialization
 
         // original
-       //MobileAds.initialize(this,"ca-app-pub-4351116683020455~8691946225");
-//
-        // test
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, getResources().getString(R.string.app_id));
 
 
     }
@@ -189,12 +182,16 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     public void onBrokerageFragment(View v) {
         switch (v.getId()) {
             case R.id.equity:
-                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+                if (brokerage.isLoaded())
+                    brokerage.show();
+
+                else
+                    startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
                 break;
 
             case R.id.commodity:
                 //startActivity(new Intent(MainActivity.this, commodityBrokerageActivity.class));
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, CommodityBrokerageActivity.class));
                 break;
 
             case R.id.currency:
@@ -220,11 +217,12 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, CommodityActivity.class));
                 break;
             case R.id.futures:
-                Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+
+                startActivity(new Intent(MainActivity.this, FuturesActivity.class));
+
                 break;
             case R.id.currency:
-                //startActivity(new Intent(MainActivity.this, CurrencyActivity.class));
-               Toast.makeText(this, "Coming Soon..", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, CurrencyActivity.class));
                 break;
             case R.id.bracket:
 
@@ -237,9 +235,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 break;
         }
     }
-
-
-//
 
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

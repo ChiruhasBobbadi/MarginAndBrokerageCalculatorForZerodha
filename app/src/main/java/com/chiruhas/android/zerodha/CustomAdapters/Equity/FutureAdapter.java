@@ -1,10 +1,10 @@
 package com.chiruhas.android.zerodha.CustomAdapters.Equity;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- class FuturesRecyclerAdapter extends RecyclerView.Adapter<FuturesRecyclerAdapter.ViewHolder> {
+public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder> {
 
     private List<Futures> myItems = new ArrayList<>();
     private ItemListener myListener;
 
-    public FuturesRecyclerAdapter(ItemListener listener) {
+    public FutureAdapter(ItemListener listener) {
 
         myListener = listener;
     }
@@ -34,14 +34,11 @@ import java.util.List;
         notifyDataSetChanged();
     }
 
-    public void setListener(ItemListener listener) {
-        myListener = listener;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.commodity_card, parent, false)); // TODO
+                .inflate(R.layout.future_card, parent, false)); // TODO
     }
 
     @Override
@@ -59,14 +56,9 @@ import java.util.List;
         holder.cnc.setText("NRML Magin : " + Futures.getNrml());
         holder.lot.setText("Lot size : " + Futures.getLot());
         holder.price.setText("Price : " + Futures.getPrice());
-
-
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myListener.onItemClick(Futures);
-            }
-        });
+        holder.scrip.setText(Futures.getScrip());
+        holder.expiry.setText(Futures.getExpiry());
+        holder.cal.setOnClickListener(view -> myListener.onItemClick(Futures));
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
                 .repeat(0)
@@ -86,9 +78,7 @@ import java.util.List;
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        public Futures item;
-        public ImageView bookmark;
-        TextView scrip, mis, cnc, lot, price;
+        TextView scrip, mis, cnc, lot, price, expiry;
         Button cal;
         CardView card;
 
@@ -101,6 +91,7 @@ import java.util.List;
             card = itemView.findViewById(R.id.card);
             price = itemView.findViewById(R.id.price);
             lot = itemView.findViewById(R.id.lot);
+            expiry = itemView.findViewById(R.id.ex);
         }
 
 

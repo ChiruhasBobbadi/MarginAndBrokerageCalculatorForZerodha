@@ -8,7 +8,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
@@ -16,115 +22,80 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodEquity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class EquityActivity extends AppCompatActivity {
+    private static final String TAG = "EquityActivity";
     // retrofit viewmodel
-    ViewModel view;
+    ZerodhaViewModel view;
+    AstaViewModel astaViewModel;
     RecyclerView rv;
     Dialog myDialog;
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar bar;
-    private static final String TAG = "EquityActivity";
     List<GodModel> equity = new ArrayList<>();
-
     //room viewmodel
-    EquityViewModel equityViewModel;
+
+    private RadioGroup rg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equity);
+
+        init();
+
+        // radio group check chage listener
+
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+
+            recyclerViewAdapter.updateData(new ArrayList<>());
+            switch (checkedId){
+                case R.id.zerodha:
+                    bar.setVisibility(View.VISIBLE);
+                    zerodhaCall();
+                    break;
+                case R.id.asta:
+                    bar.setVisibility(View.VISIBLE);
+                    astaCall();
+                    break;
+
+            }
+
+        });
+
+
+
+    }
+
+    private void init() {
         rv = findViewById(R.id.rv);
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
-        Log.d(TAG, "onCreate: sucessful");
+        rg = findViewById(R.id.radioGroup);
+
+
         rv.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle("Equity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         myDialog = new Dialog(this);
-        equityViewModel = ViewModelProviders.of(this).get(EquityViewModel.class);
+
 
         View rootView = getWindow().getDecorView().getRootView();
-
         //adview
-
         AdViewHelper.loadBanner(rootView);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(new RecyclerViewAdapter.ItemListener() {
-            @Override
-            public void onItemClick(final GodModel item) {
+        recyclerViewAdapter = new RecyclerViewAdapter(this::loadAlert);
 
-                loadAlert(item);
-            }
-
-            @Override
-            public void onBookmarkClick(GodModel GodModel) {
-                // converting object of GodModel into object of GodEquity
-
-                GodEquity godEquity = new GodEquity(GodModel.getMargin(), GodModel.getCo_lower(), GodModel.getMis_multiplier(), GodModel.getTradingsymbol(), GodModel.getCo_upper(), GodModel.getNrml_margin(), GodModel.getMis_margin());
-
-                equityViewModel.insert(godEquity);
-            }
-
-            @Override
-            public void onBookmarkUnClick(GodModel GodModel) {
-                // converting object of GodModel into object of GodEquity
-                GodEquity godEquity = new GodEquity(GodModel.getMargin(), GodModel.getCo_lower(), GodModel.getMis_multiplier(), GodModel.getTradingsymbol(), GodModel.getCo_upper(), GodModel.getNrml_margin(), GodModel.getMis_margin());
-
-                equityViewModel.delete(godEquity);
-            }
-        });
-       
-        //room data of equity margins
-        equityViewModel.getAll().observe(this, new Observer<List<GodEquity>>() {
-            @Override
-            public void onChanged(List<GodEquity> godEquities) {
-
-                GodModel godModel = new GodModel();
-                List<GodModel> lst = new ArrayList<>();
-                for(GodEquity godCommodity : godEquities){
-                    // GodEquity to God Model
-                    lst.add(new GodModel(godCommodity.getMargin(), godCommodity.getCo_lower(), godCommodity.getMis_multiplier(),
-                            godCommodity.getTradingsymbol(), godCommodity.getCo_upper(), godCommodity.getNrml_margin(), godCommodity.getMis_margin()));
-                }
-
-                recyclerViewAdapter.setCache(lst);
-            }
-        });
-        
         rv.setAdapter(recyclerViewAdapter);
-        // retrofit call
-        view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchEquity().observe(this, new Observer<List<GodModel>>() {
-            @Override
-            public void onChanged(@Nullable List<GodModel> GodModels) {
-                equity = GodModels;
+        zerodhaCall();
 
-                recyclerViewAdapter.updateData(GodModels);
-
-                bar.setVisibility(View.GONE);
-            }
-        });
-
-        //TODO
-//        if (NetworkHelper.haveNetwork(this)) {
-//            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
-//        }
 
     }
 
@@ -173,5 +144,29 @@ public class EquityActivity extends AppCompatActivity {
 
     }
 
+
+    public void zerodhaCall(){
+        view = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        view.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
+
+            Log.d(TAG, "zerodhaCall: "+equity.size());
+
+            recyclerViewAdapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    public void astaCall(){
+        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        astaViewModel.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
+
+            recyclerViewAdapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
 
 }

@@ -4,20 +4,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IntegerRes;
+
+import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
+import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.View.Activities.CommodityActivity;
 
 public class AlertHelper {
     Context context;
@@ -33,7 +32,7 @@ public class AlertHelper {
     }
 
     public void loadEquityPopup(GodModel item) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.equitycalculate, null);
+
 
         myDialog.setContentView(R.layout.equitycalculate);
 
@@ -42,7 +41,7 @@ public class AlertHelper {
         final TextView mis_mux, nrml;
         Button cal;
         final EditText price, amt;
-        String am = "";
+
         scrip = myDialog.findViewById(R.id.scrip);
         mis_mux = myDialog.findViewById(R.id.mis_mux);
         nrml = myDialog.findViewById(R.id.mis_mux2);
@@ -52,40 +51,37 @@ public class AlertHelper {
 
         scrip.setText(item.getTradingsymbol());
         mis_mux.setText("MIS : " + item.getMis_multiplier() + "X");
-        nrml.setText("CNC : " + 1.0 + "X");
+        nrml.setText("CNC : " + item.getNrml_multiplier() + "X");
 
         mis1 = item.getMis_multiplier();
-        cnc1 = 1.0f;
+        cnc1 = item.getNrml_multiplier();
 
-        cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cal.setOnClickListener(v -> {
 
-                if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
-                    Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
+            if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
+                Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
 
-                else {
-                    TextView misqty = myDialog.findViewById(R.id.misqty);
-                    TextView cncqty = myDialog.findViewById(R.id.cncqty);
-                    double am = Double.parseDouble(amt.getText().toString());
+            else {
+                TextView misqty = myDialog.findViewById(R.id.misqty);
+                TextView cncqty = myDialog.findViewById(R.id.cncqty);
+                double am = 0, prc = 0;
+                if (!amt.getText().toString().startsWith(".") && !price.getText().toString().startsWith(".")) {
+                    am = Double.parseDouble(amt.getText().toString());
 
-                    double prc = Double.parseDouble(price.getText().toString());
+                    prc = Double.parseDouble(price.getText().toString());
                     misqty.setText(Math.floor(((am * mis1) / prc)) + "");
                     cncqty.setText(Math.floor(((am * cnc1) / prc)) + "");
+                } else
+                    Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
 
-                }
+
             }
         });
 
         // closing
 
         TextView close = myDialog.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myDialog.dismiss();
-            }
-        });
+        close.setOnClickListener(view -> myDialog.dismiss());
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -94,7 +90,6 @@ public class AlertHelper {
     }
 
     public void nrml_bo(String name, String margin, String avalue, String leverage) {
-        // final View view = LayoutInflater.from(context).inflate(R.layout.bo_nrml_popup, null);
 
         myDialog.setContentView(R.layout.bo_nrml_popup);
 
@@ -106,15 +101,13 @@ public class AlertHelper {
         TextView av = myDialog.findViewById(R.id.values);
         av.setText(" RS " + Math.round(Double.parseDouble(avalue) * 100.0) / 100.0 + " /-");
         TextView lev = myDialog.findViewById(R.id.leverage);
+        if(leverage.equals("Infinity"))
+            lev.setText("Infinity");
+        else
         lev.setText(Math.round(Double.parseDouble(leverage) * 100.0) / 100.0 + " X");
         TextView close = myDialog.findViewById(R.id.close);
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myDialog.dismiss();
-            }
-        });
+        close.setOnClickListener(view -> myDialog.dismiss());
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
@@ -123,7 +116,6 @@ public class AlertHelper {
 
 
     public void loadCommodityPopUp(final Commodity commodity) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.equitycalculate, null);
 
         myDialog.setContentView(R.layout.equitycalculate);
 
@@ -133,7 +125,132 @@ public class AlertHelper {
         Button cal;
         final EditText price, amt;
 
-        String am = "";
+
+        scrip = myDialog.findViewById(R.id.scrip);
+        mis_mux = myDialog.findViewById(R.id.mis_mux);
+        nrml = myDialog.findViewById(R.id.mis_mux2);
+        cal = myDialog.findViewById(R.id.calculate);
+        price = myDialog.findViewById(R.id.price);
+        amt = myDialog.findViewById(R.id.amount);
+
+        price.setText(commodity.getPrice());
+        scrip.setText(commodity.getScrip());
+        nrml.setText("CNC : " + commodity.getNrml());
+
+
+        if(commodity.getMis().equals("N/A")) {
+            mis_mux.setText("MIS : " + Integer.parseInt(commodity.getNrml()) / 2);
+            commodity.setMis((Integer.parseInt(commodity.getNrml()) / 2)+"");
+        }
+        else{
+            mis_mux.setText("MIS : " + commodity.getMis());
+        }
+
+
+
+
+
+        cal.setOnClickListener(v -> {
+
+            if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
+                Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
+
+            else {
+                TextView misqty = myDialog.findViewById(R.id.misqty);
+                TextView cncqty = myDialog.findViewById(R.id.cncqty);
+
+                double am = 0, prc = 0;
+                if (!amt.getText().toString().startsWith(".") && !price.getText().toString().startsWith(".")) {
+                    am = Double.parseDouble(amt.getText().toString());
+
+                    prc = Double.parseDouble(price.getText().toString());
+                    int res[] = changeParams(mis_mux, nrml, prc, commodity);
+                    misqty.setText(Math.floor(((am / res[0]))) + "");
+                    cncqty.setText(Math.floor(((am / res[1]))) + "");
+                } else
+                    Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        // closing
+
+        TextView close = myDialog.findViewById(R.id.close);
+        close.setOnClickListener(view -> myDialog.dismiss());
+
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+    public void loadFuturePopUp(Futures futures) {
+
+        myDialog.setContentView(R.layout.equitycalculate);
+        TextView scrip;
+        final TextView mis_mux, nrml;
+        Button cal;
+        final EditText price, amt;
+        scrip = myDialog.findViewById(R.id.scrip);
+        mis_mux = myDialog.findViewById(R.id.mis_mux);
+        nrml = myDialog.findViewById(R.id.mis_mux2);
+        cal = myDialog.findViewById(R.id.calculate);
+        price = myDialog.findViewById(R.id.price);
+        amt = myDialog.findViewById(R.id.amount);
+
+
+        scrip.setText(futures.getScrip());
+        mis_mux.setText("MIS : " + futures.getMis());
+        nrml.setText("NRML : " + futures.getNrml());
+        price.setText(futures.getPrice()+"");
+
+
+
+        cal.setOnClickListener(v -> {
+
+            if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
+                Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
+
+            else {
+                TextView misqty = myDialog.findViewById(R.id.misqty);
+                TextView cncqty = myDialog.findViewById(R.id.cncqty);
+
+                double am = 0, prc = 0;
+                if (!amt.getText().toString().startsWith(".") && !price.getText().toString().startsWith(".")) {
+                    am = Double.parseDouble(amt.getText().toString());
+                    //TODO
+                    prc = Double.parseDouble(price.getText().toString());
+                    int res[] = changeParams(mis_mux, nrml, prc, futures);
+                    misqty.setText(Math.floor(((am / res[0]) )) + "");
+                    cncqty.setText(Math.floor(((am / res[1]))) + "");
+                } else
+                    Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+
+        // closing
+
+        TextView close = myDialog.findViewById(R.id.close);
+        close.setOnClickListener(view -> myDialog.dismiss());
+
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.setCancelable(false);
+        myDialog.show();
+    }
+
+
+    public void loadCurrencyPopUp(Currency futures) {
+
+        myDialog.setContentView(R.layout.equitycalculate);
+
+
+        TextView scrip;
+        final TextView mis_mux, nrml;
+        Button cal;
+        final EditText price, amt;
 
 
         scrip = myDialog.findViewById(R.id.scrip);
@@ -144,52 +261,47 @@ public class AlertHelper {
         amt = myDialog.findViewById(R.id.amount);
 
 
-        scrip.setText(commodity.getScrip());
-        mis_mux.setText("MIS : " + commodity.getMis() + "X");
-        nrml.setText("CNC : " + 1.0 + "X");
+        scrip.setText(futures.getScrip());
+        mis_mux.setText("MIS : " + futures.getMis());
+        nrml.setText("NRML : " + futures.getNrml());
 
-        mis1 = commodity.getMis();
-        cnc1 = 1.0f;
+        price.setText(futures.getPrice()+"");
+
+        cal.setOnClickListener(v -> {
+
+            if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
+                Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
+
+            else {
+                TextView misqty = myDialog.findViewById(R.id.misqty);
+                TextView cncqty = myDialog.findViewById(R.id.cncqty);
+
+                double am = 0, prc = 0;
+                if (!amt.getText().toString().startsWith(".") && !price.getText().toString().startsWith(".")) {
+                    am = Double.parseDouble(amt.getText().toString());
+
+                    prc = Double.parseDouble(price.getText().toString());
+                    int res[] = changeParams(mis_mux, nrml, prc, futures);
+                    misqty.setText(Math.floor(((am / res[0]) )) + "");
+                    cncqty.setText(Math.floor(((am / res[1]) )) + "");
+                } else
+                    Toast.makeText(context, "Please enter proper values..", Toast.LENGTH_LONG).show();
 
 
-        cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (price.getText().toString().isEmpty() || amt.getText().toString().isEmpty())
-                    Toast.makeText(context, "Fields Can't be empty", Toast.LENGTH_SHORT).show();
-
-                else {
-                    TextView misqty = myDialog.findViewById(R.id.misqty);
-                    TextView cncqty = myDialog.findViewById(R.id.cncqty);
-
-
-                    double am = Double.parseDouble(amt.getText().toString());
-
-                    double prc = Double.parseDouble(price.getText().toString());
-                    int res[] = changeParams(mis_mux, nrml, prc, commodity);
-                    misqty.setText(Math.floor(((am * res[0]) / prc)) + "");
-                    cncqty.setText(Math.floor(((am * res[1]) / prc)) + "");
-
-                }
             }
         });
 
         // closing
 
         TextView close = myDialog.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myDialog.dismiss();
-            }
-        });
+        close.setOnClickListener(view -> myDialog.dismiss());
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setCancelable(false);
         myDialog.show();
     }
+
 
     /**
      * @param mval   mis value
@@ -201,21 +313,63 @@ public class AlertHelper {
      */
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Commodity commodity) {
         int res[] = new int[2];
-        int mval = commodity.getMis();
-        int nval = commodity.getNrml();
-        double aprice = commodity.getPrice();
+        int mval = Integer.parseInt(commodity.getMis());
+        int nval = Integer.parseInt(commodity.getNrml());
+        double aprice = Double.parseDouble(commodity.getPrice());
         int new_mval = 0, new_nval = 0;
 
         new_mval = (int) ((uprice * (mval)) / aprice);
-        new_nval = (int) ((aprice * (nval)) / uprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
 
         mis.setText("MIS : " + new_mval);
         cnc.setText("CNC : " + new_nval);
         res[0] = new_mval;
         res[1] = new_nval;
 
-        return  res;
+
+
+        return res;
 
 
     }
+    public int[] changeParams(TextView mis, TextView cnc, double uprice, Futures futures) {
+        int res[] = new int[2];
+        int mval = Integer.parseInt(futures.getMis());
+        int nval = Integer.parseInt(futures.getNrml());
+        double aprice = Double.parseDouble(futures.getPrice());
+        int new_mval = 0, new_nval = 0;
+
+        new_mval = (int) ((uprice * (mval)) / aprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
+
+        mis.setText("MIS : " + new_mval);
+        cnc.setText("CNC : " + new_nval);
+        res[0] = new_mval;
+        res[1] = new_nval;
+
+        return res;
+
+
+    }
+    public int[] changeParams(TextView mis, TextView cnc, double uprice, Currency currency) {
+        int res[] = new int[2];
+        int mval = currency.getMis();
+        int nval = currency.getNrml();
+        double aprice = currency.getPrice();
+        int new_mval = 0, new_nval = 0;
+
+        new_mval = (int) ((uprice * (mval)) / aprice);
+        new_nval = (int) ((uprice * (nval)) / aprice);
+
+        mis.setText("MIS : " + new_mval);
+        cnc.setText("CNC : " + new_nval);
+        res[0] = new_mval;
+        res[1] = new_nval;
+
+        return res;
+
+
+    }
+
+
 }

@@ -56,45 +56,39 @@ public class CurrencyBrokerageFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_currency_brokerage, container, false);
         final View tview = view;
+       // AdViewHelper.loadBanner(view);
+        try{
+
+            buy = view.findViewById(R.id.buy);
+            sell = view.findViewById(R.id.sell);
+            qty = view.findViewById(R.id.lot);
+            spinner = view.findViewById(R.id.states);
+            Button cal = view.findViewById(R.id.calculate);
+
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        buy = view.findViewById(R.id.buy);
-        sell = view.findViewById(R.id.sell);
-        qty = view.findViewById(R.id.lot);
-        spinner = view.findViewById(R.id.states);
-        Button cal = view.findViewById(R.id.calculate);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
 
 
-        spinner.setAdapter(adapter);
-        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey));
-            }
-        });
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
+                    String s = parentView.getItemAtPosition(position).toString();
+                    state = s;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
 
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
-                String s = parentView.getItemAtPosition(position).toString();
-                state = s;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-
-        cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty())
+            cal.setOnClickListener(v -> {
+                if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith("."))
                     Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
                 else {
                     if (state.isEmpty() || state.equals("Select State"))
@@ -105,9 +99,13 @@ public class CurrencyBrokerageFrag extends Fragment {
                 }
 
 
-            }
-        });
-        AdViewHelper.loadBanner(view);
+            });
+
+
+        }
+        catch (Exception e){
+            Toast.makeText(getContext(), "Oops Something Happened", Toast.LENGTH_SHORT).show();
+        }
 
         return view;
     }

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chiruhas.android.zerodha.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 
 public class
@@ -33,7 +35,9 @@ BrokerageFragment extends Fragment  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -42,13 +46,9 @@ BrokerageFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_brokerage, container, false);
+
         CardView equity = v.findViewById(R.id.equity);
-        equity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onBrokerageFragment(v);
-            }
-        });
+        equity.setOnClickListener(v1 -> mListener.onBrokerageFragment(v1));
 
         return v;
 

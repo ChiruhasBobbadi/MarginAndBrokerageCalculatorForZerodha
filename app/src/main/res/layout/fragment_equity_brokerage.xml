@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_black"
@@ -61,7 +62,7 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:hint="Quantity"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textColor="@color/bg_white"
             android:textColorHint="@color/bg_white"
             app:layout_constraintEnd_toEndOf="@+id/sell"
@@ -78,7 +79,8 @@
             android:layout_marginEnd="8dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="12dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lot">
@@ -87,7 +89,7 @@
                 android:id="@+id/nse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="40dp"
                 android:buttonTint="@color/bg_blue"
                 android:checked="true"
                 android:text="NSE"
@@ -100,7 +102,7 @@
                 android:id="@+id/bse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="40dp"
 
                 android:buttonTint="@color/bg_blue"
                 android:text="BSE"
@@ -111,9 +113,73 @@
 
         </RadioGroup>
 
+        <RadioGroup
+            android:id="@+id/rgroup2"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_horizontal"
+
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lot">
+
+            <RadioButton
+                android:id="@+id/def"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginRight="15dp"
+                android:buttonTint="@color/bg_blue"
+                android:checked="true"
+                android:padding="5dp"
+                android:text="Default\nBrokerage"
+                android:textColor="@color/bg_white"
+                android:textSize="18sp"
+
+                />
+
+            <RadioButton
+                android:id="@+id/custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="0dp"
+                android:buttonTint="@color/bg_blue"
+                android:padding="5dp"
+                android:text="Custom\nBrokerage"
+                android:textColor="@color/bg_white"
+                android:textSize="18sp"
+
+                />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/per"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/rounded_calculate_btn"
+
+            android:hint="Brokerage in %"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/bg_white"
+            android:textColorHint="@color/bg_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgroup" />
+
         <TextView
 
-            android:id="@+id/textView6"
+            android:id="@+id/cust"
             android:layout_width="159dp"
             android:layout_height="40dp"
             android:layout_marginStart="12dp"
@@ -131,22 +197,21 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/states"
-            style=""
+
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="70dp"
+
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/white_grey"
             android:dropDownSelector="@color/white_grey"
             android:foregroundTint="@color/white_grey"
-
             android:hapticFeedbackEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgroup"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/rgroup2" />
 
         <ListView
             android:id="@+id/list"
@@ -154,7 +219,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/bg_grey"
@@ -163,10 +227,10 @@
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/states"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.09" />
 
         <TextView
 
@@ -191,43 +255,19 @@
             android:id="@+id/calculate"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_calculate_btn"
             android:text="Calculate"
             android:textColor="@color/bg_white"
-            app:layout_constraintBottom_toTopOf="@+id/adView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="8dp"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/brokerage_banner"
-            ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/cust" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
-
-
-
-
+</androidx.core.widget.NestedScrollView>

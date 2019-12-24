@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
-import com.chiruhas.android.zerodha.HelperClasses.ObjectConverter;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.Model.Equity.RoomModels.GodEquity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class EquityFrag extends Fragment {
 
 
     EquityViewModel equityViewModel;
-    ViewModel viewModel;
+    ZerodhaViewModel viewModel;
     private EquityFragmentListener mListener;
     private int pos;
     RecyclerView recyclerView;
@@ -62,15 +61,12 @@ public class EquityFrag extends Fragment {
 
 
         equityViewModel = ViewModelProviders.of(this).get(EquityViewModel.class);
-        equityViewModel.getAll().observe(this, new Observer<List<GodEquity>>() {
-            @Override
-            public void onChanged(List<GodEquity> GodModels) {
+        equityViewModel.getAll().observe(this, GodModels -> {
 
 
-                adapter.updateData(ObjectConverter.godEquitytoGodModel(GodModels));
-                adapter.setCache(ObjectConverter.godEquitytoGodModel(GodModels));
+//                adapter.updateData(ObjectConverter.godEquitytoGodModel(GodModels));
+//                adapter.setCache(ObjectConverter.godEquitytoGodModel(GodModels));
 
-            }
         });
 
 
@@ -91,22 +87,7 @@ public class EquityFrag extends Fragment {
         recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        adapter = new RecyclerViewAdapter(new RecyclerViewAdapter.ItemListener() {
-            @Override
-            public void onItemClick(GodModel item) {
-                mListener.showPopup(item);
-            }
-
-            @Override
-            public void onBookmarkClick(GodModel GodModel) {
-
-            }
-
-            @Override
-            public void onBookmarkUnClick(GodModel GodModel) {
-                mListener.deleteBookmark(GodModel);
-            }
-        });
+        adapter = new RecyclerViewAdapter(item -> mListener.showPopup(item));
         recyclerView.setAdapter(adapter);
 
         return view;

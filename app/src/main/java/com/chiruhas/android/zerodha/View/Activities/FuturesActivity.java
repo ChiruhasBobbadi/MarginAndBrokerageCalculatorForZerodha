@@ -1,129 +1,183 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chiruhas.android.zerodha.CustomAdapters.Equity.FutureAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.ViewModel;
-import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuturesActivity extends AppCompatActivity {
+public class FuturesActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
-    ViewModel view;
-    RecyclerView rv;
-    Dialog myDialog;
-    FutureAdapter FutureAdapter;
-    ProgressBar bar;
     private static final String TAG = "FuturesActivity";
-    List<Futures> list = new ArrayList<>();
+    private ZerodhaViewModel viewModel;
+    private AstaViewModel astaViewModel;
+    private RecyclerView rv;
+    private FutureAdapter adapter;
+    private ProgressBar bar;
+    private List<Futures> list = new ArrayList<>();
+    private RewardedVideoAd videoAd;
+    private RadioGroup rg;
+    private Futures futures;
 
     //room viewmodel
-    EquityViewModel futureViewModel;
+    // EquityViewModel futureViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_futures);
+        init();
+
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+            adapter.updateData(new ArrayList<>());
+            bar.setVisibility(View.VISIBLE);
+            switch (checkedId) {
+                case R.id.zerodha:
+                    bar.setVisibility(View.VISIBLE);
+                    zerodhaCall();
+                    break;
+                case R.id.asta:
+                    bar.setVisibility(View.VISIBLE);
+                    astaCall();
+                    break;
+            }
+        });
 
 
+
+    }
+
+    private void astaCall() {
+        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        astaViewModel.fetchFutures().observe(this, Futures -> {
+            list = Futures;
+            for (int i = 0; i < list.size(); i++) {
+                Log.d(TAG, "onChanged: " + list.get(i).getScrip());
+            }
+            adapter.updateData(Futures);
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    public void zerodhaCall() {
+        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        viewModel.fetchFutures().observe(this, Futures -> {
+
+
+            list = Futures;
+            for (int i = 0; i < list.size(); i++) {
+                Log.d(TAG, "onChanged: " + list.get(i).getScrip());
+            }
+            adapter.updateData(Futures);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    private void init() {
         //loading adview
+        rg = findViewById(R.id.radioGroup);
         View view = getWindow().getDecorView().getRootView();
         AdViewHelper.loadBanner(view);
         getSupportActionBar().setTitle("Future Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        videoAd = MobileAds.getRewardedVideoAdInstance(this);
+        videoAd.setRewardedVideoAdListener(this);
+        //TODO
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean first = sharedPreferences.getBoolean("first", true);
+        if (first) {
+            showWarning();
+        }
+
+        loadRewardedVideoAd();
         setAdapter();
-        fetchData();
-        //fetchCache();
-        
+        zerodhaCall();
     }
-//    private void fetchCache() {
-//        futureViewModel = ViewModelProviders.of(this).get(FutureViewModel.class);
-//        futureViewModel.getAll().observe(this, new Observer<List<Future>>() {
-//            @Override
-//            public void onChanged(List<future> godCommodities) {
-//
-//                List<Future> lst = new ArrayList<>();
-//                for(Future g : godCommodities){
-//                    // GodFuture to God Model
-//                    lst.add(g);
-//                }
-//                FutureAdapter.setCache(lst);
-//            }
-//        });
-//    }
+
+    private void showWarning() {
+        new AlertDialog.Builder(this).setTitle("Attention Required !").setMessage("Thank you for downloading the app, currently this app is able to fetch future's data but calculating margins is not accurate(only for future's) as zerodha has some internal formula .\n\nI am searching for alternate ways,if you still wish to use it you can use it.\n\nBut please don't post threatening reviews after using it, I will publish an update as soon as i figure it.\n\nIt's my responsibility to notify you, and i did.\n\nHappy Trading!. ")
+                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss()).create().show();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("first", false);
+        editor.apply();
+    }
+
+    /**
+     * Reward video helper method
+     */
+    private void loadRewardedVideoAd() {
+
+
+        //original
+        videoAd.loadAd(getResources().getString(R.string.future_reward),
+                new AdRequest.Builder().build());
+    }
+
 
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
         rv = findViewById(R.id.rv);
         // change later
-        FutureAdapter =new FutureAdapter(new FutureAdapter.ItemListener() {
-            @Override
-            public void onItemClick(Futures item) {
+        adapter = new FutureAdapter(item -> {
+            futures = item;
+            if (videoAd.isLoaded()) {
+                videoAd.show();
+
+            } else {
                 // code for calculating and showing a popup
                 AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
 
                 alertHelper.loadFuturePopUp(item);
-
             }
 
-            @Override
-            public void onBookmarkClick(Futures model) {
-                // insert into database
-
-                FutureViewModel.insert(model);
-
-            }
-
-            @Override
-            public void onBookmarkUnClick(Futures model) {
-                // delete from database
-                FutureViewModel.delete(model);
-            }
-        },FutureActivity.this);
+        });
 
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(FutureAdapter);
+        rv.setAdapter(adapter);
 
 
     }
 
-    public void fetchData() {
-        view = ViewModelProviders.of(this).get(ViewModel.class);
-        view.fetchFutures().observe(this, new Observer<List<Futures>>() {
-            @Override
-            public void onChanged(List<Futures> Futures) {
 
+    public void showPopup() {
+        AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
 
-                list = Futures;
-
-                FutureAdapter.updateData(Futures);
-
-                bar.setVisibility(View.GONE);
-            }
-        });
+        alertHelper.loadFuturePopUp(futures);
     }
-
-
     // searchview
 
     @Override
@@ -148,7 +202,7 @@ public class FuturesActivity extends AppCompatActivity {
                         em.add(e);
                     }
                 }
-                FutureAdapter.updateData(em);
+                adapter.updateData(em);
 
 
                 return false;
@@ -158,4 +212,43 @@ public class FuturesActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        showPopup();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
 }
