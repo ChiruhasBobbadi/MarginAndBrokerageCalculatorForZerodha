@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Brokerage.equity;
 
+import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.fragments.EquityBrokerageFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -13,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import com.chiruhas.android.zerodha.R;
 
@@ -28,6 +30,16 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equity_brokerage);
+
+        init();
+
+
+
+    }
+
+    private void init() {
+        View view = getWindow().getDecorView().getRootView();
+       // AdViewHelper.loadBanner(view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,9 +58,6 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-
     }
 
     @Override

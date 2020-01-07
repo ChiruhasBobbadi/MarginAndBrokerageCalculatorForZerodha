@@ -432,10 +432,7 @@ public class Normal_BO extends Fragment {
         map.put("ZINCINI", 1000);
     }
 
-    public void hideSoftKeyboard() {
-        getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
+
 
 
 }

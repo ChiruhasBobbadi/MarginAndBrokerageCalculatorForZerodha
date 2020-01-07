@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
+import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Normal_BO;
 import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Reverse_BO;
 import com.google.android.material.tabs.TabLayout;
@@ -39,6 +40,16 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bracket);
 
+        init();
+
+
+
+    }
+
+    private void init() {
+        View view = getWindow().getDecorView().getRootView();
+        //AdViewHelper.loadBanner(view);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -54,9 +65,6 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-
     }
 
     @Override

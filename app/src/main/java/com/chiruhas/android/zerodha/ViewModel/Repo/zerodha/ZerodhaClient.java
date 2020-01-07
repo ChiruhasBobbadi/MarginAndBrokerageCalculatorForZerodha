@@ -19,7 +19,7 @@ public interface ZerodhaClient {
     Call<List<Commodity>> getCommodity();
     @GET("currency")
     Call<List<Currency>> getCurrency();
-    @GET("/futures")
+    @GET("futures")
     Call<List<Futures>> getFutures();
 
 }

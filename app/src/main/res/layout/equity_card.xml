@@ -31,6 +31,7 @@
         android:layout_marginTop="54dp"
         android:text="3MINDIA:EQ"
         android:textColor="#FAFAFA"
+        android:transitionName="scrip"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

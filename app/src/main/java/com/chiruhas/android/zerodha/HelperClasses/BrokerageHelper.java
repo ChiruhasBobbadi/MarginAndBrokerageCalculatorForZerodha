@@ -136,7 +136,7 @@ public class BrokerageHelper {
 
         double total_tax = 0;
         int id = -1;
-        List lst = new ArrayList();
+        List <Object> lst = new ArrayList<>();
 
         if (type != 'c')
             id = rg.getCheckedRadioButtonId();
@@ -206,8 +206,8 @@ public class BrokerageHelper {
         };
 
         list.setAdapter(arrayAdapter1);
-
-        pl.setText(net + "");
+        double percent = (net/(b*q))*100;
+        pl.setText(net+"\n( "+String.format("%.2f", percent)+" % )");
         // changing text color
         if (!profit) {
             pl.setTextColor(Color.RED);
@@ -218,20 +218,7 @@ public class BrokerageHelper {
     }
 
 
-    /**
-     * @param buy
-     * @param sell
-     * @param qty
-     * @param type to specify the type for which brokerage is need to be calculated
-     *             E0 indicates Equity intraday
-     *             E1 indicates Equity Delivery
-     *             E2 indicates Equity Futures
-     *             E3 indicate Equity Options
-     *             CU0 indicates Currency Futures
-     *             CU1 indicates Currency Options
-     *             C0 indicates Commodity Futures
-     *             C1 indicates Commodity Options
-     */
+
     private double[] details(String type) {
 
 
