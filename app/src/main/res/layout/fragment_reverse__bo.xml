@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Fragments.bracket_order.Reverse_BO">
+    tools:context=".View.Fragments.bracket_order.Reverse_BO"
+    android:background="@color/bg_black">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Coming Soon.."
+        android:textColor="@color/bg_blue"
+        android:textSize="25sp"
+        android:gravity="center" />
 
 </FrameLayout>

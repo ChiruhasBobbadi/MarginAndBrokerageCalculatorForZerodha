@@ -2,15 +2,16 @@ package com.chiruhas.android.zerodha.View.Brokerage;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
 import com.chiruhas.android.zerodha.R;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 
 public class
@@ -18,7 +19,7 @@ BrokerageFragment extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;
-
+    private CardView equity, commodity, currency;
     public BrokerageFragment() {
         // Required empty public constructor
     }
@@ -33,7 +34,9 @@ BrokerageFragment extends Fragment  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -42,13 +45,27 @@ BrokerageFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_brokerage, container, false);
-        CardView equity = v.findViewById(R.id.equity);
-        equity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onBrokerageFragment(v);
-            }
-        });
+
+        equity = v.findViewById(R.id.equity);
+        commodity = v.findViewById(R.id.commodity);
+        currency = v.findViewById(R.id.currency);
+        equity.setOnClickListener(v1 -> mListener.onBrokerageFragment(v1));
+
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(equity);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(commodity);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1200)
+                .repeat(0)
+                .playOn(currency);
+
+
+
 
         return v;
 

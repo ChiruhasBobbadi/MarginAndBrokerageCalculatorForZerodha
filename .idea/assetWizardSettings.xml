@@ -132,8 +132,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="bo_card" />
-                            <entry key="sourceFile" value="D:\bo_card.svg" />
+                            <entry key="outputName" value="ic_padlock" />
+                            <entry key="sourceFile" value="D:\padlock.svg" />
                           </map>
                         </option>
                       </PersistentState>

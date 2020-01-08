@@ -17,14 +17,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m">
+        <activity
+            android:name=".View.Activities.PositionActivity"
+            android:parentActivityName=".View.Activities.MainActivity" />
+        <activity
+            android:name=".View.Activities.FuturesActivity"
+            android:parentActivityName=".View.Activities.MainActivity" />
+        <activity
+            android:name=".View.Activities.CurrencyActivity"
+            android:label="@string/title_activity_currency"
+            android:parentActivityName=".View.Activities.MainActivity" />
         <activity
             android:name=".View.Activities.BracketActivity"
             android:label="@string/title_activity_bracket"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".View.Activities.MainActivity"/>
+            android:parentActivityName=".View.Activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".View.Brokerage.commodity.commodityBrokerageActivity"
+            android:name=".View.Brokerage.commodity.CommodityBrokerageActivity"
             android:label="@string/title_activity_commodity_brokerage"
             android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -50,11 +62,7 @@
             android:label="@string/title_activity_equity_brokerage"
             android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".View.Activities.BookmarkActivity"
-            android:label="@string/title_activity_bookmark"
-            android:parentActivityName=".View.Activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -67,6 +75,10 @@
         <activity
             android:name=".View.Activities.EquityActivity"
             android:parentActivityName=".View.Activities.MainActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

@@ -1,18 +1,16 @@
 
 package com.chiruhas.android.zerodha.CustomAdapters.Equity;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chiruhas.android.zerodha.HelperClasses.BookmarkHelper;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.daimajia.androidanimations.library.Techniques;
@@ -42,10 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
 
-    public void setCache(List<GodModel> equity){
-        equitycache=equity;
-       // notifyDataSetChanged();
-    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -64,37 +59,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final ViewHolder h=holder;
       final GodModel model = GodModels.get(position);
 
-      // bookmark helper class
-        BookmarkHelper.checkBookmark(equitycache,model,holder.bookmark);
+        // bookmark helper class
+        //BookmarkHelper.checkBookmark(equitycache,model,holder.bookmark);
 
         holder.scrip.setText(model.getTradingsymbol());
         holder.mis.setText("MIS Multiplier : "+model.getMis_multiplier()+"X");
-        holder.cnc.setText("CNC Multiplier : 1X");
+        if (model.getNrml_multiplier() == 0)
+            model.setNrml_multiplier(1);
+        holder.cnc.setText("CNC Multiplier : " + model.getNrml_multiplier() + "X");
 
-        holder.cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myListener.onItemClick(model);
-            }
-        });
+        holder.cal.setOnClickListener(view -> myListener.onItemClick(model));
 
 
-        //cahnging the image of star based on conditions
-        holder.bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((int)h.bookmark.getTag() == R.drawable.ic_star_border){
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star);
-                    h.bookmark.setTag(R.drawable.ic_star);
-                    myListener.onBookmarkClick(model);
-                }
-                else{
-                    h.bookmark.setBackgroundResource(R.drawable.ic_star_border);
-                    h.bookmark.setTag(R.drawable.ic_star_border);
-                    myListener.onBookmarkUnClick(model);
-                }
-            }
-        });
+
 
         YoYo.with(Techniques.FadeIn)
                 .duration(1200)
@@ -111,18 +88,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public interface ItemListener {
         void onItemClick(GodModel item);
-        void onBookmarkClick(GodModel GodModel);
-        void onBookmarkUnClick(GodModel GodModel);
+
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView scrip,mis,cnc;
         Button cal;
         CardView card;
-      public  ImageView bookmark;
+
+        //public  ImageView bookmark;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             scrip = itemView.findViewById(R.id.scrip);
@@ -130,8 +105,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cnc = itemView.findViewById(R.id.cnc_mul);
             cal=itemView.findViewById(R.id.cal);
             card =itemView.findViewById(R.id.card);
-            bookmark = itemView.findViewById(R.id.bookmark);
-            bookmark.setTag(R.drawable.ic_star_border);
+            //bookmark = itemView.findViewById(R.id.bookmark);
+            //bookmark.setTag(R.drawable.ic_star_border);
         }
     }
 

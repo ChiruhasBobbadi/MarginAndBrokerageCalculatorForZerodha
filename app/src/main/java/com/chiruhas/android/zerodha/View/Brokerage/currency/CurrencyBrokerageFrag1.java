@@ -3,17 +3,12 @@ package com.chiruhas.android.zerodha.View.Brokerage.currency;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
-import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
+import androidx.fragment.app.Fragment;
+
 import com.chiruhas.android.zerodha.R;
 
 
@@ -44,9 +39,9 @@ public class CurrencyBrokerageFrag1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_currency_brokerage_frag1, container, false);
+        View view = inflater.inflate(R.layout.fragment_currency_brokerage_frag1, container, false);
 
-        final View tview= view;
+        final View tview = view;
 
 
 //        buy = view.findViewById(R.id.buy);

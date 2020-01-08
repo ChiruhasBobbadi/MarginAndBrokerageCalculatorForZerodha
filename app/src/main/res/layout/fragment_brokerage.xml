@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
         android:onClick="onBrokerageFragment"
         app:cardBackgroundColor="@color/bg_blue"
@@ -27,44 +27,48 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_equity"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.031"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginBottom="40dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Equities F&amp;O"
                 android:textColor="@color/bg_white"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.942"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.52"
+                app:layout_constraintStart_toEndOf="@+id/imageView3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/commodity"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="88dp"
+        android:layout_marginEnd="8dp"
         android:onClick="onBrokerageFragment"
         app:cardBackgroundColor="@color/bg_blue"
         app:cardCornerRadius="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/equity">
 
@@ -79,13 +83,16 @@
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="31dp"
+                android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_commodity"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:layout_width="112dp"
+                android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -98,7 +105,7 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 app:layout_constraintVertical_bias="1.0" />
@@ -107,16 +114,15 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/currency"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="88dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="50dp"
         android:onClick="onBrokerageFragment"
         app:cardBackgroundColor="@color/bg_blue"
         app:cardCornerRadius="19dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/commodity"
         app:layout_constraintTop_toBottomOf="@+id/equity">
 
@@ -130,17 +136,21 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="27dp"
+                android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_currency"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
+                android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="4dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Currency"

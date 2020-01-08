@@ -1,19 +1,18 @@
 package com.chiruhas.android.zerodha.View.Brokerage.currency;
 
-import com.google.android.material.tabs.TabLayout;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.net.Uri;
-import android.os.Bundle;
-
 import com.chiruhas.android.zerodha.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrokerageFrag.OnFragmentInteractionListener,CurrencyBrokerageFrag1.OnFragmentInteractionListener{
 
@@ -27,6 +26,15 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_brokerage);
+
+        init();
+
+
+    }
+
+    private void init() {
+        View view = getWindow().getDecorView().getRootView();
+        //AdViewHelper.loadBanner(view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,9 +56,6 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-
     }
 
     @Override

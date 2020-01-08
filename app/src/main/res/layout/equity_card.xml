@@ -18,10 +18,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.447"
         app:cardElevation="0dp"
+        android:backgroundTint="@color/bg_grey"
         app:cardCornerRadius="25dp"
         android:id="@+id/card"/>
-
-
 
 
     <TextView
@@ -31,7 +30,8 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="54dp"
         android:text="3MINDIA:EQ"
-        android:textColor="@color/bg_black"
+        android:textColor="#FAFAFA"
+        android:transitionName="scrip"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginTop="24dp"
         android:text="MIS Multiplier : 14X"
-        android:textColor="@color/bg_black"
+        android:textColor="#9e9e9e"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="132dp"
         android:layout_marginBottom="24dp"
-        android:textColor="@color/bg_black"
+        android:textColor="#9e9e9e"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,18 +76,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.493" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/bg_blue"
-        android:src="@drawable/ic_star_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toStartOf="@+id/card"
-        app:layout_constraintTop_toBottomOf="@+id/cal"
-        android:id="@+id/bookmark"/>
+    <!--    <ImageView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="8dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:backgroundTint="@color/bg_blue"-->
+    <!--        android:src="@drawable/ic_star_border"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.978"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/card"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/cal"-->
+    <!--        android:id="@+id/bookmark"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

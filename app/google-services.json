@@ -1,0 +1,65 @@
+{
+  "project_info": {
+    "project_number": "33955510626",
+    "firebase_url": "https://zerodhamargincalculator.firebaseio.com",
+    "project_id": "zerodhamargincalculator",
+    "storage_bucket": "zerodhamargincalculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33955510626:android:f57da9adcd95917c",
+        "android_client_info": {
+          "package_name": "com.chiruhas.android.zerodha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33955510626-906n80lp5u4f1op419cor45fr19pqurp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chiruhas.android.zerodha",
+            "certificate_hash": "519aa90691706cd25652972ff23f3262aa311442"
+          }
+        },
+        {
+          "client_id": "33955510626-mm4lvglfa663daob5dm4lv10vuj1j9bq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chiruhas.android.zerodha",
+            "certificate_hash": "11720c06ee00fec60d35903cd9b135313fe3e8dc"
+          }
+        },
+        {
+          "client_id": "33955510626-a3c20fien1j1plh0hp5btvpsnufv91f8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chiruhas.android.zerodha",
+            "certificate_hash": "0b686c7700bb7a3601cfcbfc2808c717b87f9e47"
+          }
+        },
+        {
+          "client_id": "33955510626-ioes0dp14le6mjjpv7010p84tlqi64sk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFEg0VvMIh53YtgIF6S_vAibu6BdYXsIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33955510626-ioes0dp14le6mjjpv7010p84tlqi64sk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4351116683020455~8691946225"
+    }
+  ],
+  "configuration_version": "1"
+}

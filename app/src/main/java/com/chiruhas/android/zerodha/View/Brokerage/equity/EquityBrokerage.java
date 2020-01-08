@@ -1,20 +1,19 @@
 package com.chiruhas.android.zerodha.View.Brokerage.equity;
 
-import com.chiruhas.android.zerodha.View.Brokerage.equity.fragments.EquityBrokerageFragment;
-import com.google.android.material.tabs.TabLayout;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.net.Uri;
-import android.os.Bundle;
-
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.View.Brokerage.equity.fragments.EquityBrokerageFragment;
+import com.google.android.material.tabs.TabLayout;
 
 public class EquityBrokerage extends AppCompatActivity implements EquityBrokerageFragment.OnFragmentInteractionListener {
 
@@ -29,6 +28,15 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equity_brokerage);
 
+        init();
+
+
+    }
+
+    private void init() {
+        View view = getWindow().getDecorView().getRootView();
+        // AdViewHelper.loadBanner(view);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -39,16 +47,13 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-
     }
 
     @Override
