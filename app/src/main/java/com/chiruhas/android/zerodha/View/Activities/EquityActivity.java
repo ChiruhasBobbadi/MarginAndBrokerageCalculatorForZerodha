@@ -2,11 +2,14 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -17,12 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
-import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +43,8 @@ public class EquityActivity extends AppCompatActivity {
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar bar;
     List<GodModel> equity = new ArrayList<>();
+    private FrameLayout adContainerView;
+    private AdView adView;
     //room viewmodel
 
     private RadioGroup rg;
@@ -76,6 +84,9 @@ public class EquityActivity extends AppCompatActivity {
         bar.setVisibility(View.VISIBLE);
         rg = findViewById(R.id.radioGroup);
 
+        initAds();
+        loadBanner();
+
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle("Equity Margins");
@@ -84,9 +95,9 @@ public class EquityActivity extends AppCompatActivity {
         myDialog = new Dialog(this);
 
 
-        View rootView = getWindow().getDecorView().getRootView();
-        //adview
-        AdViewHelper.loadBanner(rootView);
+//        View rootView = getWindow().getDecorView().getRootView();
+//        //adview
+//        AdViewHelper.loadBanner(rootView);
 
         recyclerViewAdapter = new RecyclerViewAdapter(this::loadAlert);
 
@@ -95,6 +106,7 @@ public class EquityActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,5 +177,49 @@ public class EquityActivity extends AppCompatActivity {
             bar.setVisibility(View.GONE);
         });
     }
+
+
+    private void initAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        adContainerView = findViewById(R.id.ad_view_container);
+        // Step 1 - Create an AdView and set the ad unit ID on it.
+        adView = new AdView(this);
+        adView.setAdUnitId(getResources().getString(R.string.margin_banner));
+        adContainerView.addView(adView);
+    }
+
+    private void loadBanner() {
+        // Create an ad request. Check your logcat output for the hashed device ID
+        // to get test ads on a physical device, e.g.,
+        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
+        // device."
+        AdRequest adRequest =
+                new AdRequest.Builder()
+                        .build();
+
+        AdSize adSize = getAdSize();
+        // Step 4 - Set the adaptive ad size on the ad view.
+        adView.setAdSize(adSize);
+
+        // Step 5 - Start loading the ad in the background.
+        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
 
 }

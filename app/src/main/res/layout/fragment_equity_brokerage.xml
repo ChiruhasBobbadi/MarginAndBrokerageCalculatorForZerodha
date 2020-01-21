@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_black">
+        android:layout_height="wrap_content"
+        android:background="@color/bg_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/brokerage_bg"
             android:padding="5dp">
 
@@ -26,7 +30,6 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="24dp"
-                android:textCursorDrawable="@null"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
                 android:hint="Buy Price"
@@ -34,6 +37,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +47,6 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:textCursorDrawable="@null"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
@@ -52,6 +55,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +67,6 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="32dp"
-                android:textCursorDrawable="@null"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:foregroundGravity="center"
@@ -72,6 +75,7 @@
                 android:inputType="number"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="@+id/sell"
                 app:layout_constraintHorizontal_bias="0.375"
                 app:layout_constraintStart_toStartOf="@+id/buy"
@@ -173,12 +177,12 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="100dp"
                 android:background="@drawable/rounded_calculate_btn"
-                android:textCursorDrawable="@null"
                 android:hint="Brokerage in %"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -281,4 +285,5 @@
 
 
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

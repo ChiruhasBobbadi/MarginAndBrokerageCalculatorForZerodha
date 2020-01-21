@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
 import com.chiruhas.android.zerodha.R;
+import com.google.android.gms.ads.AdView;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -34,6 +36,8 @@ public class EquityBrokerageFragment extends Fragment {
     private EditText sell;
     private EditText qty;
     private Spinner spinner;
+    private FrameLayout adContainerView;
+    private AdView adView;
 
     public EquityBrokerageFragment() {
         // Required empty public constructor
@@ -59,8 +63,8 @@ public class EquityBrokerageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
-
-//        AdViewHelper.loadBanner(view);
+//        initAds(view);
+//        loadBanner();
         RadioGroup rg2 = view.findViewById(R.id.rgroup2);
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
@@ -174,4 +178,44 @@ public class EquityBrokerageFragment extends Fragment {
         Log.d(TAG, "onDestroyView: Brokerage Fragment"+pos);
         
     }
+
+   /* private void initAds(View v) {
+        MobileAds.initialize(getContext(), initializationStatus -> { });
+        adContainerView = v.findViewById(R.id.ad_view_container);
+        // Step 1 - Create an AdView and set the ad unit ID on it.
+        adView = new AdView(getContext());
+        adView.setAdUnitId(getResources().getString(R.string.margin_banner));
+        adContainerView.addView(adView);
+    }
+
+    private void loadBanner() {
+        // Create an ad request. Check your logcat output for the hashed device ID
+        // to get test ads on a physical device, e.g.,
+        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
+        // device."
+        AdRequest adRequest =
+                new AdRequest.Builder().build();
+
+        AdSize adSize = getAdSize();
+        // Step 4 - Set the adaptive ad size on the ad view.
+        adView.setAdSize(adSize);
+
+        // Step 5 - Start loading the ad in the background.
+        adView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(getContext(), adWidth);
+    }*/
 }

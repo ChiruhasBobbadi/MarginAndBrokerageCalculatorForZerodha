@@ -55,6 +55,7 @@ public class Normal_BO extends Fragment {
     // add additional radio buttons for different segments
     private List<Currency> currencyList = new ArrayList<>();
 
+
     public Normal_BO() {
         // Required empty public constructor
     }
@@ -78,7 +79,7 @@ public class Normal_BO extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_normal__bo, container, false);
 
-        //AdViewHelper.loadBanner(view);
+
         auto = view.findViewById(R.id.auto_text);
         viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         rg = view.findViewById(R.id.radioGroup);
