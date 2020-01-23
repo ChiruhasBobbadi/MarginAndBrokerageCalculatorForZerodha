@@ -35,10 +35,6 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         this.context = context;
     }
 
-//    public void setListener(ItemListener listener) {
-//        myListener = listener;
-//    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
@@ -48,6 +44,10 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
     public void updateData(List<Commodity> list) {
         Commoditys = list;
         notifyDataSetChanged();
+    }
+
+    public List<Commodity> getData() {
+        return Commoditys;
     }
 
 //    public void setCache(List<Commodity> cache) {

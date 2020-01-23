@@ -34,6 +34,10 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public List<Currency> getData() {
+        return myItems;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

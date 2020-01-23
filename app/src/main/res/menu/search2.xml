@@ -26,10 +26,10 @@
 
             <item
                 android:id="@+id/nrml_l2h"
-                android:title="CNC low to high" />
+                android:title="NRML low to high" />
             <item
                 android:id="@+id/nrml_h2l"
-                android:title="CNC high to low" />
+                android:title="NRML high to low" />
 
         </menu>
     </item>

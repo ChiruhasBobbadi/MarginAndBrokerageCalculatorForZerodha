@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
+import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EquityActivity extends AppCompatActivity {
+
+    private boolean misl2h, mish2l, nrmlh2l, nrmll2h;
     private static final String TAG = "EquityActivity";
     // retrofit viewmodel
     ZerodhaViewModel view;
@@ -83,7 +86,7 @@ public class EquityActivity extends AppCompatActivity {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
         rg = findViewById(R.id.radioGroup);
-
+        misl2h = mish2l = nrmlh2l = nrmll2h = false;
         initAds();
         loadBanner();
 
@@ -92,12 +95,9 @@ public class EquityActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Equity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         myDialog = new Dialog(this);
 
-
-//        View rootView = getWindow().getDecorView().getRootView();
-//        //adview
-//        AdViewHelper.loadBanner(rootView);
 
         recyclerViewAdapter = new RecyclerViewAdapter(this::loadAlert);
 
@@ -110,6 +110,7 @@ public class EquityActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: prepared");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
@@ -138,6 +139,40 @@ public class EquityActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.mis_l2h:
+                // sort
+                //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
+                recyclerViewAdapter.updateData(SortHelper.equitySort("mis_l2h", recyclerViewAdapter.getData()));
+
+                return true;
+
+            case R.id.mis_h2l:
+                recyclerViewAdapter.updateData(SortHelper.equitySort("mis_h2l", recyclerViewAdapter.getData()));
+                mish2l = true;
+
+                return true;
+            case R.id.nrml_h2l:
+                recyclerViewAdapter.updateData(SortHelper.equitySort("nrml_h2l", recyclerViewAdapter.getData()));
+                nrmlh2l = true;
+
+                return true;
+            case R.id.nrml_l2h:
+                recyclerViewAdapter.updateData(SortHelper.equitySort("nrml_l2h", recyclerViewAdapter.getData()));
+                nrmll2h = true;
+
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

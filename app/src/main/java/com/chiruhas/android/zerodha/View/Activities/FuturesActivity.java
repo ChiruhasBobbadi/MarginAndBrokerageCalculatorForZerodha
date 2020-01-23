@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.FutureAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
+import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
@@ -187,7 +188,7 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.search2, menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -214,6 +215,41 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.mis_l2h:
+                // sort
+                //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
+                adapter.updateData(SortHelper.futureSort("mis_l2h", adapter.getData()));
+
+                return true;
+
+            case R.id.mis_h2l:
+                adapter.updateData(SortHelper.futureSort("mis_h2l", adapter.getData()));
+                //mish2l=true;
+
+                return true;
+            case R.id.nrml_h2l:
+                adapter.updateData(SortHelper.futureSort("nrml_h2l", adapter.getData()));
+                //mish2l=true;
+                // nrmlh2l=true;
+
+                return true;
+            case R.id.nrml_l2h:
+                adapter.updateData(SortHelper.futureSort("nrml_l2h", adapter.getData()));
+                //mish2l=true;
+                //nrmll2h=true;
+
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

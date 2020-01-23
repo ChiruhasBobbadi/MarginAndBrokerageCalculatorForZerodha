@@ -34,6 +34,10 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public List<Futures> getData() {
+        return myItems;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

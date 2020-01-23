@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<GodModel> GodModels = new ArrayList<>();
     private ItemListener myListener;
-    List<GodModel> equitycache = new ArrayList<>();
+
     public RecyclerViewAdapter( ItemListener listener) {
 
         myListener = listener;
@@ -38,6 +38,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     {
         this.GodModels= GodModels;
         notifyDataSetChanged();
+    }
+
+    public List<GodModel> getData() {
+        return GodModels;
     }
 
 

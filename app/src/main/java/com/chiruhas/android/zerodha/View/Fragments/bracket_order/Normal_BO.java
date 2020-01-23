@@ -135,11 +135,11 @@ public class Normal_BO extends Fragment {
                     lot.setVisibility(View.VISIBLE);
                     break;
 
-                case R.id.cds:
-                    resetAll();
-                    lst = fetchCurrency();
-                    lot.setVisibility(View.VISIBLE);
-                    break;
+//                case R.id.cds:
+//                    resetAll();
+//                    lst = fetchCurrency();
+//                    lot.setVisibility(View.VISIBLE);
+//                    break;
 
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
@@ -184,7 +184,8 @@ public class Normal_BO extends Fragment {
                 price.setText(futures.getPrice() + "");
                 qty.setText(futures.getLot());
 
-            } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+            }
+          /*  else if (rg.getCheckedRadioButtonId() == R.id.cds) {
                 String str = auto.getText().toString().trim();
                 Currency currency = null;
                 String arr[] = str.split(" ");
@@ -203,7 +204,7 @@ public class Normal_BO extends Fragment {
                 qty.setText(currency.getLot());
 
 
-            }
+            }*/
 
         });
 
@@ -264,7 +265,9 @@ public class Normal_BO extends Fragment {
                             }
 
                             type = "nfo";
-                        } else if (rg.getCheckedRadioButtonId() == R.id.cds) {
+                        }
+
+                        /*else if (rg.getCheckedRadioButtonId() == R.id.cds) {
                             String str = auto.getText().toString().trim();
 
                             String arr[] = str.split(" ");
@@ -281,7 +284,7 @@ public class Normal_BO extends Fragment {
                             }
 
                             type = "cds";
-                        }
+                        }*/
 
                         // checking lot size mapping
                         int q = Integer.parseInt(qty.getText().toString().trim());

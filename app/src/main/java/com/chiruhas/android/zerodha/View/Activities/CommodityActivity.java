@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chiruhas.android.zerodha.CustomAdapters.Equity.CommodityAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
+import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
@@ -167,7 +168,7 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.search2, menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -194,6 +195,39 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.mis_l2h:
+                // sort
+                //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
+                commodityAdapter.updateData(SortHelper.commoditySort("mis_l2h", commodityAdapter.getData()));
+
+                return true;
+
+            case R.id.mis_h2l:
+                commodityAdapter.updateData(SortHelper.commoditySort("mis_h2l", commodityAdapter.getData()));
+                //mish2l=true;
+
+                return true;
+            case R.id.nrml_h2l:
+                commodityAdapter.updateData(SortHelper.commoditySort("nrml_h2l", commodityAdapter.getData()));
+                // nrmlh2l=true;
+
+                return true;
+            case R.id.nrml_l2h:
+                commodityAdapter.updateData(SortHelper.commoditySort("nrml_l2h", commodityAdapter.getData()));
+                //nrmll2h=true;
+
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

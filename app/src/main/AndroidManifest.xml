@@ -24,6 +24,9 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
         <activity
+            android:name=".View.Activities.SortActivity"
+            android:parentActivityName=".View.Activities.EquityActivity"></activity>
+        <activity
             android:name=".View.Activities.PositionActivity"
             android:parentActivityName=".View.Activities.MainActivity" />
         <activity
@@ -65,7 +68,6 @@
             android:label="@string/title_activity_equity_brokerage"
             android:parentActivityName=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".View.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -82,8 +84,6 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
-
     </application>
 
 </manifest>
