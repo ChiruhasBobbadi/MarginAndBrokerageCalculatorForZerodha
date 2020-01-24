@@ -11,149 +11,87 @@ import java.util.List;
 public class SortHelper {
 
 
-    public static List<GodModel> equitySort(String s, List<GodModel> equity) {
-        if (s.equals("mis_l2h")) {
-            Collections.sort(equity, (g1, g2) -> {
-                return (int) (g1.getMis_multiplier() - g2.getMis_multiplier()); // Ascending
-            });
+    public static List<GodModel> equitySort(List<GodModel> equity, boolean mish2l, boolean nrmlh2l) {
 
-        } else if (s.equals("mis_h2l")) {
-            Collections.sort(equity, (g1, g2) -> {
-                return (int) (g2.getMis_multiplier() - g1.getMis_multiplier()); // descending
-            });
+        Collections.sort(equity, (g1, g2) -> {
+            int value = (int) (g2.getMis_multiplier() - g1.getMis_multiplier());
+            if (nrmlh2l && value == 0) {
+                return (int) (g2.getNrml_multiplier() - g1.getNrml_multiplier());
+            }
+            return value;
 
-        } else if (s.equals("nrml_h2l")) {
-            Collections.sort(equity, (g1, g2) -> {
-                return (int) (g2.getNrml_multiplier() - g1.getNrml_multiplier()); // descending
-            });
 
-        } else if (s.equals("nrml_l2h")) {
-            Collections.sort(equity, (g1, g2) -> {
-                return (int) (g1.getNrml_multiplier() - g2.getNrml_multiplier()); // desecneding
-            });
+        });
 
-        }
 
         return equity;
 
     }
 
-    public static List<Commodity> commoditySort(String s, List<Commodity> commodity) {
-        if (s.equals("mis_l2h")) {
+    public static List<GodModel> equityDefaultSort(List<GodModel> equity) {
+        Collections.sort(equity, (g1, g2) -> (g1.getTradingsymbol().compareTo(g2.getTradingsymbol())));
+        return equity;
+    }
 
-            Collections.sort(commodity, (g1, g2) -> {
-                if (g1.getMis().equals("N/A"))
-                    g1.setMis("0");
-                int n1 = Integer.parseInt(g1.getMis());
-                int n2 = Integer.parseInt(g2.getMis());
-                return (n1 - n2); // Ascending
-            });
 
-        } else if (s.equals("mis_h2l")) {
-            Collections.sort(commodity, (g1, g2) -> {
-                if (g1.getMis().equals("N/A"))
-                    g1.setMis("0");
-                int n1 = Integer.parseInt(g1.getMis());
-                int n2 = Integer.parseInt(g2.getMis());
-                return (n2 - n1); // Ascending
-            });
+    public static List<Commodity> commoditySort(List<Commodity> commodity, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
 
-        } else if (s.equals("nrml_h2l")) {
-            Collections.sort(commodity, (g1, g2) -> {
-                int n1 = Integer.parseInt(g1.getNrml());
-                int n2 = Integer.parseInt(g2.getNrml());
-                return (n2 - n1); // descending
-            });
 
-        } else if (s.equals("nrml_l2h")) {
-            Collections.sort(commodity, (g1, g2) -> {
-                int n1 = Integer.parseInt(g1.getNrml());
-                int n2 = Integer.parseInt(g2.getNrml());
-                return (n1 - n2); // descending
-            });
+        Collections.sort(commodity, (g1, g2) -> {
+            if (g1.getMis().equals("N/A"))
+                g1.setMis("0");
+            int n1 = Integer.parseInt(g1.getMis());
+            int n2 = Integer.parseInt(g2.getMis());
+            int value = (n2 - n1); // Descending
 
-        }
+            if (nrmlh2l && value == 0) {
+                int n11 = Integer.parseInt(g1.getNrml());
+                int n12 = Integer.parseInt(g2.getNrml());
+                int value2 = (n12 - n11);
+
+                if (priceh2l && value2 == 0) {
+                    int n21 = Integer.parseInt(g1.getPrice());
+                    int n22 = Integer.parseInt(g2.getPrice());
+                    return (n22 - n21);
+                }
+                return value2;
+            }
+            return value;
+
+        });
+
 
         return commodity;
 
     }
 
-    public static List<Futures> futureSort(String s, List<Futures> futures) {
-        if (s.equals("mis_l2h")) {
+    public static List<Commodity> commodityDefaultSort(List<Commodity> commodity) {
+        Collections.sort(commodity, (g1, g2) -> (g1.getScrip().compareTo(g2.getScrip())));
+        return commodity;
+    }
 
-            Collections.sort(futures, (g1, g2) -> {
-                if (g1.getMis().equals("N/A"))
-                    g1.setMis("0");
-                int n1 = Integer.parseInt(g1.getMis());
-                int n2 = Integer.parseInt(g2.getMis());
-                return (n1 - n2); // Ascending
-            });
-
-        } else if (s.equals("mis_h2l")) {
-            Collections.sort(futures, (g1, g2) -> {
-                if (g1.getMis().equals("N/A"))
-                    g1.setMis("0");
-                int n1 = Integer.parseInt(g1.getMis());
-                int n2 = Integer.parseInt(g2.getMis());
-                return (n2 - n1); // Ascending
-            });
-
-        } else if (s.equals("nrml_h2l")) {
-            Collections.sort(futures, (g1, g2) -> {
-                int n1 = Integer.parseInt(g1.getNrml());
-                int n2 = Integer.parseInt(g2.getNrml());
-                return (n2 - n1); // descending
-            });
-
-        } else if (s.equals("nrml_l2h")) {
-            Collections.sort(futures, (g1, g2) -> {
-                int n1 = Integer.parseInt(g1.getNrml());
-                int n2 = Integer.parseInt(g2.getNrml());
-                return (n1 - n2); // descending
-            });
-
-        }
-
+    public static List<Futures> futureSort(List<Futures> futures, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
+        //code
         return futures;
 
     }
 
+    public static List<Futures> futuresDefaultSort(List<Futures> futures) {
+        Collections.sort(futures, (g1, g2) -> (g1.getScrip().compareTo(g2.getScrip())));
+        return futures;
+    }
 
-    public static List<Currency> currencySort(String s, List<Currency> currency) {
-        if (s.equals("mis_l2h")) {
+    public static List<Currency> currencySort(List<Currency> currency, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
 
-            Collections.sort(currency, (g1, g2) -> {
-
-//                int n1 = Integer.parseInt(g1.getMis());
-//                int n2 = Integer.parseInt(g2.getMis());
-                return (g1.getMis() - g2.getMis()); // Ascending
-            });
-
-        } else if (s.equals("mis_h2l")) {
-            Collections.sort(currency, (g1, g2) -> {
-
-
-                return (g2.getMis() - g1.getMis()); // Ascending
-            });
-
-        } else if (s.equals("nrml_h2l")) {
-            Collections.sort(currency, (g1, g2) -> {
-
-                return (g2.getNrml() - g1.getNrml()); // descending
-            });
-
-        } else if (s.equals("nrml_l2h")) {
-            Collections.sort(currency, (g1, g2) -> {
-
-                return (g1.getNrml() - g2.getNrml()); // descending
-            });
-
-        }
 
         return currency;
 
     }
 
+    public static List<Currency> currencyDefaultSort(List<Currency> currency) {
+        Collections.sort(currency, (g1, g2) -> (g1.getScrip().compareTo(g2.getScrip())));
+        return currency;
+    }
 
 }
 

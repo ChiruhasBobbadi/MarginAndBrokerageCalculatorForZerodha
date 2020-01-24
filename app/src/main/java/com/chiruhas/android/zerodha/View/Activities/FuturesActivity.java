@@ -34,6 +34,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,8 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     private Futures futures;
     private FrameLayout adContainerView;
     private AdView adView;
+    private boolean mish2l, nrmlh2l, priceh2l;
+    private ChipGroup chipGroup;
 
     //room viewmodel
     // EquityViewModel futureViewModel;
@@ -109,8 +112,9 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     }
 
     private void init() {
-        //loading adview
+        mish2l = nrmlh2l = priceh2l = false;
         rg = findViewById(R.id.radioGroup);
+        chipGroup = findViewById(R.id.chipGroup);
         initAds();
         loadBanner();
         getSupportActionBar().setTitle("Future Margins");
@@ -188,7 +192,7 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search2, menu);
+        inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -220,36 +224,13 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.mis_l2h:
-                // sort
-                //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
-                adapter.updateData(SortHelper.futureSort("mis_l2h", adapter.getData()));
-
-                return true;
-
-            case R.id.mis_h2l:
-                adapter.updateData(SortHelper.futureSort("mis_h2l", adapter.getData()));
-                //mish2l=true;
-
-                return true;
-            case R.id.nrml_h2l:
-                adapter.updateData(SortHelper.futureSort("nrml_h2l", adapter.getData()));
-                //mish2l=true;
-                // nrmlh2l=true;
-
-                return true;
-            case R.id.nrml_l2h:
-                adapter.updateData(SortHelper.futureSort("nrml_l2h", adapter.getData()));
-                //mish2l=true;
-                //nrmll2h=true;
-
-                return true;
-
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.sort && chipGroup.getVisibility() == View.GONE) {
+            chipGroup.setVisibility(View.VISIBLE);
+        } else {
+            chipGroup.setVisibility(View.GONE);
         }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -331,5 +312,33 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
+    public void sortList() {
+
+        adapter.updateData(SortHelper.futureSort(adapter.getData(), mish2l, nrmlh2l, priceh2l));
+
+    }
+
+    public void chipClick(View v) {
+
+        Log.d(TAG, "chipClick: " + v.getId());
+        switch (v.getId()) {
+            case R.id.mish2l:
+                mish2l = !mish2l;
+                break;
+            case R.id.nrml_h2l:
+                nrmlh2l = !nrmlh2l;
+                break;
+            case R.id.price:
+                priceh2l = !priceh2l;
+                break;
+            case R.id.clear:
+                chipGroup.clearCheck();
+                adapter.updateData(SortHelper.futuresDefaultSort(adapter.getData()));
+                chipGroup.setVisibility(View.GONE);
+                break;
+        }
+        sortList();
     }
 }

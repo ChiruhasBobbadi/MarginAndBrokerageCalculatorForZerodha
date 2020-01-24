@@ -32,6 +32,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,9 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
     private RadioGroup rg;
     private FrameLayout adContainerView;
     private AdView adView;
+    private ChipGroup chipGroup;
+
+    private boolean mish2l, nrmlh2l, priceh2l;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +88,8 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
     private void init() {
 
-
+        mish2l = nrmlh2l = priceh2l = false;
+        chipGroup = findViewById(R.id.chipGroup);
         rg = findViewById(R.id.radioGroup);
         //loading adview
         initAds();
@@ -168,7 +173,7 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search2, menu);
+        inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -199,35 +204,13 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.mis_l2h:
-                // sort
-                //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
-                commodityAdapter.updateData(SortHelper.commoditySort("mis_l2h", commodityAdapter.getData()));
-
-                return true;
-
-            case R.id.mis_h2l:
-                commodityAdapter.updateData(SortHelper.commoditySort("mis_h2l", commodityAdapter.getData()));
-                //mish2l=true;
-
-                return true;
-            case R.id.nrml_h2l:
-                commodityAdapter.updateData(SortHelper.commoditySort("nrml_h2l", commodityAdapter.getData()));
-                // nrmlh2l=true;
-
-                return true;
-            case R.id.nrml_l2h:
-                commodityAdapter.updateData(SortHelper.commoditySort("nrml_l2h", commodityAdapter.getData()));
-                //nrmll2h=true;
-
-                return true;
-
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.sort && chipGroup.getVisibility() == View.GONE) {
+            chipGroup.setVisibility(View.VISIBLE);
+        } else {
+            chipGroup.setVisibility(View.GONE);
         }
+        return super.onOptionsItemSelected(item);
+
     }
 
 
@@ -311,4 +294,34 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
+
+    public void sortList() {
+
+        commodityAdapter.updateData(SortHelper.commoditySort(commodityAdapter.getData(), mish2l, nrmlh2l, priceh2l));
+
+    }
+
+    public void chipClick(View v) {
+
+        Log.d(TAG, "chipClick: " + v.getId());
+        switch (v.getId()) {
+            case R.id.mish2l:
+                mish2l = !mish2l;
+                break;
+            case R.id.nrml_h2l:
+                nrmlh2l = !nrmlh2l;
+                break;
+            case R.id.price:
+                priceh2l = !priceh2l;
+                break;
+            case R.id.clear:
+                chipGroup.clearCheck();
+                commodityAdapter.updateData(SortHelper.commodityDefaultSort(commodityAdapter.getData()));
+                chipGroup.setVisibility(View.GONE);
+                break;
+        }
+        sortList();
+    }
+
+
 }

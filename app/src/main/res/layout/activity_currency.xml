@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/chipTheme"
     android:background="@color/bg_black">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     <include
         layout="@layout/loading"
@@ -30,6 +31,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/mish2l"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="MIS High to low" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/nrml_h2l"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="NRML High to low" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/price"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="Price high to low" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/clear"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="clear" />
+
+
+    </com.google.android.material.chip.ChipGroup>
     <FrameLayout
         android:id="@+id/ad_view_container"
         android:layout_width="match_parent"

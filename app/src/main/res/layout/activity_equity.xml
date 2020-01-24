@@ -5,42 +5,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".View.Activities.EquityActivity"
-    android:background="@color/bg_black">
+    android:background="@color/bg_black"
+    android:theme="@style/chipTheme"
+    tools:context=".View.Activities.EquityActivity">
 
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal|left"
         android:orientation="horizontal"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_vertical|center_horizontal|left">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/zerodha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zerodha"
             android:buttonTint="@color/bg_blue"
             android:checked="true"
-            android:textSize="20sp"
+            android:padding="10dp"
+            android:text="Zerodha"
             android:textColor="@color/white_grey"
-            android:padding="10dp" />
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/asta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Astha Trade"
             android:buttonTint="@color/bg_blue"
             android:padding="10dp"
-            android:textColor="@color/white_grey" />
+            android:text="Astha Trade"
+            android:textColor="@color/white_grey"
+            android:textSize="20sp" />
     </RadioGroup>
 
 
@@ -52,15 +52,15 @@
         android:background="#000"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     <include
+        android:id="@+id/progress"
         layout="@layout/loading"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/progress"
         android:layout_marginStart="8dp"
         android:layout_marginTop="340dp"
         android:layout_marginEnd="8dp"
@@ -70,12 +70,56 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/mish2l"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="MIS High to low" />
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/nrml_h2l"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="CNC high to low" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/clear"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:onClick="chipClick"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:text="clear" />
+
+
+    </com.google.android.material.chip.ChipGroup>
+
     <FrameLayout
         android:id="@+id/ad_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

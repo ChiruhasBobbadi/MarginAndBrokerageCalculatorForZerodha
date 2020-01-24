@@ -16,22 +16,7 @@
 
         android:title="filter"
         app:showAsAction="always">
-        <menu>
-            <item
-                android:id="@+id/mis_l2h"
-                android:title="MIS low to high" />
-            <item
-                android:id="@+id/mis_h2l"
-                android:title="MIS high to low" />
 
-            <item
-                android:id="@+id/nrml_l2h"
-                android:title="CNC low to high" />
-            <item
-                android:id="@+id/nrml_h2l"
-                android:title="CNC high to low" />
-
-        </menu>
     </item>
 
 
