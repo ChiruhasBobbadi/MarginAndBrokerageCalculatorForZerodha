@@ -78,12 +78,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         YoYo.with(Techniques.FadeIn)
-                .duration(1200)
+                .duration(800)
                 .repeat(0)
                 .playOn(holder.card);
 
         YoYo.with(Techniques.FadeIn)
-                .duration(1200)
+                .duration(800)
                 .repeat(0)
                 .playOn(holder.cal);
 

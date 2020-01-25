@@ -7,8 +7,8 @@ android {
         applicationId "com.chiruhas.android.zerodha"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 25
-        versionName "2.0.9d"
+        versionCode 26
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "en"
     }

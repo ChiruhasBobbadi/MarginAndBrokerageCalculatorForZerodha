@@ -26,6 +26,8 @@ import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -93,25 +95,6 @@ public class EquityActivity extends AppCompatActivity {
         initAds();
         loadBanner();
 
-        // chip event handling
-
-       /* chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            Log.d(TAG, "init: "+checkedId);
-            switch (checkedId){
-                case R.id.mis_h2l:
-                    mish2l = !mish2l;
-                    break;
-                case R.id.nrml_h2l:
-                    nrmlh2l = !nrmlh2l;
-                    break;
-            }
-
-            sortList();
-
-        });*/
-
-//       chipGroup.;
-
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle("Equity Margins");
@@ -170,8 +153,18 @@ public class EquityActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.sort && chipGroup.getVisibility() == View.GONE) {
             chipGroup.setVisibility(View.VISIBLE);
+            YoYo.with(Techniques.FadeIn)
+                    .duration(600)
+                    .repeat(0)
+                    .playOn(chipGroup);
         } else {
+
             chipGroup.setVisibility(View.GONE);
+            YoYo.with(Techniques.SlideOutUp)
+                    .duration(600)
+                    .repeat(0)
+                    .playOn(chipGroup);
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,17 +175,22 @@ public class EquityActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.mish2l:
                 mish2l = !mish2l;
+                nrmlh2l = false;
+                sortList();
                 break;
             case R.id.nrml_h2l:
                 nrmlh2l = !nrmlh2l;
+                mish2l = false;
+                sortList();
                 break;
             case R.id.clear:
                 chipGroup.clearCheck();
-                recyclerViewAdapter.updateData(SortHelper.equityDefaultSort(recyclerViewAdapter.getData()));
+                List<GodModel> l = SortHelper.equityDefaultSort(recyclerViewAdapter.getData());
+                recyclerViewAdapter.updateData(l);
                 chipGroup.setVisibility(View.GONE);
                 break;
         }
-        sortList();
+
     }
 
     /**

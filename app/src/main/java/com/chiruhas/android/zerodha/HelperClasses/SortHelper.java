@@ -12,16 +12,25 @@ public class SortHelper {
 
 
     public static List<GodModel> equitySort(List<GodModel> equity, boolean mish2l, boolean nrmlh2l) {
+        if (!mish2l && !nrmlh2l) {
+            return equityDefaultSort(equity);
+        } else {
 
-        Collections.sort(equity, (g1, g2) -> {
-            int value = (int) (g2.getMis_multiplier() - g1.getMis_multiplier());
-            if (nrmlh2l && value == 0) {
-                return (int) (g2.getNrml_multiplier() - g1.getNrml_multiplier());
-            }
-            return value;
+            Collections.sort(equity, (g1, g2) -> {
+                if (mish2l)
+                    return (int) (g2.getMis_multiplier() - g1.getMis_multiplier());
+
+                else {
+
+                    return (int) (g2.getNrml_multiplier() - g1.getNrml_multiplier());
+
+                }
 
 
-        });
+            });
+
+
+        }
 
 
         return equity;
@@ -36,29 +45,31 @@ public class SortHelper {
 
     public static List<Commodity> commoditySort(List<Commodity> commodity, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
 
+        if (!mish2l && !nrmlh2l && !priceh2l) {
+            return commodityDefaultSort(commodity);
+        } else {
+            Collections.sort(commodity, (g1, g2) -> {
 
-        Collections.sort(commodity, (g1, g2) -> {
-            if (g1.getMis().equals("N/A"))
-                g1.setMis("0");
-            int n1 = Integer.parseInt(g1.getMis());
-            int n2 = Integer.parseInt(g2.getMis());
-            int value = (n2 - n1); // Descending
-
-            if (nrmlh2l && value == 0) {
-                int n11 = Integer.parseInt(g1.getNrml());
-                int n12 = Integer.parseInt(g2.getNrml());
-                int value2 = (n12 - n11);
-
-                if (priceh2l && value2 == 0) {
-                    int n21 = Integer.parseInt(g1.getPrice());
-                    int n22 = Integer.parseInt(g2.getPrice());
-                    return (n22 - n21);
+                if (mish2l) {
+                    if (g1.getMis().equals("N/A"))
+                        g1.setMis("0");
+                    int n1 = Integer.parseInt(g1.getMis());
+                    int n2 = Integer.parseInt(g2.getMis());
+                    return (n2 - n1); // Descending
+                } else if (nrmlh2l) {
+                    int n1 = Integer.parseInt(g1.getNrml());
+                    int n2 = Integer.parseInt(g2.getNrml());
+                    return (n2 - n1);
+                } else {
+                    int n1 = (int) Double.parseDouble(g1.getPrice());
+                    int n2 = (int) Double.parseDouble(g2.getPrice());
+                    return (n2 - n1);
                 }
-                return value2;
-            }
-            return value;
 
-        });
+            });
+
+
+        }
 
 
         return commodity;
@@ -71,7 +82,32 @@ public class SortHelper {
     }
 
     public static List<Futures> futureSort(List<Futures> futures, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
-        //code
+        if (!mish2l && !nrmlh2l && !priceh2l) {
+            return futuresDefaultSort(futures);
+        } else {
+            Collections.sort(futures, (g1, g2) -> {
+
+                if (mish2l) {
+                    if (g1.getMis().equals("N/A"))
+                        g1.setMis("0");
+                    int n1 = Integer.parseInt(g1.getMis());
+                    int n2 = Integer.parseInt(g2.getMis());
+                    return (n2 - n1); // Descending
+                } else if (nrmlh2l) {
+                    int n1 = Integer.parseInt(g1.getNrml());
+                    int n2 = Integer.parseInt(g2.getNrml());
+                    return (n2 - n1);
+                } else {
+                    int n1 = (int) Double.parseDouble(g1.getPrice());
+                    int n2 = (int) Double.parseDouble(g2.getPrice());
+                    return (n2 - n1);
+                }
+
+            });
+
+
+        }
+
         return futures;
 
     }
@@ -83,6 +119,26 @@ public class SortHelper {
 
     public static List<Currency> currencySort(List<Currency> currency, boolean mish2l, boolean nrmlh2l, boolean priceh2l) {
 
+        if (!mish2l && !nrmlh2l && !priceh2l) {
+            return currencyDefaultSort(currency);
+        } else {
+            Collections.sort(currency, (g1, g2) -> {
+
+                if (mish2l) {
+
+                    return (g2.getMis() - g1.getMis()); // Descending
+                } else if (nrmlh2l) {
+
+                    return (g2.getNrml() - g1.getNrml());
+                } else {
+
+                    return (int) (g2.getPrice() - g1.getPrice());
+                }
+
+            });
+
+
+        }
 
         return currency;
 
