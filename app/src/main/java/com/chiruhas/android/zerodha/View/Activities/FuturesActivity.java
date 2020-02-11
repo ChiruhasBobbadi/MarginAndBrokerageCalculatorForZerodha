@@ -29,19 +29,18 @@ import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuturesActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class FuturesActivity extends AppCompatActivity {
 
     private static final String TAG = "FuturesActivity";
     private ZerodhaViewModel viewModel;
@@ -50,7 +49,7 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     private FutureAdapter adapter;
     private ProgressBar bar;
     private List<Futures> list = new ArrayList<>();
-    private RewardedVideoAd videoAd;
+    private InterstitialAd mInterstitialAd;
     private RadioGroup rg;
     private Futures futures;
     private FrameLayout adContainerView;
@@ -114,6 +113,9 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     }
 
     private void init() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.future_inter));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mish2l = nrmlh2l = priceh2l = false;
         rg = findViewById(R.id.radioGroup);
         chipGroup = findViewById(R.id.chipGroup);
@@ -122,8 +124,7 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
         getSupportActionBar().setTitle("Future Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        videoAd = MobileAds.getRewardedVideoAdInstance(this);
-        videoAd.setRewardedVideoAdListener(this);
+
         //TODO
         SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean first = sharedPreferences.getBoolean("first", true);
@@ -131,9 +132,42 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
             showWarning();
         }
 
-        loadRewardedVideoAd();
+
         setAdapter();
         zerodhaCall();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                showPopup();
+            }
+        });
     }
 
     private void showWarning() {
@@ -149,13 +183,6 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
     /**
      * Reward video helper method
      */
-    private void loadRewardedVideoAd() {
-
-
-        //original
-        videoAd.loadAd(getResources().getString(R.string.future_reward),
-                new AdRequest.Builder().build());
-    }
 
 
     public void setAdapter() {
@@ -165,15 +192,15 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
         // change later
         adapter = new FutureAdapter(item -> {
             futures = item;
-            if (videoAd.isLoaded()) {
-                videoAd.show();
-
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
             } else {
                 // code for calculating and showing a popup
-                AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
-
-                alertHelper.loadFuturePopUp(item);
+                showPopup();
             }
+
+
+
 
         });
 
@@ -189,6 +216,8 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
 
         alertHelper.loadFuturePopUp(futures);
     }
+
+
     // searchview
 
     @Override
@@ -240,45 +269,7 @@ public class FuturesActivity extends AppCompatActivity implements RewardedVideoA
 
     }
 
-    @Override
-    public void onRewardedVideoAdLoaded() {
 
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        showPopup();
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {

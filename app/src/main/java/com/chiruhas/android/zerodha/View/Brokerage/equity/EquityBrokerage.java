@@ -2,8 +2,6 @@ package com.chiruhas.android.zerodha.View.Brokerage.equity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.fragments.EquityBrokerageFragment;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -42,8 +37,8 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
     private void init() {
 
-        initAds();
-        loadBanner();
+//        initAds();
+//        loadBanner();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,7 +96,7 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         }
     }
 
-    private void initAds() {
+/*    private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
         adContainerView = findViewById(R.id.ad_view_container);
@@ -140,5 +135,5 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
-    }
+    }*/
 }

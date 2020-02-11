@@ -27,19 +27,18 @@ import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommodityActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class CommodityActivity extends AppCompatActivity {
 
 
     private static final String TAG = "Commodity Activity";
@@ -48,11 +47,12 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
     private AstaViewModel astaViewModel;
     private CommodityAdapter commodityAdapter;
     private ProgressBar bar;
-    //CommodityViewModel commodityViewModel;
+
     private List<Commodity> list = new ArrayList<>();
-    private RewardedVideoAd videoAd;
+
     private Commodity commodity;
     private RadioGroup rg;
+    private InterstitialAd mInterstitialAd;
     private FrameLayout adContainerView;
     private AdView adView;
     private ChipGroup chipGroup;
@@ -66,12 +66,8 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
 
         init();
-
-
         setAdapter();
         zerodhaCall();
-
-
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             commodityAdapter.updateData(new ArrayList<>());
             bar.setVisibility(View.VISIBLE);
@@ -86,10 +82,45 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
         });
 
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                showPopup();
+            }
+        });
+
     }
 
     private void init() {
-
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.commodity_inter));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mish2l = nrmlh2l = priceh2l = false;
         chipGroup = findViewById(R.id.chipGroup);
         rg = findViewById(R.id.radioGroup);
@@ -101,10 +132,8 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.d(TAG, "onCreate: CommodityActivity");
         // initializing add
-        videoAd = MobileAds.getRewardedVideoAdInstance(this);
-        videoAd.setRewardedVideoAdListener(this);
 
-        loadRewardedVideoAd();
+
     }
 
 
@@ -116,12 +145,11 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         commodityAdapter = new CommodityAdapter(item -> {
             commodity = item;
             //showing add
-            if (videoAd.isLoaded()) {
-                videoAd.show();
-            } else {
+            if (mInterstitialAd.isLoaded())
+                mInterstitialAd.show();
+            else {
                 // code for calculating and showing a popup
-                AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
-                alertHelper.loadCommodityPopUp(item);
+                showPopup();
             }
 
 
@@ -163,12 +191,6 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
         });
     }
 
-    //video add
-    private void loadRewardedVideoAd() {
-        //original
-        videoAd.loadAd(getResources().getString(R.string.commodity_reward),
-                new AdRequest.Builder().build());
-    }
 
     // searchview
 
@@ -220,46 +242,6 @@ public class CommodityActivity extends AppCompatActivity implements RewardedVide
 
     }
 
-
-    @Override
-    public void onRewardedVideoAdLoaded() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        showPopup();
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {

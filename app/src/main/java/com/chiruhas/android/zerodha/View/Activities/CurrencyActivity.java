@@ -30,22 +30,19 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class CurrencyActivity extends AppCompatActivity {
     private static final String TAG = "CurrencyActivity";
     private ZerodhaViewModel view;
     private RecyclerView rv;
     private CurrencyAdapter adapter;
     private ProgressBar bar;
     private List<Currency> currency = new ArrayList<>();
-    private RewardedVideoAd videoAd;
+
     private Currency currencyItem;
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
@@ -68,26 +65,12 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        videoAd = MobileAds.getRewardedVideoAdInstance(this);
-        videoAd.setRewardedVideoAdListener(this);
 
-        loadRewardedVideoAd();
         setAdapter();
         fetchData();
 
     }
 
-    /**
-     * Reward video helper method
-     */
-    private void loadRewardedVideoAd() {
-
-
-        //original
-        videoAd.loadAd(getResources().getString(R.string.currency_reward),
-                new AdRequest.Builder().build());
-//    }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,13 +129,8 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
 
             currencyItem = item;
 
-            if (videoAd.isLoaded()) {
-                videoAd.show();
-            } else {
-                AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
 
-                alertHelper.loadCurrencyPopUp(item);
-            }
+            showPopup();
 
 
         });
@@ -183,45 +161,7 @@ public class CurrencyActivity extends AppCompatActivity implements RewardedVideo
         });
     }
 
-    @Override
-    public void onRewardedVideoAdLoaded() {
 
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        showPopup();
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
