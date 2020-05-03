@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.chiruhas.android.zerodha"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 28
-        versionName "3.0.2"
+        targetSdkVersion 29
+        versionCode 30
+        versionName "3.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "en"
     }

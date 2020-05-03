@@ -3,17 +3,17 @@
 
     <!--Original id -->
 
- <!--     <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>-->
- <!--     <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>-->
- <!--     <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>-->
- <!--       <string name="risk_calc_banner">ca-app-pub-4351116683020455/1450318822</string>-->
- <!--     <string name="brokerage_inter">ca-app-pub-4351116683020455/7255138871</string>-->
- <!--     <string name="bracket">ca-app-pub-4351116683020455/7631704868</string>-->
+    <!--<string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
+    <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>
+    <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>
+      <string name="risk_calc_banner">ca-app-pub-4351116683020455/1450318822</string>
+    <string name="brokerage_inter">ca-app-pub-4351116683020455/7255138871</string>
+    <string name="bracket">ca-app-pub-4351116683020455/7631704868</string>
 
- <!--     <string name="equity">ca-app-pub-4351116683020455/7352473382</string>-->
- <!--      <string name="commodity_inter">ca-app-pub-4351116683020455/7975787003</string>-->
- <!--     <string name="future_inter">ca-app-pub-4351116683020455/3222153773</string>-->
- <!--     <string name="currency_reward">test</string>-->
+    <string name="equity">ca-app-pub-4351116683020455/7352473382</string>
+     <string name="commodity_inter">ca-app-pub-4351116683020455/7975787003</string>
+    <string name="future_inter">ca-app-pub-4351116683020455/3222153773</string>
+    <string name="currency_reward">test</string>-->
 
     <!-- demo id -->
 
