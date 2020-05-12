@@ -25,6 +25,10 @@
             android:id="@+id/pp"
             android:icon="@drawable/ic_padlock" />
         <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+        <item
             android:id="@+id/about"
             android:icon="@drawable/ic_pabout"
             android:title="About" />

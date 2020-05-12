@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         equity = new InterstitialAd(this);
 
 
-        // original
-
         bracket.setAdUnitId(getResources().getString(R.string.bracket));
         equity.setAdUnitId(getResources().getString(R.string.equity));
         brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 startActivity(new Intent(MainActivity.this, BracketActivity.class));
             }
         });
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -142,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
                 case R.id.about:
                     startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    break;
+                case R.id.settings:
+                    startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                     break;
                 case R.id.feedback:
                     final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object

@@ -234,7 +234,7 @@ public class BrokerageHelper {
         if (type.startsWith("E")) {
             if (type.equals("E0")) {
 
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0.025;
                 c[2] = 0.00325;
                 c[3] = 0.003;
@@ -248,7 +248,7 @@ public class BrokerageHelper {
                 c[4] = 0;
                 c[5] = 18;
             } else if (type.equals("E2")) {
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0.01;
                 c[2] = 0.0019;
                 c[3] = 0.003;
@@ -264,7 +264,7 @@ public class BrokerageHelper {
             }
         } else if (type.startsWith("C")) {
             if (type.equals("CU0")) {
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0;
                 c[2] = 0.0009;
                 c[3] = 0.00022;
@@ -272,7 +272,7 @@ public class BrokerageHelper {
                 c[5] = 18;
 
             } else if (type.equals("CU1")) {
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0.05;
                 c[2] = 0.04;
                 c[3] = 0.001;
@@ -283,14 +283,14 @@ public class BrokerageHelper {
              * for commodity since there is no NSE and BSE consider it as nse to maintain the flow
              */
             else if (type.equals("C0")) {
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0.01;
                 c[2] = 0.0026;
                 c[3] = 0;
                 c[4] = 0;
                 c[5] = 18;
             } else if (type.equals("C1")) {
-                c[0] = 0.01;
+                c[0] = 0.03;
                 c[1] = 0.05;
                 c[2] = 0;
                 c[3] = 0;
