@@ -26,7 +26,7 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:backgroundTint="@color/white_grey"
@@ -38,6 +38,139 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="2dp"
+        android:text="Set Default Amount"
+        android:textColor="@color/bg_white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="2dp"
+        android:text="Equity"
+        android:textColor="@color/bg_white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="2dp"
+        android:text="Commodity"
+        android:textColor="@color/bg_white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="2dp"
+        android:text="Futures"
+        android:textColor="@color/bg_white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="2dp"
+        android:text="Currency"
+        android:textColor="@color/bg_white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/equity"
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/bg_blue"
+        android:gravity="center_vertical"
+        android:inputType="numberDecimal"
+        android:textColor="@color/white_grey"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33" />
+
+    <EditText
+        android:id="@+id/commodity"
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/bg_blue"
+        android:gravity="center_vertical"
+        android:inputType="numberDecimal"
+        android:textColor="@color/white_grey"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView27"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toEndOf="@+id/textView27" />
+
+    <EditText
+        android:id="@+id/futures"
+
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/bg_blue"
+        android:gravity="center_vertical"
+
+        android:inputType="numberDecimal"
+        android:textColor="@color/white_grey"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33" />
+
+    <EditText
+        android:id="@+id/currency"
+
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:backgroundTint="@color/bg_blue"
+        android:gravity="center_vertical"
+        android:inputType="numberDecimal"
+        android:textColor="@color/white_grey"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView29"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline32"
         android:layout_width="wrap_content"
@@ -46,17 +179,23 @@
         app:layout_constraintGuide_percent="0.85" />
 
     <Button
+        android:id="@+id/save"
         android:layout_width="94dp"
         android:layout_height="35sp"
-        android:background="@drawable/disabled_btn"
-        android:id="@+id/save"
+        android:background="@drawable/rounded_calculate_btn"
         android:elevation="10dp"
         android:text="Save"
-
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.36" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

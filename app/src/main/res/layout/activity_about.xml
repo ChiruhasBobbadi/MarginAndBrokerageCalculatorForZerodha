@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Activities.AboutActivity"
+    android:background="@color/bg_black"
 
-    android:background="@color/bg_black">
+    tools:context=".View.Activities.AboutActivity">
 
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="47dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:text="Version"
         android:textColor="#82b1ff"
         android:textSize="12sp"
@@ -88,7 +88,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="13dp"
         android:fontFamily="@font/avenir_light"
-        android:text="3.0.3"
+        android:text="3.0.4"
         android:textColor="@color/bg_white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="13dp"
         android:fontFamily="@font/avenir_light"
-        android:text="May 3  2020"
+        android:text="May 12  2020"
         android:textColor="@color/bg_white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,16 +170,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/avenir_light"
         android:text="@string/about_4"
         android:textColor="@color/bg_white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.123" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.94" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -53,7 +54,8 @@ public class EquityActivity extends AppCompatActivity {
     private FrameLayout adContainerView;
     private AdView adView;
     //room viewmodel
-
+    private double _equity;
+    private SharedPreferences data;
     private RadioGroup rg;
 
     @Override
@@ -86,6 +88,12 @@ public class EquityActivity extends AppCompatActivity {
     }
 
     private void init() {
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        String t = data.getString("equity", "");
+        if (!t.equals(""))
+            _equity = Double.parseDouble(t);
+
         rv = findViewById(R.id.rv);
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
@@ -202,7 +210,7 @@ public class EquityActivity extends AppCompatActivity {
          */
         AlertHelper alertHelper = new AlertHelper(EquityActivity.this);
 
-        alertHelper.loadEquityPopup(item);
+        alertHelper.loadEquityPopup(item, _equity);
 
     }
 

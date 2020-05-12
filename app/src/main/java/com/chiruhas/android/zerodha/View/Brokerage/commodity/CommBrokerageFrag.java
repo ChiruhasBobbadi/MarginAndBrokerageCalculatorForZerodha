@@ -3,7 +3,6 @@ package com.chiruhas.android.zerodha.View.Brokerage.commodity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,6 @@ import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 
 public class CommBrokerageFrag extends Fragment {
 
@@ -45,18 +42,14 @@ public class CommBrokerageFrag extends Fragment {
 
     private Commodity commodity = null;
     private List<Commodity> list = new ArrayList<>();
+    private int stateIndex = 0;
 
-    public CommBrokerageFrag() {
+    CommBrokerageFrag(int index) {
         // Required empty public constructor
+        stateIndex = index;
     }
 
 
-    // TODO: Rename and change types and number of parameters
-    public static CommBrokerageFrag newInstance(String param1, String param2) {
-        CommBrokerageFrag fragment = new CommBrokerageFrag();
-
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +88,7 @@ public class CommBrokerageFrag extends Fragment {
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, lst);
 
             auto.setAdapter(adapter1);
-            Log.d(TAG, "onChanged: Sucess");
+
         });
 
         auto.setOnItemClickListener((parent, view1, position, id) -> {
@@ -118,7 +111,7 @@ public class CommBrokerageFrag extends Fragment {
 
         spinner.setAdapter(adapter);
         spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
-
+        spinner.setSelection(stateIndex);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

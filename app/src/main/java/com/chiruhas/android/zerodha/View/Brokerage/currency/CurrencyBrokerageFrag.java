@@ -28,18 +28,14 @@ public class CurrencyBrokerageFrag extends Fragment {
     String state;
     EditText buy, sell, qty;
     Spinner spinner;
+    private int stateIndex = 0;
 
-    public CurrencyBrokerageFrag() {
-        // Required empty public constructor
+    CurrencyBrokerageFrag(int index) {
+        stateIndex = index;
     }
 
 
-    // TODO: Rename and change types and number of parameters
-    public static CurrencyBrokerageFrag newInstance(String param1, String param2) {
-        CurrencyBrokerageFrag fragment = new CurrencyBrokerageFrag();
 
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +65,7 @@ public class CurrencyBrokerageFrag extends Fragment {
             spinner.setAdapter(adapter);
             spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
 
-
+            spinner.setSelection(stateIndex);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {

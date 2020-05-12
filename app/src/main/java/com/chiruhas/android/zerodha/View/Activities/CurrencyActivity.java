@@ -1,6 +1,7 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -42,7 +43,8 @@ public class CurrencyActivity extends AppCompatActivity {
     private CurrencyAdapter adapter;
     private ProgressBar bar;
     private List<Currency> currency = new ArrayList<>();
-
+    private double _currency;
+    private SharedPreferences data;
     private Currency currencyItem;
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
@@ -53,6 +55,11 @@ public class CurrencyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        String t = data.getString("equity", "");
+        if (!t.equals(""))
+            _currency = Double.parseDouble(t);
         mish2l = nrmlh2l = priceh2l = false;
         chipGroup = findViewById(R.id.chipGroup);
         Log.d(TAG, "onCreate: sucessful");
@@ -145,7 +152,7 @@ public class CurrencyActivity extends AppCompatActivity {
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
 
-        alertHelper.loadCurrencyPopUp(currencyItem);
+        alertHelper.loadCurrencyPopUp(currencyItem, _currency);
     }
 
     public void fetchData() {

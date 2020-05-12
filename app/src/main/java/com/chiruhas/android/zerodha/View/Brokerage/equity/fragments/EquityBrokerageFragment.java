@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import androidx.fragment.app.Fragment;
 
 import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
 import com.chiruhas.android.zerodha.R;
-import com.google.android.gms.ads.AdView;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -36,21 +34,15 @@ public class EquityBrokerageFragment extends Fragment {
     private EditText sell;
     private EditText qty;
     private Spinner spinner;
-    private FrameLayout adContainerView;
-    private AdView adView;
 
-    public EquityBrokerageFragment() {
+    private int stateIndex = 0;
+
+    public EquityBrokerageFragment(int index) {
         // Required empty public constructor
-
+        stateIndex = index;
     }
 
 
-    // TODO: Rename and change types and number of parameters
-    public  static EquityBrokerageFragment newInstance() {
-        EquityBrokerageFragment fragment = new EquityBrokerageFragment();
-
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +86,7 @@ public class EquityBrokerageFragment extends Fragment {
 
 
         spinner.setAdapter(adapter);
+        spinner.setSelection(stateIndex);
         spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
 
 

@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Brokerage.currency;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +15,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.chiruhas.android.zerodha.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrokerageFrag.OnFragmentInteractionListener,CurrencyBrokerageFrag1.OnFragmentInteractionListener{
+public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrokerageFrag.OnFragmentInteractionListener, CurrencyBrokerageFrag1.OnFragmentInteractionListener {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private String def_state;
+    private int stateIndex = 0;
+    private SharedPreferences data;
 
     private ViewPager mViewPager;
 
@@ -56,6 +59,12 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        def_state = data.getString("default_state", "");
+        if (!def_state.equals(""))
+            stateIndex = Integer.parseInt(def_state);
     }
 
     @Override
@@ -70,7 +79,7 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -78,11 +87,11 @@ public class CurrencyBrokerage extends AppCompatActivity implements CurrencyBrok
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = new CurrencyBrokerageFrag();
+            Fragment fragment = new CurrencyBrokerageFrag(stateIndex);
             ((CurrencyBrokerageFrag) fragment).updatePos(position);
-            switch (position){
+            switch (position) {
                 case 0:
-                     fragment = new CurrencyBrokerageFrag();
+                    fragment = new CurrencyBrokerageFrag(stateIndex);
                     ((CurrencyBrokerageFrag) fragment).updatePos(position);
                     break;
                 case 1:

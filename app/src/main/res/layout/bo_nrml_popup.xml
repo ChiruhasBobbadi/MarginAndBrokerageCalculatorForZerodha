@@ -16,7 +16,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="62dp"
-        android:fontFamily="@font/aileron_semibold"
+
         android:gravity="center"
         android:text="Scrip"
         android:textColor="@color/bg_blue"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="Margin Required : "
         android:textColor="#616161"
         android:textSize="20sp"
@@ -57,7 +57,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="RS"
         android:textColor="@color/bg_green"
         android:textSize="20sp"
@@ -73,7 +73,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="RS"
         android:textColor="@color/bg_green"
         android:textSize="20sp"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="Actual Value : "
         android:textColor="#616161"
         android:textSize="20sp"
@@ -102,7 +102,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="RS"
         android:textColor="@color/bg_blue"
         android:textSize="20sp"
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
-        android:fontFamily="@font/avenir_light"
+
         android:text="Leverage : "
         android:textColor="#616161"
         android:textSize="20sp"

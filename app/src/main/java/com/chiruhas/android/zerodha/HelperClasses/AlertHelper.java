@@ -28,7 +28,7 @@ public class AlertHelper {
         mis1 = 0.0f;
     }
 
-    public void loadEquityPopup(GodModel item) {
+    public void loadEquityPopup(GodModel item, double _eq) {
 
         //final View view = LayoutInflater.from(context).inflate(R.layout.equitycalculate, null);
 
@@ -46,6 +46,9 @@ public class AlertHelper {
         cal = myDialog.findViewById(R.id.calculate);
         price = myDialog.findViewById(R.id.price);
         amt = myDialog.findViewById(R.id.amount);
+
+        if (_eq != 0)
+            amt.setText(_eq + "");
 
         scrip.setText(item.getTradingsymbol());
         mis_mux.setText("MIS : " + item.getMis_multiplier() + "X");
@@ -83,7 +86,7 @@ public class AlertHelper {
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.setCancelable(false);
+        //myDialog.setCancelable(false);
 
         myDialog.show();
     }
@@ -109,12 +112,12 @@ public class AlertHelper {
         close.setOnClickListener(view -> myDialog.dismiss());
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.setCancelable(false);
+//        myDialog.setCancelable(false);
         myDialog.show();
     }
 
 
-    public void loadCommodityPopUp(final Commodity commodity) {
+    public void loadCommodityPopUp(final Commodity commodity, double _co) {
 
         myDialog.setContentView(R.layout.equitycalculate);
 
@@ -131,6 +134,8 @@ public class AlertHelper {
         cal = myDialog.findViewById(R.id.calculate);
         price = myDialog.findViewById(R.id.price);
         amt = myDialog.findViewById(R.id.amount);
+        if (_co != 0)
+            amt.setText(_co + "");
 
         price.setText(commodity.getPrice());
         scrip.setText(commodity.getScrip());
@@ -176,13 +181,13 @@ public class AlertHelper {
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.setCancelable(false);
+        //myDialog.setCancelable(false);
 
 
         myDialog.show();
     }
 
-    public void loadFuturePopUp(Futures futures) {
+    public void loadFuturePopUp(Futures futures, double _fu) {
 
         myDialog.setContentView(R.layout.equitycalculate);
         TextView scrip;
@@ -195,7 +200,8 @@ public class AlertHelper {
         cal = myDialog.findViewById(R.id.calculate);
         price = myDialog.findViewById(R.id.price);
         amt = myDialog.findViewById(R.id.amount);
-
+        if (_fu != 0)
+            amt.setText(_fu + "");
 
         scrip.setText(futures.getScrip());
         mis_mux.setText("MIS : " + futures.getMis());
@@ -234,12 +240,12 @@ public class AlertHelper {
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.setCancelable(false);
+        // myDialog.setCancelable(false);
         myDialog.show();
     }
 
 
-    public void loadCurrencyPopUp(Currency futures) {
+    public void loadCurrencyPopUp(Currency futures, double _cu) {
 
         myDialog.setContentView(R.layout.equitycalculate);
 
@@ -256,7 +262,8 @@ public class AlertHelper {
         cal = myDialog.findViewById(R.id.calculate);
         price = myDialog.findViewById(R.id.price);
         amt = myDialog.findViewById(R.id.amount);
-
+        if (_cu != 0)
+            amt.setText(_cu + "");
 
         scrip.setText(futures.getScrip());
         mis_mux.setText("MIS : " + futures.getMis());
@@ -295,19 +302,11 @@ public class AlertHelper {
 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.setCancelable(false);
+        //myDialog.setCancelable(false);
         myDialog.show();
     }
 
 
-    /**
-     * @param mval   mis value
-     * @param nval   nrml value
-     * @param mis    text view ref
-     * @param cnc    text view ref
-     * @param aprice actual price
-     * @param uprice user price
-     */
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Commodity commodity) {
         int res[] = new int[2];
         int mval = Integer.parseInt(commodity.getMis());

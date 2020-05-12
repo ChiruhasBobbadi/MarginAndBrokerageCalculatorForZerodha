@@ -25,6 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<GodModel> GodModels = new ArrayList<>();
     private ItemListener myListener;
 
+
     public RecyclerViewAdapter( ItemListener listener) {
 
         myListener = listener;
@@ -37,6 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void updateData(List<GodModel> GodModels)
     {
         this.GodModels= GodModels;
+
         notifyDataSetChanged();
     }
 

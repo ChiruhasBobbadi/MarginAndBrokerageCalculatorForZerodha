@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Brokerage.equity;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -24,7 +25,9 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
     private FrameLayout adContainerView;
     private AdView adView;
     private ViewPager mViewPager;
-
+    private String def_state;
+    private int stateIndex = 0;
+    private SharedPreferences data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,11 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        def_state = data.getString("default_state", "");
+        if (!def_state.equals(""))
+            stateIndex = Integer.parseInt(def_state);
 
         getSupportActionBar().setTitle("Equity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,7 +79,7 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -79,7 +87,7 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-           Fragment fragment = new EquityBrokerageFragment();
+            Fragment fragment = new EquityBrokerageFragment(stateIndex);
            ((EquityBrokerageFragment) fragment).updatePos(position);
 
 

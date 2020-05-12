@@ -48,17 +48,18 @@ public class FuturesActivity extends AppCompatActivity {
     private RecyclerView rv;
     private FutureAdapter adapter;
     private ProgressBar bar;
+    private double _futures;
+    private SharedPreferences data;
+    private RadioGroup rg;
     private List<Futures> list = new ArrayList<>();
     private InterstitialAd mInterstitialAd;
-    private RadioGroup rg;
+
     private Futures futures;
     private FrameLayout adContainerView;
     private AdView adView;
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
 
-    //room viewmodel
-    // EquityViewModel futureViewModel;
 
 
     @Override
@@ -113,6 +114,12 @@ public class FuturesActivity extends AppCompatActivity {
     }
 
     private void init() {
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        String t = data.getString("futures", "");
+        if (!t.equals(""))
+            _futures = Double.parseDouble(t);
+
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.future_inter));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -214,7 +221,7 @@ public class FuturesActivity extends AppCompatActivity {
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(FuturesActivity.this);
 
-        alertHelper.loadFuturePopUp(futures);
+        alertHelper.loadFuturePopUp(futures, _futures);
     }
 
 

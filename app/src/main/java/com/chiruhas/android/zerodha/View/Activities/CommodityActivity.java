@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -49,9 +50,10 @@ public class CommodityActivity extends AppCompatActivity {
     private ProgressBar bar;
 
     private List<Commodity> list = new ArrayList<>();
-
-    private Commodity commodity;
+    private double _commodity;
+    private SharedPreferences data;
     private RadioGroup rg;
+    private Commodity commodity;
     private InterstitialAd mInterstitialAd;
     private FrameLayout adContainerView;
     private AdView adView;
@@ -118,6 +120,12 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        String t = data.getString("commodity", "");
+        if (!t.equals(""))
+            _commodity = Double.parseDouble(t);
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.commodity_inter));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -164,7 +172,7 @@ public class CommodityActivity extends AppCompatActivity {
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CommodityActivity.this);
 
-        alertHelper.loadCommodityPopUp(commodity);
+        alertHelper.loadCommodityPopUp(commodity, _commodity);
     }
 
     public void zerodhaCall() {

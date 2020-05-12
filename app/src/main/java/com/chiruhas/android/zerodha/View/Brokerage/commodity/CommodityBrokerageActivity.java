@@ -1,5 +1,6 @@
 package com.chiruhas.android.zerodha.View.Brokerage.commodity;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,9 @@ public class CommodityBrokerageActivity extends AppCompatActivity implements Com
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private String def_state;
+    private int stateIndex = 0;
+    private SharedPreferences data;
     private ViewPager mViewPager;
 
     @Override
@@ -53,6 +56,11 @@ public class CommodityBrokerageActivity extends AppCompatActivity implements Com
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        data = getSharedPreferences("dataStore",
+                MODE_PRIVATE);
+        def_state = data.getString("default_state", "");
+        if (!def_state.equals(""))
+            stateIndex = Integer.parseInt(def_state);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class CommodityBrokerageActivity extends AppCompatActivity implements Com
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -76,10 +84,10 @@ public class CommodityBrokerageActivity extends AppCompatActivity implements Com
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
-            Fragment fragment = new CommBrokerageFrag();
+            Fragment fragment = new CommBrokerageFrag(stateIndex);
             switch (position) {
                 case 0:
-                    fragment = new CommBrokerageFrag();
+                    fragment = new CommBrokerageFrag(stateIndex);
                     break;
                 case 1:
                     fragment = new CommodityOptionsBrokerageFragment();
