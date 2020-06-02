@@ -6,7 +6,7 @@ import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
-import android.view.animation.AnticipateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -132,10 +132,9 @@ public class MMI_Activity extends AppCompatActivity {
     }
 
     private void animate() {
-
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 0, (int) mmiValue.getMmi());
         animation.setDuration(2000); // in milliseconds
-        animation.setInterpolator(new AnticipateInterpolator());
+        animation.setInterpolator(new AccelerateInterpolator());
         animation.start();
     }
 
