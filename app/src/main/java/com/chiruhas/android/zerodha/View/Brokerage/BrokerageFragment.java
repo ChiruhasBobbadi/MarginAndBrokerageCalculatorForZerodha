@@ -19,7 +19,7 @@ BrokerageFragment extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;
-    private CardView equity, commodity, currency;
+
     public BrokerageFragment() {
         // Required empty public constructor
     }
@@ -46,9 +46,9 @@ BrokerageFragment extends Fragment  {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_brokerage, container, false);
 
-        equity = v.findViewById(R.id.equity);
-        commodity = v.findViewById(R.id.commodity);
-        currency = v.findViewById(R.id.currency);
+        CardView equity = v.findViewById(R.id.equity);
+        CardView commodity = v.findViewById(R.id.commodity);
+        CardView currency = v.findViewById(R.id.currency);
         equity.setOnClickListener(v1 -> mListener.onBrokerageFragment(v1));
 
         YoYo.with(Techniques.FadeIn)

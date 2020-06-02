@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class CommBrokerageFrag extends Fragment {
     Spinner spinner;
     ZerodhaViewModel viewModel;
     private AutoCompleteTextView auto;
+    private ListView listView;
     private OnFragmentInteractionListener mListener;
 
 
@@ -64,7 +66,7 @@ public class CommBrokerageFrag extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_comm_brokerage, container, false);
 
-        //AdViewHelper.loadBanner(view);
+        listView = view.findViewById(R.id.list);
         final View tview = view;
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
@@ -142,7 +144,7 @@ public class CommBrokerageFrag extends Fragment {
                     if (state.isEmpty() || state.equals("Select State"))
                         Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                     else {
-
+                        listView.setVisibility(View.VISIBLE);
                         new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c', state);
                     }
 

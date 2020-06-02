@@ -35,14 +35,9 @@ import com.vorlonsoft.android.rate.AppRate;
 public class MainActivity extends AppCompatActivity implements MarginFragment.OnFragmentInteractionListener, BrokerageFragment.OnFragmentInteractionListener {
 
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
 
 
-
-    private ViewPager mViewPager;
     private InterstitialAd bracket, equity, brokerage;
 
 
@@ -102,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         getSupportActionBar().setTitle("Margin and Brokerage Calculator");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
         // nav view ref
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         // for animating the menu icon
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);

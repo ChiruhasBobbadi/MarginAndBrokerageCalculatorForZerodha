@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginBottom="50dp"
             android:background="@drawable/brokerage_bg"
             android:padding="5dp">
 
@@ -66,7 +65,7 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:foregroundGravity="center"
@@ -86,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
@@ -129,15 +128,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="84dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:gravity="center_horizontal"
 
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lot">
+                app:layout_constraintTop_toBottomOf="@+id/rgroup">
 
                 <RadioButton
                     android:id="@+id/def"
@@ -173,9 +172,10 @@
 
             <EditText
                 android:id="@+id/per"
+
                 android:layout_width="160dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:hint="Brokerage in %"
                 android:inputType="numberDecimal"
@@ -183,10 +183,11 @@
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
                 android:textCursorDrawable="@null"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rgroup" />
+                app:layout_constraintTop_toBottomOf="@+id/rgroup2" />
 
             <TextView
 
@@ -194,7 +195,7 @@
                 android:layout_width="159dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
 
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
@@ -214,8 +215,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="70dp"
 
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/white_grey"
                 android:dropDownSelector="@color/white_grey"
@@ -224,11 +225,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rgroup2" />
+                app:layout_constraintTop_toBottomOf="@+id/per" />
 
             <ListView
                 android:id="@+id/list"
-
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
@@ -251,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="36dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"

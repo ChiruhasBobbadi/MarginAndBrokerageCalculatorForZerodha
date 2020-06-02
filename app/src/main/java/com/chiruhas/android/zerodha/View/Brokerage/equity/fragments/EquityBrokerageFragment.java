@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class EquityBrokerageFragment extends Fragment {
     private EditText sell;
     private EditText qty;
     private Spinner spinner;
+    private ListView listView;
+
 
     private int stateIndex = 0;
 
@@ -53,18 +56,16 @@ public class EquityBrokerageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
-//        initAds(view);
-//        loadBanner();
+
         RadioGroup rg2 = view.findViewById(R.id.rgroup2);
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
         qty = view.findViewById(R.id.lot);
         spinner = view.findViewById(R.id.states);
         EditText per = view.findViewById(R.id.per);
-        per.setVisibility(View.GONE);
-
+        listView = view.findViewById(R.id.list);
 
         rg2.setOnCheckedChangeListener((group, checkedId) -> {
 
@@ -117,8 +118,10 @@ public class EquityBrokerageFragment extends Fragment {
             else {
                 if (state.isEmpty() || state.equals("Select State"))
                     Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                else
+                else {
+                    listView.setVisibility(View.VISIBLE);
                     new BrokerageHelper().brokerageCalculate(getContext(), vi, pos, 'e', state);
+                }
           }
 
         });

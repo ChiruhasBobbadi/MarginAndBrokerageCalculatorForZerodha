@@ -3,6 +3,8 @@ package com.chiruhas.android.zerodha.View.Brokerage.equity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,20 +16,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.View.Brokerage.equity.fragments.EquityBrokerageFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class EquityBrokerage extends AppCompatActivity implements EquityBrokerageFragment.OnFragmentInteractionListener {
 
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private FrameLayout adContainerView;
     private AdView adView;
-    private ViewPager mViewPager;
-    private String def_state;
     private int stateIndex = 0;
-    private SharedPreferences data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,25 +41,25 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
     private void init() {
 
-//        initAds();
-//        loadBanner();
+        initAds();
+        loadBanner();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        data = getSharedPreferences("dataStore",
+        SharedPreferences data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
-        def_state = data.getString("default_state", "");
+        String def_state = data.getString("default_state", "");
         if (!def_state.equals(""))
             stateIndex = Integer.parseInt(def_state);
 
         getSupportActionBar().setTitle("Equity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -72,45 +73,13 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
     }
 
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = new EquityBrokerageFragment(stateIndex);
-           ((EquityBrokerageFragment) fragment).updatePos(position);
-
-
-
-
-
-           return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-        }
-    }
-
-/*    private void initAds() {
+    private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
-        adContainerView = findViewById(R.id.ad_view_container);
+        FrameLayout adContainerView = findViewById(R.id.ad_view_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
         adView = new AdView(this);
-        adView.setAdUnitId(getResources().getString(R.string.margin_banner));
+        adView.setAdUnitId(getResources().getString(R.string.brokerage_banner));
         adContainerView.addView(adView);
     }
 
@@ -120,7 +89,8 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
         // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
         // device."
         AdRequest adRequest =
-                new AdRequest.Builder().build();
+                new AdRequest.Builder()
+                        .build();
 
         AdSize adSize = getAdSize();
         // Step 4 - Set the adaptive ad size on the ad view.
@@ -143,5 +113,33 @@ public class EquityBrokerage extends AppCompatActivity implements EquityBrokerag
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
-    }*/
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            Fragment fragment = new EquityBrokerageFragment(stateIndex);
+            ((EquityBrokerageFragment) fragment).updatePos(position);
+
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 4;
+        }
+    }
 }

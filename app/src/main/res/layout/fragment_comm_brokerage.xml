@@ -23,7 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/brokerage_bg"
-            android:padding="5dp">
+            android:padding="5dp"
+
+            >
 
             <Button
                 android:id="@+id/calculate"
@@ -67,8 +69,7 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="60dp"
-                android:textCursorDrawable="@null"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="60dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:foregroundGravity="center"
@@ -77,6 +78,7 @@
                 android:inputType="number"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@null"
                 app:layout_constraintEnd_toEndOf="@+id/sell"
                 app:layout_constraintHorizontal_bias="0.375"
                 app:layout_constraintStart_toStartOf="@+id/buy"
@@ -101,7 +103,7 @@
 
             <ListView
                 android:id="@+id/list"
-
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
@@ -125,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="36dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
@@ -144,7 +146,7 @@
                 android:layout_width="159dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
 
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
@@ -193,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/white_grey"
                 android:dropDownSelector="@color/white_grey"

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,8 @@ public class CurrencyBrokerageFrag extends Fragment {
     int pos;
     String state;
     EditText buy, sell, qty;
-    Spinner spinner;
+    private Spinner spinner;
+    private ListView listView;
     private int stateIndex = 0;
 
     CurrencyBrokerageFrag(int index) {
@@ -51,7 +53,7 @@ public class CurrencyBrokerageFrag extends Fragment {
         final View tview = view;
         // AdViewHelper.loadBanner(view);
         try {
-
+            listView = view.findViewById(R.id.list);
             buy = view.findViewById(R.id.buy);
             sell = view.findViewById(R.id.sell);
             qty = view.findViewById(R.id.lot);
@@ -69,7 +71,6 @@ public class CurrencyBrokerageFrag extends Fragment {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
                     String s = parentView.getItemAtPosition(position).toString();
                     state = s;
                 }
@@ -81,13 +82,17 @@ public class CurrencyBrokerageFrag extends Fragment {
 
 
             cal.setOnClickListener(v -> {
+
                 if (buy.getText().toString().isEmpty() || sell.getText().toString().isEmpty() || qty.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().startsWith("."))
                     Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
                 else {
+
                     if (state.isEmpty() || state.equals("Select State"))
                         Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                    else
+                    else {
+                        listView.setVisibility(View.VISIBLE);
                         new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
+                    }
 
                 }
 
