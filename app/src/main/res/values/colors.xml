@@ -11,5 +11,7 @@
     <color name="bg_red">#ff1744</color>
     <color name="bg_navdrawer">#000</color>
     <color name="white_grey">#fafafa</color>
+    <color name="bg_fear">#FFA63F</color>
+    <color name="bg_greed">#F57011</color>
 
 </resources>

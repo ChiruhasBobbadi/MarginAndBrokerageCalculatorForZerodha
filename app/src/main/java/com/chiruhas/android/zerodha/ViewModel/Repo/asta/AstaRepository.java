@@ -47,11 +47,11 @@ public class AstaRepository {
             @Override
             public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
                 if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: Commodity request failed.");
+                    //Log.d(TAG, "onResponse: Commodity request failed.");
                     return;
                 }
                 equity.postValue(response.body());
-                Log.d(TAG, "onResponse: commodity");
+                //Log.d(TAG, "onResponse: commodity");
             }
 
             @Override

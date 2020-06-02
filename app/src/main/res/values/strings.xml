@@ -62,4 +62,7 @@
 
     </string-array>
 
+    <string name="MMIsource">Source:  <a href="https://www.tickertape.in/market-mood-index">Tickertape</a></string>
+
+
 </resources>

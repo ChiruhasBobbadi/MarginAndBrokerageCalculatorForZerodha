@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="Position Calculator"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/mmi"
+        android:orderInCategory="100"
+        android:title="Market Mood Index"
+        app:showAsAction="never" />
 </menu>

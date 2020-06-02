@@ -256,6 +256,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
             case R.id.risk_reward:
                 startActivity(new Intent(MainActivity.this, PositionActivity.class));
                 return true;
+            case R.id.mmi:
+                startActivity(new Intent(MainActivity.this, MMI_Activity.class));
+                return true;
         }
         return true;
     }

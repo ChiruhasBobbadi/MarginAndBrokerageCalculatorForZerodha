@@ -23,14 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".View.Activities.MMI_Activity"></activity>
         <activity
             android:name=".View.Activities.SettingsActivity"
-            android:parentActivityName=".View.Activities.MainActivity">
-
-        </activity>
-        <activity
-            android:name=".View.Activities.SortActivity"
-            android:parentActivityName=".View.Activities.EquityActivity" />
+            android:parentActivityName=".View.Activities.MainActivity"></activity>
         <activity
             android:name=".View.Activities.PositionActivity"
             android:parentActivityName=".View.Activities.MainActivity" />
