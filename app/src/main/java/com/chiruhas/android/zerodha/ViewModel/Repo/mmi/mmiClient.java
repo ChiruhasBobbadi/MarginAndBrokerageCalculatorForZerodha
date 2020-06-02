@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface mmiClient {
-    @GET("getMmi")
+    @GET("mmi")
     Call<Mmi> geMmi();
 }

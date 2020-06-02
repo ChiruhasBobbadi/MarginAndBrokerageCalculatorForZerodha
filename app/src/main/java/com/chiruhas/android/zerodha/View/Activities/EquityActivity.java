@@ -289,33 +289,6 @@ public class EquityActivity extends AppCompatActivity {
     }
 
 
-   /*  switch (item.getItemId()) {
-        case R.id.mis_l2h:
-            // sort
-            //if(rg.getCheckedRadioButtonId()==R.id.zerodha)
-            recyclerViewAdapter.updateData(SortHelper.equitySort("mis_l2h", recyclerViewAdapter.getData()));
 
-            return true;
-
-        case R.id.mis_h2l:
-            recyclerViewAdapter.updateData(SortHelper.equitySort("mis_h2l", recyclerViewAdapter.getData()));
-            mish2l = true;
-
-            return true;
-        case R.id.nrml_h2l:
-            recyclerViewAdapter.updateData(SortHelper.equitySort("nrml_h2l", recyclerViewAdapter.getData()));
-            nrmlh2l = true;
-
-            return true;
-        case R.id.nrml_l2h:
-            recyclerViewAdapter.updateData(SortHelper.equitySort("nrml_l2h", recyclerViewAdapter.getData()));
-            nrmll2h = true;
-
-            return true;
-
-
-        default:
-            return super.onOptionsItemSelected(item);
-    }*/
 
 }

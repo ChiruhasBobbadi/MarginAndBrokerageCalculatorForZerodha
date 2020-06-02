@@ -3,8 +3,11 @@ package com.chiruhas.android.zerodha.View.Activities;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,27 +18,32 @@ import androidx.lifecycle.ViewModelProviders;
 import com.chiruhas.android.zerodha.Model.mmi.Mmi;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.mmi.MmiViewModel;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class MMI_Activity extends AppCompatActivity {
+
     private Mmi mmiValue;
     private ProgressBar progressBar, bar;
     private TextView mmiView, mmiMain, mmiSummary, getapp;
     private String mmi = "";
     private MmiViewModel viewModel;
+    private FrameLayout adContainerView;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mmi);
-        progressBar = findViewById(R.id.progressBar);
-        getapp = findViewById(R.id.source);
-        getapp.setMovementMethod(LinkMovementMethod.getInstance());
-        mmiView = findViewById(R.id.mmiValue);
-        bar = findViewById(R.id.progress);
-        bar.setVisibility(View.VISIBLE);
-        mmiMain = findViewById(R.id.mmiMain);
-        mmiSummary = findViewById(R.id.mmiSummary);
 
+        init();
+
+        fetchData();
+    }
+
+    private void fetchData() {
         viewModel = ViewModelProviders.of(this).get(MmiViewModel.class);
         viewModel.fetchMmi().observe(this, mmi -> {
             mmiValue = mmi;
@@ -47,6 +55,32 @@ public class MMI_Activity extends AppCompatActivity {
 
 
         });
+    }
+
+    private void init() {
+        getSupportActionBar().setTitle("Market Mood Index");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        progressBar = findViewById(R.id.progressBar);
+        getapp = findViewById(R.id.source);
+        getapp.setMovementMethod(LinkMovementMethod.getInstance());
+        mmiView = findViewById(R.id.mmiValue);
+        bar = findViewById(R.id.progress);
+        bar.setVisibility(View.VISIBLE);
+        mmiMain = findViewById(R.id.mmiMain);
+        mmiSummary = findViewById(R.id.mmiSummary);
+        initAds();
+        loadBanner();
+    }
+
+    private void initAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        adContainerView = findViewById(R.id.ad_view_container);
+        // Step 1 - Create an AdView and set the ad unit ID on it.
+        adView = new AdView(this);
+        adView.setAdUnitId(getResources().getString(R.string.mmi_banner));
+        adContainerView.addView(adView);
     }
 
     private void updateVisibility() {
@@ -80,11 +114,28 @@ public class MMI_Activity extends AppCompatActivity {
         mmiView.setTextColor(myColor);
     }
 
+    private void loadBanner() {
+        // Create an ad request. Check your logcat output for the hashed device ID
+        // to get test ads on a physical device, e.g.,
+        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
+        // device."
+        AdRequest adRequest =
+                new AdRequest.Builder()
+                        .build();
+
+        AdSize adSize = getAdSize();
+        // Step 4 - Set the adaptive ad size on the ad view.
+        adView.setAdSize(adSize);
+
+        // Step 5 - Start loading the ad in the background.
+        adView.loadAd(adRequest);
+    }
+
     private void animate() {
 
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 0, (int) mmiValue.getMmi());
-        animation.setDuration(3000); // in milliseconds
-        animation.setInterpolator(new DecelerateInterpolator());
+        animation.setDuration(2000); // in milliseconds
+        animation.setInterpolator(new AnticipateInterpolator());
         animation.start();
     }
 
@@ -109,5 +160,20 @@ public class MMI_Activity extends AppCompatActivity {
 
 
         }
+    }
+
+    private AdSize getAdSize() {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 }
