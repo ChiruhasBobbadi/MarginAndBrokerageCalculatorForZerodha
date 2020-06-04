@@ -2,14 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.chiruhas.android.zerodha.View.Activities.MainActivity">
-    <item
-        android:id="@+id/risk_reward"
-        android:orderInCategory="100"
-        android:title="Position Calculator"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/mmi"
-        android:orderInCategory="100"
-        android:title="Market Mood Index"
-        app:showAsAction="never" />
+    <group android:id="@+id/g1">
+        <item
+            android:id="@+id/risk_reward"
+            android:orderInCategory="100"
+            android:title="Position Calculator"
+            app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/g2">
+        <item
+            android:id="@+id/mmi"
+            android:orderInCategory="100"
+            android:title="Market Mood Index"
+            app:showAsAction="never" />
+    </group>
 </menu>

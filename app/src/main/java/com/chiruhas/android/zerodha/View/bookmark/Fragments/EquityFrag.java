@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,19 +17,17 @@ import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
-import com.chiruhas.android.zerodha.room.equity.EquityViewModel;
 
 
 @SuppressLint("ValidFragment")
 public class EquityFrag extends Fragment {
 
 
-    EquityViewModel equityViewModel;
     ZerodhaViewModel viewModel;
-    private EquityFragmentListener mListener;
-    private int pos;
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
+    private EquityFragmentListener mListener;
+    private int pos;
 
     public EquityFrag() {
         // Required empty public constructor
@@ -56,14 +53,6 @@ public class EquityFrag extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        equityViewModel = ViewModelProviders.of(this).get(EquityViewModel.class);
-        equityViewModel.getAll().observe(this, GodModels -> {
-
-
-//                adapter.updateData(ObjectConverter.godEquitytoGodModel(GodModels));
-//                adapter.setCache(ObjectConverter.godEquitytoGodModel(GodModels));
-
-        });
 
 
     }

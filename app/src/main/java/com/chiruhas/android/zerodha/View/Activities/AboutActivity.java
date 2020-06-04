@@ -19,4 +19,6 @@ public class AboutActivity extends AppCompatActivity {
         //line.animate().scaleX(-100f).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(1000);
 
     }
+
+
 }

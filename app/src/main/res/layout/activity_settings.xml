@@ -53,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
+
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
@@ -63,9 +64,9 @@
         android:textColor="@color/bg_white"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
 
     <TextView
         android:id="@+id/textView27"
@@ -78,6 +79,7 @@
         android:textColor="@color/bg_white"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
@@ -92,7 +94,7 @@
         android:textColor="@color/bg_white"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
@@ -139,7 +141,7 @@
         android:textColor="@color/white_grey"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView27"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toEndOf="@+id/textView27" />
 
     <EditText

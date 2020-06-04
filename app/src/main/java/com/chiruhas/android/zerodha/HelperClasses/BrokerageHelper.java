@@ -69,10 +69,9 @@ public class BrokerageHelper {
         map.put("ZINCMINI", 1000);
     }
 
-    // Brokerage function here
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n", "DefaultLocale"})
     public void brokerageCalculate(Context context, View view, int position, char type, String states) {
 
 

@@ -64,9 +64,6 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/container"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="32dp"
-        android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -74,7 +71,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginBottom="32dp" />
+
 
     <FrameLayout
         android:id="@+id/ad_view_container"

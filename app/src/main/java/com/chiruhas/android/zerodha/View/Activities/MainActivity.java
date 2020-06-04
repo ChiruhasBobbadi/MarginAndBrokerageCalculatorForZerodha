@@ -40,13 +40,16 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
     private InterstitialAd bracket, equity, brokerage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        rateIt();
+        initAds();
+        init();
+    }
 
-
+    private void rateIt() {
         // Rate It
 
         AppRate.with(this)
@@ -56,43 +59,10 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 .setRemindLaunchesNumber((byte) 1)         // default is 0, 1 means app is launched 1 or more times after neutral button clicked
                 .monitor();                                // Monitors the app launch times
         AppRate.showRateDialogIfMeetsConditions(this);
+    }
 
-        brokerage = new InterstitialAd(this);
-        bracket = new InterstitialAd(this);
-        equity = new InterstitialAd(this);
-
-
-        bracket.setAdUnitId(getResources().getString(R.string.bracket));
-        equity.setAdUnitId(getResources().getString(R.string.equity));
-        brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
-
-        brokerage.loadAd(new AdRequest.Builder().build());
-        brokerage.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
-            }
-        });
-
-
-        equity.loadAd(new AdRequest.Builder().build());
-        equity.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, EquityActivity.class));
-            }
-        });
-
-        bracket.loadAd(new AdRequest.Builder().build());
-        // navigating user to bracket activity
-        bracket.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, BracketActivity.class));
-            }
-        });
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void init() {
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Margin and Brokerage Calculator");
         // Create the adapter that will return a fragment for each of the three
@@ -160,13 +130,45 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
 
             return true;
         });
+    }
 
-        //add initialization
+    private void initAds() {
+        brokerage = new InterstitialAd(this);
+        bracket = new InterstitialAd(this);
+        equity = new InterstitialAd(this);
 
-        // original
+
+        bracket.setAdUnitId(getResources().getString(R.string.bracket));
+        equity.setAdUnitId(getResources().getString(R.string.equity));
+        brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
+
+        brokerage.loadAd(new AdRequest.Builder().build());
+        brokerage.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+            }
+        });
+
+
+        equity.loadAd(new AdRequest.Builder().build());
+        equity.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, EquityActivity.class));
+            }
+        });
+
+        bracket.loadAd(new AdRequest.Builder().build());
+        // navigating user to bracket activity
+        bracket.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                startActivity(new Intent(MainActivity.this, BracketActivity.class));
+            }
+        });
+
         MobileAds.initialize(this, getResources().getString(R.string.app_id));
-
-
     }
 
     @Override
