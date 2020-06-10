@@ -11,7 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,8 +36,12 @@ public class EquityBrokerageFragment extends Fragment {
     private EditText buy;
     private EditText sell;
     private EditText qty;
+    TextView pl;
     private Spinner spinner;
     private ListView listView;
+    private ImageView clear;
+
+    private RadioButton nse, def;
 
 
     private int stateIndex = 0;
@@ -57,7 +63,7 @@ public class EquityBrokerageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
+        View view = inflater.inflate(R.layout.fragment_equity_brokerage, container, false);
 
         RadioGroup rg2 = view.findViewById(R.id.rgroup2);
         buy = view.findViewById(R.id.buy);
@@ -66,20 +72,23 @@ public class EquityBrokerageFragment extends Fragment {
         spinner = view.findViewById(R.id.states);
         EditText per = view.findViewById(R.id.per);
         listView = view.findViewById(R.id.list);
+        clear = view.findViewById(R.id.clear);
+        pl = view.findViewById(R.id.pl);
+        nse = view.findViewById(R.id.nse);
+        def = view.findViewById(R.id.def);
 
         rg2.setOnCheckedChangeListener((group, checkedId) -> {
 
             switch (checkedId) {
                 case R.id.def:
-                    Log.d(TAG, "onCreateView: def");
                     per.setVisibility(View.GONE);
                     break;
                 case R.id.custom:
-                    Log.d(TAG, "onCreateView: cust");
                     per.setVisibility(View.VISIBLE);
                     break;
             }
         });
+
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
@@ -104,12 +113,24 @@ public class EquityBrokerageFragment extends Fragment {
             }
         });
 
+        clear.setOnClickListener(v -> {
+            buy.setText("");
+            sell.setText("");
+            qty.setText("");
+            pl.setText("");
+            clear.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
+            nse.setChecked(true);
+            def.setChecked(true);
+            per.setText("");
+            per.setVisibility(View.GONE);
+
+        });
 
 
+        final View vi = view;
 
-      final View vi = view;
-
-      Button cal = view.findViewById(R.id.calculate);
+        Button cal = view.findViewById(R.id.calculate);
         cal.setOnClickListener(v -> {
             if (buy.getText().toString().isEmpty() || buy.getText().toString().startsWith(".") || sell.getText().toString().isEmpty() || sell.getText().toString().startsWith(".") || qty.getText().toString().isEmpty() || per.getVisibility() == View.VISIBLE && (per.getText().toString().startsWith(".") || per.getText().toString().isEmpty()))
 
@@ -120,6 +141,7 @@ public class EquityBrokerageFragment extends Fragment {
                     Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                 else {
                     listView.setVisibility(View.VISIBLE);
+                    clear.setVisibility(View.VISIBLE);
                     new BrokerageHelper().brokerageCalculate(getContext(), vi, pos, 'e', state);
                 }
           }

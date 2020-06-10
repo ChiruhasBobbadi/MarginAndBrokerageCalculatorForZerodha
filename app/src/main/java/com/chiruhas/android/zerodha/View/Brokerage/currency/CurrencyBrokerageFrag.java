@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,12 +32,12 @@ public class CurrencyBrokerageFrag extends Fragment {
     private Spinner spinner;
     private ListView listView;
     private int stateIndex = 0;
+    TextView pl;
+    private ImageView clear;
 
     CurrencyBrokerageFrag(int index) {
         stateIndex = index;
     }
-
-
 
 
     @Override
@@ -59,6 +60,8 @@ public class CurrencyBrokerageFrag extends Fragment {
             qty = view.findViewById(R.id.lot);
             spinner = view.findViewById(R.id.states);
             Button cal = view.findViewById(R.id.calculate);
+            pl = view.findViewById(R.id.pl);
+            clear = view.findViewById(R.id.clear);
 
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,6 +83,16 @@ public class CurrencyBrokerageFrag extends Fragment {
                 }
             });
 
+            clear.setOnClickListener(v -> {
+                buy.setText("");
+                sell.setText("");
+                qty.setText("");
+                pl.setText("");
+                clear.setVisibility(View.GONE);
+                listView.setVisibility(View.GONE);
+
+            });
+
 
             cal.setOnClickListener(v -> {
 
@@ -91,6 +104,7 @@ public class CurrencyBrokerageFrag extends Fragment {
                         Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                     else {
                         listView.setVisibility(View.VISIBLE);
+                        clear.setVisibility(View.VISIBLE);
                         new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
                     }
 

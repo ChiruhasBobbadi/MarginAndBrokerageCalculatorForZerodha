@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,10 +37,12 @@ public class CommBrokerageFrag extends Fragment {
     String state;
     EditText buy, sell, qty;
     Spinner spinner;
+    TextView pl;
     ZerodhaViewModel viewModel;
     private AutoCompleteTextView auto;
     private ListView listView;
     private OnFragmentInteractionListener mListener;
+    private ImageView clear;
 
 
     private Commodity commodity = null;
@@ -74,13 +77,15 @@ public class CommBrokerageFrag extends Fragment {
         spinner = view.findViewById(R.id.states);
         Button cal = view.findViewById(R.id.calculate);
         auto = view.findViewById(R.id.auto_text);
+        pl = view.findViewById(R.id.pl);
+        clear = view.findViewById(R.id.clear);
 
         viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        viewModel.fetchCommodity().observe(this, godModels -> {
+        viewModel.fetchCommodity().observe(getViewLifecycleOwner(), godModels -> {
             list = godModels;
             String lst[] = NameExtractHelper.commodityName(list);
 
@@ -94,8 +99,6 @@ public class CommBrokerageFrag extends Fragment {
         });
 
         auto.setOnItemClickListener((parent, view1, position, id) -> {
-
-
             String str = auto.getText().toString().trim();
 
             for (Commodity c : list) {
@@ -105,8 +108,16 @@ public class CommBrokerageFrag extends Fragment {
                 }
             }
 
+        });
 
-//
+        clear.setOnClickListener(v -> {
+            buy.setText("");
+            sell.setText("");
+            qty.setText("");
+            pl.setText("");
+            clear.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
+            auto.clearListSelection();
 
         });
 
@@ -145,6 +156,7 @@ public class CommBrokerageFrag extends Fragment {
                         Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                     else {
                         listView.setVisibility(View.VISIBLE);
+                        clear.setVisibility(View.VISIBLE);
                         new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c', state);
                     }
 

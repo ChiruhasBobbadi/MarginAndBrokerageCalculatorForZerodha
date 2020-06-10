@@ -2,6 +2,8 @@ package com.chiruhas.android.zerodha.View.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +16,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.chiruhas.android.zerodha.R;
 import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Normal_BO;
 import com.chiruhas.android.zerodha.View.Fragments.bracket_order.Reverse_BO;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 
 public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnFragmentInteractionListener {
@@ -39,8 +44,8 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
 
     private void init() {
 
-//        initAds();
-//        loadBanner();
+        initAds();
+        loadBanner();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,7 +69,7 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
 
     }
 
-   /* private void initAds() {
+    private void initAds() {
         MobileAds.initialize(BracketActivity.this, initializationStatus -> {
         });
         adContainerView = findViewById(R.id.ad_view_container);
@@ -103,7 +108,7 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
 
         // Step 3 - Get adaptive ad size and return for setting on the ad view.
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(BracketActivity.this, adWidth);
-    }*/
+    }
 
 
 }

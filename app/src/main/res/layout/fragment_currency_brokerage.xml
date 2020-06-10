@@ -41,6 +41,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pl" />
 
+            <ImageView
+                android:id="@+id/clear"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Clear Result"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/bg_blue"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/calculate"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
             <EditText
                 android:id="@+id/sell"
                 android:layout_width="120dp"
