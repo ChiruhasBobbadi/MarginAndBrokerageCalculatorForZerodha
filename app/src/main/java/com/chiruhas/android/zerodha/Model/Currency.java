@@ -7,13 +7,24 @@ public class Currency {
     private String expiry;
     private String lot;
     private double price;
-    private int nrml;
-    private int mis;
+    private float nrml;
+    private float mis;
     private String mwpl;
     private double co_lower;
     private double co_upper;
     private float margin;
     private float mis_multiplier;
+
+    public float getOp_mis() {
+        return op_mis;
+    }
+
+    public void setOp_mis(float op_mis) {
+        this.op_mis = op_mis;
+    }
+
+    private float op_mis;
+
 
     public Currency() {
     }
@@ -53,11 +64,11 @@ public class Currency {
         return price;
     }
 
-    public int getNrml() {
+    public float getNrml() {
         return nrml;
     }
 
-    public int getMis() {
+    public float getMis() {
         return mis;
     }
 

@@ -126,10 +126,10 @@ public class SortHelper {
 
                 if (mish2l) {
 
-                    return (g2.getMis() - g1.getMis()); // Descending
+                    return (int) (g2.getMis() - g1.getMis()); // Descending
                 } else if (nrmlh2l) {
 
-                    return (g2.getNrml() - g1.getNrml());
+                    return (int) (g2.getNrml() - g1.getNrml());
                 } else {
 
                     return (int) (g2.getPrice() - g1.getPrice());

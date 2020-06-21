@@ -1,13 +1,9 @@
 package com.chiruhas.android.zerodha.Model.Equity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "futures_table")
 public class Futures {
-    @NonNull
-    @PrimaryKey
+
     private String scrip;
     private String expiry;
     private String lot;
@@ -37,7 +33,7 @@ public class Futures {
         this.mis_multiplier = mis_multiplier;
     }
 
-    @NonNull
+
     public String getScrip() {
         return scrip;
     }

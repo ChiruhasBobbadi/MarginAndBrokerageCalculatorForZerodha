@@ -114,6 +114,7 @@ public class AstaRepository {
                 if (!response.isSuccessful()) {
                     return;
                 }
+                Log.d(TAG, "onResponse: " + response.message());
                 currency.postValue(response.body());
             }
 

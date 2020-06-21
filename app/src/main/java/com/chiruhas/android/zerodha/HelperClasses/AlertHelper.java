@@ -350,8 +350,8 @@ public class AlertHelper {
 
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Currency currency) {
         int res[] = new int[2];
-        int mval = currency.getMis();
-        int nval = currency.getNrml();
+        float mval = currency.getMis();
+        float nval = currency.getNrml();
         double aprice = currency.getPrice();
         int new_mval = 0, new_nval = 0;
 

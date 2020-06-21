@@ -16,8 +16,8 @@ public class ObjectConverter {
 
     }
 
-    public static GodModel currency2God(Currency commodity) {
-        return new GodModel(commodity.getMargin(), commodity.getCo_lower(), commodity.getMis_multiplier(), commodity.getScrip(), commodity.getPrice(), commodity.getCo_upper(), commodity.getNrml(), commodity.getMis(), commodity.getExpiry(), commodity.getLot());
+    public static GodModel currency2God(Currency currency) {
+        return new GodModel(currency.getMargin(), currency.getCo_lower(), currency.getMis_multiplier(), currency.getScrip(), currency.getPrice(), currency.getCo_upper(), (int) currency.getNrml(), currency.getMis(), currency.getExpiry(), currency.getLot());
     }
 
 

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -50,11 +52,36 @@ public class CurrencyActivity extends AppCompatActivity {
     private ChipGroup chipGroup;
     private FrameLayout adContainerView;
     private AdView adView;
+    private RadioGroup rg;
+    AstaViewModel astaViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
+        init();
+
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+
+            adapter.updateData(new ArrayList<>());
+            switch (checkedId) {
+                case R.id.zerodha:
+                    bar.setVisibility(View.VISIBLE);
+                    zerodhaCall();
+                    break;
+                case R.id.asta:
+                    bar.setVisibility(View.VISIBLE);
+                    astaCall();
+                    break;
+
+            }
+
+        });
+
+    }
+
+    private void init() {
+        rg = findViewById(R.id.radioGroup);
         data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
         String t = data.getString("equity", "");
@@ -75,7 +102,6 @@ public class CurrencyActivity extends AppCompatActivity {
 
         setAdapter();
         fetchData();
-
     }
 
 
@@ -147,6 +173,28 @@ public class CurrencyActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
 
+    }
+
+    public void zerodhaCall() {
+        view = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        view.fetchCurrency().observe(this, GodModels -> {
+            currency = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    public void astaCall() {
+        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        astaViewModel.fetchCurrency().observe(this, GodModels -> {
+            currency = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
     }
 
     public void showPopup() {
