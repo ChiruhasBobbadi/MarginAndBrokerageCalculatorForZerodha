@@ -24,6 +24,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
@@ -43,12 +44,12 @@ public class CommodityActivity extends AppCompatActivity {
 
 
     private static final String TAG = "Commodity Activity";
+    AliceViewModel alice;
     private RecyclerView recyclerView;
     private ZerodhaViewModel viewModel;
     private AstaViewModel astaViewModel;
     private CommodityAdapter commodityAdapter;
     private ProgressBar bar;
-
     private List<Commodity> list = new ArrayList<>();
     private double _commodity;
     private SharedPreferences data;
@@ -79,6 +80,9 @@ public class CommodityActivity extends AppCompatActivity {
                     break;
                 case R.id.asta:
                     astaCall();
+                    break;
+                case R.id.alice:
+                    aliceCall();
                     break;
             }
 
@@ -192,8 +196,19 @@ public class CommodityActivity extends AppCompatActivity {
         astaViewModel.fetchCommodity().observe(this, Commoditys -> {
 
             list = Commoditys;
-            Log.d(TAG, "onChanged: inside fetch commodity data");
+
             commodityAdapter.updateData(Commoditys);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    public void aliceCall() {
+        alice = ViewModelProviders.of(this).get(AliceViewModel.class);
+        alice.fetchCommodity().observe(this, GodModels -> {
+            list = GodModels;
+
+            commodityAdapter.updateData(GodModels);
 
             bar.setVisibility(View.GONE);
         });

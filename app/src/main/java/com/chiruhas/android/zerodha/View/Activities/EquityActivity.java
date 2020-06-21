@@ -25,6 +25,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
@@ -40,17 +41,18 @@ import java.util.List;
 
 public class EquityActivity extends AppCompatActivity {
 
-    private boolean mish2l, nrmlh2l;
     private static final String TAG = "EquityActivity";
-    private ChipGroup chipGroup;
     // retrofit viewmodel
     ZerodhaViewModel view;
     AstaViewModel astaViewModel;
+    AliceViewModel alice;
     RecyclerView rv;
     Dialog myDialog;
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar bar;
     List<GodModel> equity = new ArrayList<>();
+    private boolean mish2l, nrmlh2l;
+    private ChipGroup chipGroup;
     private FrameLayout adContainerView;
     private AdView adView;
     //room viewmodel
@@ -70,14 +72,16 @@ public class EquityActivity extends AppCompatActivity {
         rg.setOnCheckedChangeListener((group, checkedId) -> {
 
             recyclerViewAdapter.updateData(new ArrayList<>());
+            bar.setVisibility(View.VISIBLE);
             switch (checkedId) {
                 case R.id.zerodha:
-                    bar.setVisibility(View.VISIBLE);
                     zerodhaCall();
                     break;
                 case R.id.asta:
-                    bar.setVisibility(View.VISIBLE);
                     astaCall();
+                    break;
+                case R.id.alice:
+                    aliceCall();
                     break;
 
             }
@@ -237,6 +241,17 @@ public class EquityActivity extends AppCompatActivity {
         });
     }
 
+    public void aliceCall() {
+        alice = ViewModelProviders.of(this).get(AliceViewModel.class);
+        alice.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
+
+            recyclerViewAdapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
 
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
@@ -285,8 +300,6 @@ public class EquityActivity extends AppCompatActivity {
         recyclerViewAdapter.updateData(SortHelper.equitySort(recyclerViewAdapter.getData(), mish2l, nrmlh2l));
 
     }
-
-
 
 
 }

@@ -309,8 +309,8 @@ public class AlertHelper {
 
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Commodity commodity) {
         int res[] = new int[2];
-        int mval = Integer.parseInt(commodity.getMis());
-        int nval = Integer.parseInt(commodity.getNrml());
+        float mval = Float.parseFloat(commodity.getMis());
+        float nval = Float.parseFloat(commodity.getNrml());
         double aprice = Double.parseDouble(commodity.getPrice());
         int new_mval = 0, new_nval = 0;
 
@@ -330,8 +330,8 @@ public class AlertHelper {
 
     public int[] changeParams(TextView mis, TextView cnc, double uprice, Futures futures) {
         int res[] = new int[2];
-        int mval = Integer.parseInt(futures.getMis());
-        int nval = Integer.parseInt(futures.getNrml());
+        float mval = Float.parseFloat(futures.getMis());
+        float nval = Float.parseFloat(futures.getNrml());
         double aprice = Double.parseDouble(futures.getPrice());
         int new_mval = 0, new_nval = 0;
 

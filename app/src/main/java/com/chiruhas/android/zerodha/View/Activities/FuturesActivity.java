@@ -25,6 +25,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
@@ -43,23 +44,17 @@ import java.util.List;
 public class FuturesActivity extends AppCompatActivity {
 
     private static final String TAG = "FuturesActivity";
-    private ZerodhaViewModel viewModel;
-    private AstaViewModel astaViewModel;
-    private RecyclerView rv;
+    AliceViewModel alice;
     private FutureAdapter adapter;
     private ProgressBar bar;
     private double _futures;
-    private SharedPreferences data;
     private RadioGroup rg;
     private List<Futures> list = new ArrayList<>();
     private InterstitialAd mInterstitialAd;
-
     private Futures futures;
-    private FrameLayout adContainerView;
     private AdView adView;
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
-
 
 
     @Override
@@ -73,12 +68,15 @@ public class FuturesActivity extends AppCompatActivity {
             bar.setVisibility(View.VISIBLE);
             switch (checkedId) {
                 case R.id.zerodha:
-                    bar.setVisibility(View.VISIBLE);
+
                     zerodhaCall();
                     break;
                 case R.id.asta:
-                    bar.setVisibility(View.VISIBLE);
+
                     astaCall();
+                    break;
+                case R.id.alice:
+                    aliceCall();
                     break;
             }
         });
@@ -86,27 +84,32 @@ public class FuturesActivity extends AppCompatActivity {
 
     }
 
+    private void aliceCall() {
+        alice = ViewModelProviders.of(this).get(AliceViewModel.class);
+        alice.fetchFutures().observe(this, GodModels -> {
+            list = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
     private void astaCall() {
-        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        AstaViewModel astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
         astaViewModel.fetchFutures().observe(this, Futures -> {
             list = Futures;
-            for (int i = 0; i < list.size(); i++) {
-                Log.d(TAG, "onChanged: " + list.get(i).getScrip());
-            }
             adapter.updateData(Futures);
             bar.setVisibility(View.GONE);
         });
     }
 
     public void zerodhaCall() {
-        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        ZerodhaViewModel viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         viewModel.fetchFutures().observe(this, Futures -> {
 
 
             list = Futures;
-            for (int i = 0; i < list.size(); i++) {
-                Log.d(TAG, "onChanged: " + list.get(i).getScrip());
-            }
             adapter.updateData(Futures);
 
             bar.setVisibility(View.GONE);
@@ -114,7 +117,7 @@ public class FuturesActivity extends AppCompatActivity {
     }
 
     private void init() {
-        data = getSharedPreferences("dataStore",
+        SharedPreferences data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
         String t = data.getString("futures", "");
         if (!t.equals(""))
@@ -195,7 +198,7 @@ public class FuturesActivity extends AppCompatActivity {
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
-        rv = findViewById(R.id.rv);
+        RecyclerView rv = findViewById(R.id.rv);
         // change later
         adapter = new FutureAdapter(item -> {
             futures = item;
@@ -205,8 +208,6 @@ public class FuturesActivity extends AppCompatActivity {
                 // code for calculating and showing a popup
                 showPopup();
             }
-
-
 
 
         });
@@ -277,11 +278,10 @@ public class FuturesActivity extends AppCompatActivity {
     }
 
 
-
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
-        adContainerView = findViewById(R.id.ad_view_container);
+        FrameLayout adContainerView = findViewById(R.id.ad_view_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
         adView = new AdView(this);
         adView.setAdUnitId(getResources().getString(R.string.margin_banner));

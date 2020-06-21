@@ -25,6 +25,7 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.R;
+import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
 import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
@@ -41,19 +42,17 @@ import java.util.List;
 public class CurrencyActivity extends AppCompatActivity {
     private static final String TAG = "CurrencyActivity";
     private ZerodhaViewModel view;
-    private RecyclerView rv;
     private CurrencyAdapter adapter;
     private ProgressBar bar;
     private List<Currency> currency = new ArrayList<>();
     private double _currency;
-    private SharedPreferences data;
     private Currency currencyItem;
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
-    private FrameLayout adContainerView;
     private AdView adView;
     private RadioGroup rg;
     AstaViewModel astaViewModel;
+    AliceViewModel alice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +62,18 @@ public class CurrencyActivity extends AppCompatActivity {
 
         rg.setOnCheckedChangeListener((group, checkedId) -> {
 
+            bar.setVisibility(View.VISIBLE);
             adapter.updateData(new ArrayList<>());
             switch (checkedId) {
                 case R.id.zerodha:
-                    bar.setVisibility(View.VISIBLE);
+
                     zerodhaCall();
                     break;
                 case R.id.asta:
-                    bar.setVisibility(View.VISIBLE);
                     astaCall();
+                    break;
+                case R.id.alice:
+                    aliceCall();
                     break;
 
             }
@@ -82,7 +84,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
     private void init() {
         rg = findViewById(R.id.radioGroup);
-        data = getSharedPreferences("dataStore",
+        SharedPreferences data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
         String t = data.getString("equity", "");
         if (!t.equals(""))
@@ -157,7 +159,7 @@ public class CurrencyActivity extends AppCompatActivity {
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
-        rv = findViewById(R.id.rv);
+        RecyclerView rv = findViewById(R.id.rv);
         adapter = new CurrencyAdapter(item -> {
 
             currencyItem = item;
@@ -197,6 +199,17 @@ public class CurrencyActivity extends AppCompatActivity {
         });
     }
 
+    private void aliceCall() {
+        alice = ViewModelProviders.of(this).get(AliceViewModel.class);
+        alice.fetchCurrency().observe(this, GodModels -> {
+            currency = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
 
@@ -221,7 +234,7 @@ public class CurrencyActivity extends AppCompatActivity {
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
-        adContainerView = findViewById(R.id.ad_view_container);
+        FrameLayout adContainerView = findViewById(R.id.ad_view_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
         adView = new AdView(this);
         adView.setAdUnitId(getResources().getString(R.string.margin_banner));
