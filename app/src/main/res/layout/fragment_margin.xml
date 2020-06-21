@@ -27,37 +27,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="25dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_equity" />
 
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="69dp"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="25dp"
-                    android:src="@drawable/ic_equity"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/aileron_semibold"
+                android:gravity="center"
+                android:text="Equity"
+                android:textColor="@color/bg_white"
+                android:layout_gravity="bottom|center"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="33dp"
-                    android:layout_marginEnd="33dp"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/aileron_semibold"
-                    android:gravity="center"
-                    android:text="Equity"
-                    android:textColor="@color/bg_white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="16sp" />
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -72,36 +64,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="54dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="31dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_commodity" />
 
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="61dp"
-                    android:layout_marginStart="31dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="31dp"
-                    android:src="@drawable/ic_commodity"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/aileron_semibold"
-                    android:gravity="center"
-                    android:text="Commodity"
-                    android:textColor="@color/bg_white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/aileron_semibold"
+                android:gravity="center"
+                android:text="Commodity"
+                android:textColor="@color/bg_white"
+                android:layout_gravity="bottom|center"
+                android:textSize="16sp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -118,37 +101,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/equity">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="23dp"
+                android:src="@drawable/ic_futures" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="23dp"
-                    android:src="@drawable/ic_futures"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.476"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/aileron_semibold"
-                    android:gravity="center"
-                    android:text="Futures"
-                    android:textColor="@color/bg_white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/aileron_semibold"
+                android:gravity="center"
+                android:text="Futures"
+                android:textColor="@color/bg_white"
+                android:textSize="16sp"
+                android:layout_gravity="bottom|center" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -163,37 +135,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commodity">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="27dp"
+                android:src="@drawable/ic_currency" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="27dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="27dp"
-                    android:src="@drawable/ic_currency"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.55"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="98dp"
-                    android:layout_height="21dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/aileron_semibold"
-                    android:gravity="center"
-                    android:text="Currency"
-                    android:textColor="@color/bg_white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="98dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/aileron_semibold"
+                android:gravity="center"
+                android:text="Currency"
+                android:textColor="@color/bg_white"
+                android:layout_gravity="bottom|center"
+                android:textSize="16sp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -216,42 +177,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currency">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="61dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="23dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_bracket_icon" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="61dp"
-                    android:layout_height="41dp"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="23dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_bracket_icon"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.538"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="161dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="3dp"
+                android:fontFamily="@font/aileron_semibold"
+                android:gravity="center"
+                android:text="@string/bracket_order"
+                android:textColor="@color/bg_white"
+                android:layout_gravity="bottom|center_horizontal"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="161dp"
-                    android:layout_height="53dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_marginBottom="3dp"
-                    android:fontFamily="@font/aileron_semibold"
-                    android:gravity="center"
-                    android:text="@string/bracket_order"
-                    android:textColor="@color/bg_white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                    app:layout_constraintVertical_bias="0.0" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
