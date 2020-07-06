@@ -1,4 +1,4 @@
-# Margin and Brokerge calculator
+# Margin and Brokerage calculator
 
 This app is developed by me because of my habbit of day trading in Zerodha.
 
