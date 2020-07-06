@@ -7,37 +7,6 @@
     android:background="@color/bg_black"
     tools:context=".View.Activities.SettingsActivity">
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/aileron_semibold"
-        android:padding="2dp"
-        android:text="Default State"
-        android:textColor="@color/bg_white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/white_grey"
-        android:dropDownSelector="@color/white_grey"
-        android:foregroundTint="@color/white_grey"
-        android:hapticFeedbackEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
 
     <TextView
         android:id="@+id/textView26"
@@ -118,7 +87,7 @@
     <EditText
         android:id="@+id/equity"
         android:layout_width="191dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/bg_blue"
@@ -132,7 +101,7 @@
     <EditText
         android:id="@+id/commodity"
         android:layout_width="191dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/bg_blue"
@@ -141,14 +110,14 @@
         android:textColor="@color/white_grey"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView27"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toEndOf="@+id/textView27" />
 
     <EditText
         android:id="@+id/futures"
 
         android:layout_width="191dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/bg_blue"
@@ -164,7 +133,7 @@
         android:id="@+id/currency"
 
         android:layout_width="191dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
 
@@ -209,6 +178,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
+        app:layout_constraintGuide_percent="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

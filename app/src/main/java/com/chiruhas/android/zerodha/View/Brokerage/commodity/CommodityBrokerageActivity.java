@@ -89,10 +89,10 @@ public class CommodityBrokerageActivity extends AppCompatActivity implements Com
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
-            Fragment fragment = new CommBrokerageFrag(stateIndex);
+            Fragment fragment = new CommBrokerageFrag();
             switch (position) {
                 case 0:
-                    fragment = new CommBrokerageFrag(stateIndex);
+                    fragment = new CommBrokerageFrag();
                     break;
                 case 1:
                     fragment = new CommodityOptionsBrokerageFragment();

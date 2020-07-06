@@ -69,10 +69,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //BookmarkHelper.checkBookmark(equitycache,model,holder.bookmark);
 
         holder.scrip.setText(model.getTradingsymbol());
-        holder.mis.setText("MIS Multiplier : "+model.getMis_multiplier()+"X");
+        holder.mis.setText("MIS : " + model.getMis_multiplier() + "X");
         if (model.getNrml_multiplier() == 0)
             model.setNrml_multiplier(1);
-        holder.cnc.setText("CNC Multiplier : " + model.getNrml_multiplier() + "X");
+        holder.cnc.setText("CNC : " + model.getNrml_multiplier() + "X");
 
         holder.cal.setOnClickListener(view -> myListener.onItemClick(model));
 

@@ -29,7 +29,7 @@ import static android.content.ContentValues.TAG;
 public class BrokerageHelper {
 
     private EditText percent;
-    private String state;
+
     private AutoCompleteTextView auto;
 
     private Map<String, Integer> map = new HashMap<>();
@@ -70,9 +70,8 @@ public class BrokerageHelper {
     }
 
 
-
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n", "DefaultLocale"})
-    public void brokerageCalculate(Context context, View view, int position, char type, String states) {
+    public void brokerageCalculate(Context context, View view, int position, char type) {
 
 
         EditText buy = view.findViewById(R.id.buy);
@@ -94,7 +93,7 @@ public class BrokerageHelper {
             return false;
         });
 
-        state = states;
+
         // start of cal code
         double b = Double.parseDouble(buy.getText().toString());
         double s = Double.parseDouble(sell.getText().toString());
@@ -117,7 +116,8 @@ public class BrokerageHelper {
         }
 
 
-        String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ", "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
+        String msg[] = {"Turnover : ", "Brokerage : ", "STT Total : ",
+                "Exchange txn charge : ", "Clearing charge : ", "GST : ", "SEBI charges : "};
 
 
         // flag for checking nse or bse
@@ -362,11 +362,9 @@ public class BrokerageHelper {
 
         //TODO
         // clearing charge
-        //tax[5] = tax[0] * per[4] / 100;
+
         tax[5] = 0;
-//        if (type.equals("C1")) {
-//            tax[5] = ((buy_amt + sell_amt) * 200) / 10000000;
-//        }
+
 
         double gst = (((brokerage + tax[3]) * 18) / 100);
         tax[6] = gst;
@@ -378,7 +376,7 @@ public class BrokerageHelper {
         tax[8] = sebi;
 
         // fetching data
-        tax[9] = StateTaxHelper.stampDuty(type, tax[0], state);
+        tax[9] = StateTaxHelper.stampDuty(type, buy_amt);
 
         if (type.equals("E3"))
             brokerage = 40;
@@ -445,7 +443,7 @@ public class BrokerageHelper {
         tax[8] = sebi;
 
         // fetching data
-        tax[9] = StateTaxHelper.stampDuty(type, tax[0], state);
+        tax[9] = StateTaxHelper.stampDuty(type, buy_amt);
 
         return tax;
     }

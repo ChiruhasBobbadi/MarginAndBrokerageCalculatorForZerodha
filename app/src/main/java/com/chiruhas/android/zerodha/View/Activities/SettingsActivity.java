@@ -3,13 +3,8 @@ package com.chiruhas.android.zerodha.View.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.chiruhas.android.zerodha.R;
 
 public class SettingsActivity extends AppCompatActivity {
-    private Spinner spinner;
-    private int state;
+
     private String default_state;
     private SharedPreferences data;
     private Button save;
-    private int stateIndex = 0;
+
     private EditText equity, commodity, futures, currency;
 
     private double _equity = 0, _commodity = 0, _futures = 0, _currency = 0;
@@ -74,9 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateData(String eq, String co, String fu, String cu) {
         SharedPreferences.Editor myEdit
                 = data.edit();
-        myEdit.putString(
-                "default_state",
-                state + "");
+
         myEdit.putString(
                 "equity",
                 eq);
@@ -98,9 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
-        default_state = data.getString("default_state", "");
-        if (!default_state.equals(""))
-            stateIndex = Integer.parseInt(default_state);
+
 
         default_state = data.getString("equity", "");
         if (!default_state.equals(""))
@@ -122,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void init() {
-        spinner = findViewById(R.id.spinner);
+
         save = findViewById(R.id.save);
         equity = findViewById(R.id.equity);
         commodity = findViewById(R.id.commodity);
@@ -138,25 +128,5 @@ public class SettingsActivity extends AppCompatActivity {
             commodity.setText(_currency + "");
 
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(SettingsActivity.this, R.array.states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-        spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                state = position;
-               /* save.setEnabled(true);
-                save.setBackgroundResource(R.drawable.rounded_calculate_btn);
-                save.setClickable(true);*/
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        spinner.setSelection(stateIndex);
     }
 }

@@ -64,7 +64,6 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:textCursorDrawable="@null"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
@@ -73,6 +72,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
                 android:inputType="number"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 app:layout_constraintEnd_toEndOf="@+id/sell"
                 app:layout_constraintHorizontal_bias="0.375"
                 app:layout_constraintStart_toStartOf="@+id/buy"
@@ -103,7 +103,6 @@
                 android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:textCursorDrawable="@null"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
@@ -112,27 +111,27 @@
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ListView
                 android:id="@+id/list"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/bg_grey"
                 android:divider="@color/bg_blue"
                 android:dividerHeight="0.5dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/states"
+                app:layout_constraintTop_toBottomOf="@+id/auto_text"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -155,13 +154,11 @@
                 app:layout_constraintVertical_bias="0.01999998" />
 
             <TextView
-
                 android:id="@+id/textView6"
                 android:layout_width="159dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
@@ -177,51 +174,28 @@
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/auto_text"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="45dp"
-
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
 
                 android:layout_marginEnd="45dp"
 
                 android:backgroundTint="@color/bg_blue"
+
                 android:completionThreshold="1"
-
-
                 android:gravity="center_horizontal|center_vertical"
-                android:hint=" Enter Commodity ..."
 
+
+                android:hint=" Enter Commodity ..."
                 android:orientation="horizontal"
 
                 android:textColor="@color/bg_white"
+
                 android:textColorHint="@color/bg_white"
-                app:layout_constraintBottom_toTopOf="@+id/list"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.454"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lot"
-                app:layout_constraintVertical_bias="0.19999999" />
-
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/states"
-
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/white_grey"
-                android:dropDownSelector="@color/white_grey"
-
-                android:foregroundTint="@color/white_grey"
-                android:hapticFeedbackEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/auto_text"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/lot" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

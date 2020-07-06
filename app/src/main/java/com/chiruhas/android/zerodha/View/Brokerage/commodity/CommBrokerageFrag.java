@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +34,7 @@ public class CommBrokerageFrag extends Fragment {
     int pos;
     String state;
     EditText buy, sell, qty;
-    Spinner spinner;
+
     TextView pl;
     ZerodhaViewModel viewModel;
     private AutoCompleteTextView auto;
@@ -47,13 +45,12 @@ public class CommBrokerageFrag extends Fragment {
 
     private Commodity commodity = null;
     private List<Commodity> list = new ArrayList<>();
-    private int stateIndex = 0;
 
-    CommBrokerageFrag(int index) {
+
+    CommBrokerageFrag() {
         // Required empty public constructor
-        stateIndex = index;
-    }
 
+    }
 
 
     @Override
@@ -74,15 +71,14 @@ public class CommBrokerageFrag extends Fragment {
         buy = view.findViewById(R.id.buy);
         sell = view.findViewById(R.id.sell);
         qty = view.findViewById(R.id.lot);
-        spinner = view.findViewById(R.id.states);
+
+
         Button cal = view.findViewById(R.id.calculate);
         auto = view.findViewById(R.id.auto_text);
         pl = view.findViewById(R.id.pl);
         clear = view.findViewById(R.id.clear);
 
         viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
         viewModel.fetchCommodity().observe(getViewLifecycleOwner(), godModels -> {
@@ -122,22 +118,7 @@ public class CommBrokerageFrag extends Fragment {
         });
 
 
-        spinner.setAdapter(adapter);
-        spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
-        spinner.setSelection(stateIndex);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.white_grey));
-                String s = parentView.getItemAtPosition(position).toString();
-                state = s;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
 
         cal.setOnClickListener(v -> {
@@ -152,13 +133,11 @@ public class CommBrokerageFrag extends Fragment {
                 } else if (commodity == null) {
                     Toast.makeText(getContext(), "Invalid Symbol", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (state.isEmpty() || state.equals("Select State"))
-                        Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                    else {
-                        listView.setVisibility(View.VISIBLE);
-                        clear.setVisibility(View.VISIBLE);
-                        new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c', state);
-                    }
+
+                    listView.setVisibility(View.VISIBLE);
+                    clear.setVisibility(View.VISIBLE);
+                    new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'c');
+
 
                 }
 

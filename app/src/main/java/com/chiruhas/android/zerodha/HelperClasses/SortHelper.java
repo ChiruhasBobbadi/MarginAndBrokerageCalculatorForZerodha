@@ -53,17 +53,17 @@ public class SortHelper {
                 if (mish2l) {
                     if (g1.getMis().equals("N/A"))
                         g1.setMis("0");
-                    int n1 = Integer.parseInt(g1.getMis());
-                    int n2 = Integer.parseInt(g2.getMis());
-                    return (n2 - n1); // Descending
+                    float n1 = Float.parseFloat(g1.getMis());
+                    float n2 = Float.parseFloat(g2.getMis());
+                    return (int) (n2 - n1); // Descending
                 } else if (nrmlh2l) {
-                    int n1 = Integer.parseInt(g1.getNrml());
-                    int n2 = Integer.parseInt(g2.getNrml());
-                    return (n2 - n1);
+                    float n1 = Float.parseFloat(g1.getNrml());
+                    float n2 = Float.parseFloat(g2.getNrml());
+                    return (int) (n2 - n1); // Descending
                 } else {
-                    int n1 = (int) Double.parseDouble(g1.getPrice());
-                    int n2 = (int) Double.parseDouble(g2.getPrice());
-                    return (n2 - n1);
+                    float n1 = Float.parseFloat(g1.getPrice());
+                    float n2 = Float.parseFloat(g2.getPrice());
+                    return (int) (n2 - n1);
                 }
 
             });
@@ -90,17 +90,17 @@ public class SortHelper {
                 if (mish2l) {
                     if (g1.getMis().equals("N/A"))
                         g1.setMis("0");
-                    int n1 = Integer.parseInt(g1.getMis());
-                    int n2 = Integer.parseInt(g2.getMis());
-                    return (n2 - n1); // Descending
+                    float n1 = Float.parseFloat(g1.getMis());
+                    float n2 = Float.parseFloat(g2.getMis());
+                    return (int) (n2 - n1); // Descending
                 } else if (nrmlh2l) {
-                    int n1 = Integer.parseInt(g1.getNrml());
-                    int n2 = Integer.parseInt(g2.getNrml());
-                    return (n2 - n1);
+                    float n1 = Float.parseFloat(g1.getNrml());
+                    float n2 = Float.parseFloat(g2.getNrml());
+                    return (int) (n2 - n1); // Descending
                 } else {
-                    int n1 = (int) Double.parseDouble(g1.getPrice());
-                    int n2 = (int) Double.parseDouble(g2.getPrice());
-                    return (n2 - n1);
+                    float n1 = Float.parseFloat(g1.getPrice());
+                    float n2 = Float.parseFloat(g2.getPrice());
+                    return (int) (n2 - n1);
                 }
 
             });

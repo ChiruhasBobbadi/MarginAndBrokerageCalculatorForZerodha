@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="33dp"
                 android:layout_marginEnd="33dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Equity"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Commodity"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Futures"
@@ -148,7 +148,7 @@
                 android:layout_height="21dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/aileron_semibold"
                 android:gravity="center"
                 android:text="Currency"
@@ -200,7 +200,7 @@
                 android:text="@string/bracket_order"
                 android:textColor="@color/bg_white"
                 android:layout_gravity="bottom|center_horizontal"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
         </androidx.cardview.widget.CardView>
 

@@ -56,8 +56,8 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.ViewHolder
 
         Futures Futures = myItems.get(position);
 
-        holder.mis.setText("MIS Margin : " + Futures.getMis());
-        holder.cnc.setText("NRML Magin : " + Futures.getNrml());
+        holder.mis.setText("MIS : " + Futures.getMis());
+        holder.cnc.setText("NRML : " + Futures.getNrml());
         holder.lot.setText("Lot size : " + Futures.getLot());
         holder.price.setText("Price : " + Futures.getPrice());
         holder.scrip.setText(Futures.getScrip());

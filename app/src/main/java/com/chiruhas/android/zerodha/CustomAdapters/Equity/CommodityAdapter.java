@@ -65,8 +65,8 @@ public class CommodityAdapter extends RecyclerView.Adapter<CommodityAdapter.View
         final ViewHolder h = holder;
         final Commodity Commodity = Commoditys.get(position);
         holder.scrip.setText(Commodity.getScrip());
-        holder.mis.setText("MIS Margin : " + Commodity.getMis());
-        holder.cnc.setText("NRML Magin : " + Commodity.getNrml());
+        holder.mis.setText("MIS : " + Commodity.getMis());
+        holder.cnc.setText("NRML : " + Commodity.getNrml());
         holder.lot.setText("Lot size : " + Commodity.getLot());
         holder.price.setText("Price : " + Commodity.getPrice());
         holder.cal.setOnClickListener(view -> {

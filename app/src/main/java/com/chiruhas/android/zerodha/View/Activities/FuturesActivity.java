@@ -149,32 +149,11 @@ public class FuturesActivity extends AppCompatActivity {
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
+                Log.d(TAG, "onAdLoaded: future ad loaded");
             }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
             @Override
             public void onAdClosed() {
-                // Code to be executed when the interstitial ad is closed.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 showPopup();
             }
         });
@@ -245,6 +224,7 @@ public class FuturesActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 s = s.toLowerCase();
                 List<Futures> em = new ArrayList<>();
+
                 for (Futures e : list) {
                     if (e.getScrip().toLowerCase().startsWith(s)) {
                         em.add(e);
@@ -327,7 +307,7 @@ public class FuturesActivity extends AppCompatActivity {
 
     public void chipClick(View v) {
 
-        Log.d(TAG, "chipClick: " + v.getId());
+
         switch (v.getId()) {
             case R.id.mish2l:
                 mish2l = !mish2l;

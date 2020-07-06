@@ -2,7 +2,7 @@
 <resources>
 
     <!--Original id -->
-    <!-- <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
+     <!--<string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
      <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>
      <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>
        <string name="risk_calc_banner">ca-app-pub-4351116683020455/1450318822</string>

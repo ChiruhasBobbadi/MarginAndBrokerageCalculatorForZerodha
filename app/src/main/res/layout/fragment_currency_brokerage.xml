@@ -62,7 +62,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
                 android:hint="Sell Price"
@@ -89,7 +89,7 @@
                 android:inputType="numberDecimal"
                 android:textColor="@color/bg_white"
                 android:textColorHint="@color/bg_white"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 app:layout_constraintEnd_toEndOf="@+id/sell"
                 app:layout_constraintHorizontal_bias="0.375"
                 app:layout_constraintStart_toStartOf="@+id/buy"
@@ -100,11 +100,12 @@
                 android:layout_width="120dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_calculate_btn"
                 android:gravity="center"
                 android:hint="Buy Price"
-                android:textCursorDrawable="@null"
+
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 android:textColor="@color/bg_white"
@@ -114,22 +115,21 @@
 
             <ListView
                 android:id="@+id/list"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/bg_grey"
                 android:divider="@color/bg_blue"
                 android:dividerHeight="0.5dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/states"
+                app:layout_constraintTop_toBottomOf="@id/rgroup"
                 app:layout_constraintVertical_bias="0.0" />
 
             <RadioGroup
@@ -212,26 +212,6 @@
                 app:layout_constraintHorizontal_bias="0.005"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/states"
-                style=""
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/white_grey"
-                android:dropDownSelector="@color/white_grey"
-
-                android:foregroundTint="@color/white_grey"
-                android:hapticFeedbackEnabled="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rgroup"
-                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

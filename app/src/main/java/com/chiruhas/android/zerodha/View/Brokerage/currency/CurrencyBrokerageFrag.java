@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +24,9 @@ public class CurrencyBrokerageFrag extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     int pos;
-    String state;
+
     EditText buy, sell, qty;
-    private Spinner spinner;
+
     private ListView listView;
     private int stateIndex = 0;
     TextView pl;
@@ -58,30 +55,12 @@ public class CurrencyBrokerageFrag extends Fragment {
             buy = view.findViewById(R.id.buy);
             sell = view.findViewById(R.id.sell);
             qty = view.findViewById(R.id.lot);
-            spinner = view.findViewById(R.id.states);
+
             Button cal = view.findViewById(R.id.calculate);
             pl = view.findViewById(R.id.pl);
             clear = view.findViewById(R.id.clear);
 
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.states, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-
-            spinner.setAdapter(adapter);
-            spinner.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((TextView) spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.white_grey)));
-
-            spinner.setSelection(stateIndex);
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    String s = parentView.getItemAtPosition(position).toString();
-                    state = s;
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
 
             clear.setOnClickListener(v -> {
                 buy.setText("");
@@ -100,13 +79,11 @@ public class CurrencyBrokerageFrag extends Fragment {
                     Toast.makeText(getContext(), "Fields can't be empty", Toast.LENGTH_LONG).show();
                 else {
 
-                    if (state.isEmpty() || state.equals("Select State"))
-                        Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                    else {
-                        listView.setVisibility(View.VISIBLE);
-                        clear.setVisibility(View.VISIBLE);
-                        new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C', state);
-                    }
+
+                    listView.setVisibility(View.VISIBLE);
+                    clear.setVisibility(View.VISIBLE);
+                    new BrokerageHelper().brokerageCalculate(getContext(), tview, pos, 'C');
+
 
                 }
 

@@ -45,18 +45,13 @@ public class CommodityActivity extends AppCompatActivity {
 
     private static final String TAG = "Commodity Activity";
     AliceViewModel alice;
-    private RecyclerView recyclerView;
-    private ZerodhaViewModel viewModel;
-    private AstaViewModel astaViewModel;
     private CommodityAdapter commodityAdapter;
     private ProgressBar bar;
     private List<Commodity> list = new ArrayList<>();
     private double _commodity;
-    private SharedPreferences data;
     private RadioGroup rg;
     private Commodity commodity;
     private InterstitialAd mInterstitialAd;
-    private FrameLayout adContainerView;
     private AdView adView;
     private ChipGroup chipGroup;
 
@@ -95,28 +90,9 @@ public class CommodityActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 showPopup();
             }
         });
@@ -125,7 +101,7 @@ public class CommodityActivity extends AppCompatActivity {
 
     private void init() {
 
-        data = getSharedPreferences("dataStore",
+        SharedPreferences data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
         String t = data.getString("commodity", "");
         if (!t.equals(""))
@@ -142,7 +118,7 @@ public class CommodityActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Commodity Margins");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Log.d(TAG, "onCreate: CommodityActivity");
+
         // initializing add
 
 
@@ -152,7 +128,7 @@ public class CommodityActivity extends AppCompatActivity {
     public void setAdapter() {
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
-        recyclerView = findViewById(R.id.rv);
+        RecyclerView recyclerView = findViewById(R.id.rv);
 
         commodityAdapter = new CommodityAdapter(item -> {
             commodity = item;
@@ -180,7 +156,7 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     public void zerodhaCall() {
-        viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
+        ZerodhaViewModel viewModel = ViewModelProviders.of(this).get(ZerodhaViewModel.class);
         viewModel.fetchCommodity().observe(this, Commoditys -> {
 
             list = Commoditys;
@@ -192,7 +168,7 @@ public class CommodityActivity extends AppCompatActivity {
     }
 
     public void astaCall() {
-        astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
+        AstaViewModel astaViewModel = ViewModelProviders.of(this).get(AstaViewModel.class);
         astaViewModel.fetchCommodity().observe(this, Commoditys -> {
 
             list = Commoditys;
@@ -269,7 +245,7 @@ public class CommodityActivity extends AppCompatActivity {
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
         });
-        adContainerView = findViewById(R.id.ad_view_container);
+        FrameLayout adContainerView = findViewById(R.id.ad_view_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
         adView = new AdView(this);
         adView.setAdUnitId(getResources().getString(R.string.margin_banner));

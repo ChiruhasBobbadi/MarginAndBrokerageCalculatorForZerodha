@@ -70,6 +70,8 @@ public class BracketActivity extends AppCompatActivity implements Reverse_BO.OnF
     }
 
     private void initAds() {
+
+
         MobileAds.initialize(BracketActivity.this, initializationStatus -> {
         });
         adContainerView = findViewById(R.id.ad_view_container);

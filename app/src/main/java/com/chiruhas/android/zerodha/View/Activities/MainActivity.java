@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     private DrawerLayout drawerLayout;
 
 
-    private InterstitialAd bracket, equity, brokerage;
+    private InterstitialAd equity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,40 +134,25 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     }
 
     private void initAds() {
-        brokerage = new InterstitialAd(this);
-        bracket = new InterstitialAd(this);
+
+
         equity = new InterstitialAd(this);
 
 
-        bracket.setAdUnitId(getResources().getString(R.string.bracket));
-        equity.setAdUnitId(getResources().getString(R.string.equity));
-        brokerage.setAdUnitId(getResources().getString(R.string.brokerage_inter));
 
-        brokerage.loadAd(new AdRequest.Builder().build());
-        brokerage.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
-            }
-        });
+        equity.setAdUnitId(getResources().getString(R.string.equity));
+
 
 
         equity.loadAd(new AdRequest.Builder().build());
         equity.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
+                equity.loadAd(new AdRequest.Builder().build());
                 startActivity(new Intent(MainActivity.this, EquityActivity.class));
             }
         });
 
-        bracket.loadAd(new AdRequest.Builder().build());
-        // navigating user to bracket activity
-        bracket.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startActivity(new Intent(MainActivity.this, BracketActivity.class));
-            }
-        });
 
         MobileAds.initialize(this, getResources().getString(R.string.app_id));
     }
@@ -185,11 +171,9 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
     public void onBrokerageFragment(View v) {
         switch (v.getId()) {
             case R.id.equity:
-                if (brokerage.isLoaded())
-                    brokerage.show();
 
-                else
-                    startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+                startActivity(new Intent(MainActivity.this, EquityBrokerage.class));
+
                 break;
 
             case R.id.commodity:
@@ -229,11 +213,7 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
                 break;
             case R.id.bracket:
 
-                if (bracket.isLoaded()) {
-                    bracket.show();
-                } else {
                     startActivity(new Intent(MainActivity.this, BracketActivity.class));
-                }
 
                 break;
         }

@@ -56,8 +56,8 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.ViewHo
 
         Currency Currency = myItems.get(position);
 
-        holder.mis.setText("MIS Margin : " + Currency.getMis());
-        holder.cnc.setText("NRML Magin : " + Currency.getNrml());
+        holder.mis.setText("MIS : " + Currency.getMis());
+        holder.cnc.setText("NRML : " + Currency.getNrml());
         holder.lot.setText("Lot size : " + Currency.getLot());
         holder.price.setText("Price : " + Currency.getPrice());
         holder.scrip.setText(Currency.getScrip());
