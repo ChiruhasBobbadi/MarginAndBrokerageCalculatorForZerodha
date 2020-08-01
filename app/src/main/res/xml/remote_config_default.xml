@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultMap>
+    <entry>
+        <key>server_url</key>
+        <value>http://ec2-15-206-179-213.ap-south-1.compute.amazonaws.com:5000/</value>
+    </entry>
+</defaultMap>

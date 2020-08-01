@@ -32,7 +32,7 @@ class AliceRepository {
 
 
     public AliceRepository() {
-        retrofit = new Retrofit.Builder().baseUrl("http://ec2-15-206-179-213.ap-south-1.compute.amazonaws.com:5000/alice/").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("http://ec2-13-235-73-156.ap-south-1.compute.amazonaws.com:5000/alice/").addConverterFactory(GsonConverterFactory.create()).build();
 
         astaClient = retrofit.create(AstaClient.class);
         equity = new MutableLiveData<>();

@@ -21,7 +21,7 @@ public class MmiRepository {
     MutableLiveData<Mmi> mmi;
 
     public MmiRepository() {
-        retrofit = new Retrofit.Builder().baseUrl("http://ec2-15-206-179-213.ap-south-1.compute.amazonaws.com:5000/").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("http://ec2-13-235-73-156.ap-south-1.compute.amazonaws.com:5000/").addConverterFactory(GsonConverterFactory.create()).build();
 
         client = retrofit.create(mmiClient.class);
         mmi = new MutableLiveData<>();

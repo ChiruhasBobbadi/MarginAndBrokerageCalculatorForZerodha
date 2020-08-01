@@ -30,14 +30,15 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.vorlonsoft.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity implements MarginFragment.OnFragmentInteractionListener, BrokerageFragment.OnFragmentInteractionListener {
 
 
     private DrawerLayout drawerLayout;
-
-
+    private static final String TAG = "MainActivity";
+    FirebaseRemoteConfig mFirebaseRemoteConfig;
     private InterstitialAd equity;
 
 
@@ -49,6 +50,29 @@ public class MainActivity extends AppCompatActivity implements MarginFragment.On
         initAds();
         init();
     }
+
+    /* public void  fetchUrl(){
+     mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+     FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+             .setMinimumFetchIntervalInSeconds(3600)
+             .build();
+     mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+     mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_default);
+     mFirebaseRemoteConfig.fetchAndActivate()
+             .addOnCompleteListener(this, task -> {
+                 if (task.isSuccessful()) {
+                     boolean updated = task.getResult();
+                     Log.d(TAG, "Config params updated: " + updated);
+                     Toast.makeText(MainActivity.this, "Fetch and activate succeeded",
+                             Toast.LENGTH_SHORT).show();
+
+                 } else {
+                     Toast.makeText(MainActivity.this, "Fetch failed",
+                             Toast.LENGTH_SHORT).show();
+                 }
+                // displayWelcomeMessage();
+             });
+    }*/
 
     private void rateIt() {
         // Rate It
