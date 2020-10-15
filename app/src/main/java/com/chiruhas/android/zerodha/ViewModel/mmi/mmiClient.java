@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.mmi;
+package com.chiruhas.android.zerodha.ViewModel.mmi;
 
 import com.chiruhas.android.zerodha.Model.mmi.Mmi;
 

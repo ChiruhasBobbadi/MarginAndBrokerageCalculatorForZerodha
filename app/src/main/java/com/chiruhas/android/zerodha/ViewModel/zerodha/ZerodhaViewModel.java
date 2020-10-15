@@ -1,6 +1,7 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.asta;
+package com.chiruhas.android.zerodha.ViewModel.zerodha;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,31 +14,35 @@ import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 import java.util.List;
 
-public class AstaViewModel extends AndroidViewModel {
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
-    AstaRepository r;
-
-    LiveData<List<GodModel>> equity;
+public class ZerodhaViewModel extends AndroidViewModel {
+    Repository r;
+    Repository2 r2;
+    LiveData<List<GodModel>> list;
     LiveData<List<Commodity>> commodity;
     LiveData<List<Currency>> currency;
     LiveData<List<Futures>> futures;
 
-    public AstaViewModel(@NonNull Application application) {
+    public ZerodhaViewModel(@NonNull Application application) {
         super(application);
-        r = new AstaRepository();
+        r = new Repository();
+        r2 = new Repository2();
+        list = r.getEquity();
 
-        equity = r.getEquity();
-        commodity = r.getCommodity();
-        currency = r.getCurrency();
-        futures = r.getFutures();
+        commodity = r2.getCommodity();
+        currency = r2.getCurrency();
+        futures = r2.getFutures();
     }
 
     public LiveData<List<GodModel>> fetchEquity() {
-        return equity;
+
+        return list;
     }
 
     public LiveData<List<Commodity>> fetchCommodity() {
-
+        Log.d(TAG, "fetchCommodity: ZerodhaViewModel");
+        Log.d(TAG, "fetchCommodity: " + commodity.toString());
         return commodity;
     }
 
@@ -48,5 +53,6 @@ public class AstaViewModel extends AndroidViewModel {
     public LiveData<List<Futures>> fetchFutures() {
         return futures;
     }
+
 
 }

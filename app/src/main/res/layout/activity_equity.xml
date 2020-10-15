@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,80 +9,44 @@
     tools:context=".View.Activities.EquityActivity">
 
 
-    <HorizontalScrollView
-        android:layout_width="0dp"
-        android:id="@+id/scrollable"
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/material_spinner"
+        style="@style/spinnerTheme"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/bg_grey"
+        android:backgroundTint="@color/bg_grey"
+        app:backgroundSelector="@drawable/spinner_selector"
+        app:arrowTint="@color/white_grey"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTint="@color/white_grey">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center_horizontal|left"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <RadioButton
-                android:id="@+id/zerodha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/bg_blue"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Zerodha"
-                android:textColor="@color/white_grey"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/alice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/bg_blue"
-                android:padding="10dp"
-                android:text="Alice Blue"
-                android:textColor="@color/white_grey"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/asta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/bg_blue"
-                android:padding="10dp"
-                android:text="Astha Trade"
-                android:textColor="@color/white_grey"
-                android:textSize="16sp" />
-
-        </RadioGroup>
-    </HorizontalScrollView>
+    </org.angmarch.views.NiceSpinner>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#000"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/ad_view_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ad_view_container"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     <include
         android:id="@+id/progress"
         layout="@layout/loading"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="340dp"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,20 +59,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:singleSelection="true"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollable">
+        app:layout_constraintTop_toTopOf="@+id/guideline37"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/mish2l"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
-            android:onClick="chipClick"
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
+            android:onClick="chipClick"
             android:text="MIS High to low" />
 
 
@@ -117,18 +80,18 @@
             android:id="@+id/nrml_h2l"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
-            android:onClick="chipClick"
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
+            android:onClick="chipClick"
             android:text="CNC high to low" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/clear"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
-            android:onClick="chipClick"
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
+            android:onClick="chipClick"
             android:text="clear" />
 
 
@@ -142,9 +105,14 @@
         android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

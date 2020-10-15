@@ -10,9 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +26,10 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.alice.AliceViewModel;
+import com.chiruhas.android.zerodha.ViewModel.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.samco.SamcoViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdListener;
@@ -38,6 +40,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.chip.ChipGroup;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +49,11 @@ public class FuturesActivity extends AppCompatActivity {
 
     private static final String TAG = "FuturesActivity";
     AliceViewModel alice;
+    NiceSpinner spinner;
+    SamcoViewModel samcoViewModel;
     private FutureAdapter adapter;
     private ProgressBar bar;
     private double _futures;
-    private RadioGroup rg;
     private List<Futures> list = new ArrayList<>();
     private InterstitialAd mInterstitialAd;
     private Futures futures;
@@ -56,28 +61,42 @@ public class FuturesActivity extends AppCompatActivity {
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_futures);
         init();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                getResources().getTextArray(R.array.FuturesList));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
 
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            adapter.updateData(new ArrayList<>());
-            bar.setVisibility(View.VISIBLE);
-            switch (checkedId) {
-                case R.id.zerodha:
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    zerodhaCall();
-                    break;
-                case R.id.asta:
+                adapter.updateData(new ArrayList<>());
+                bar.setVisibility(View.VISIBLE);
+                switch (position) {
+                    case 0:
+                        zerodhaCall();
+                        break;
+                    case 1:
+                        aliceCall();
+                        break;
+                    case 2:
+                        astaCall();
+                        break;
+                    case 3:
+                        samcoCall();
+                        break;
+                }
 
-                    astaCall();
-                    break;
-                case R.id.alice:
-                    aliceCall();
-                    break;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -87,6 +106,17 @@ public class FuturesActivity extends AppCompatActivity {
     private void aliceCall() {
         alice = ViewModelProviders.of(this).get(AliceViewModel.class);
         alice.fetchFutures().observe(this, GodModels -> {
+            list = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    private void samcoCall() {
+        samcoViewModel = ViewModelProviders.of(this).get(SamcoViewModel.class);
+        samcoViewModel.fetchFutures().observe(this, GodModels -> {
             list = GodModels;
 
             adapter.updateData(GodModels);
@@ -127,7 +157,7 @@ public class FuturesActivity extends AppCompatActivity {
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.future_inter));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mish2l = nrmlh2l = priceh2l = false;
-        rg = findViewById(R.id.radioGroup);
+        spinner = findViewById(R.id.material_spinner);
         chipGroup = findViewById(R.id.chipGroup);
         initAds();
         loadBanner();
@@ -151,6 +181,7 @@ public class FuturesActivity extends AppCompatActivity {
             public void onAdLoaded() {
                 Log.d(TAG, "onAdLoaded: future ad loaded");
             }
+
             @Override
             public void onAdClosed() {
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());

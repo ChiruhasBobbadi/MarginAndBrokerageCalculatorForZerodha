@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.alice;
+package com.chiruhas.android.zerodha.ViewModel.alice;
 
 import android.util.Log;
 
@@ -9,7 +9,7 @@ import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.Model.Equity.Futures;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaClient;
+import com.chiruhas.android.zerodha.ViewModel.asta.AstaClient;
 
 import java.net.SocketTimeoutException;
 import java.util.List;

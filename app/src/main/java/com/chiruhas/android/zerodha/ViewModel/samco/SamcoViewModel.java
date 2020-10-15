@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.alice;
+package com.chiruhas.android.zerodha.ViewModel.samco;
 
 import android.app.Application;
 
@@ -13,18 +13,18 @@ import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 
 import java.util.List;
 
-public class AliceViewModel extends AndroidViewModel {
-    AliceRepository r;
+public class SamcoViewModel extends AndroidViewModel {
+
+    SamcoRepository r;
 
     LiveData<List<GodModel>> equity;
     LiveData<List<Commodity>> commodity;
     LiveData<List<Currency>> currency;
     LiveData<List<Futures>> futures;
 
-
-    public AliceViewModel(@NonNull Application application) {
+    public SamcoViewModel(@NonNull Application application) {
         super(application);
-        r = new AliceRepository();
+        r = new SamcoRepository();
 
         equity = r.getEquity();
         commodity = r.getCommodity();
@@ -48,4 +48,5 @@ public class AliceViewModel extends AndroidViewModel {
     public LiveData<List<Futures>> fetchFutures() {
         return futures;
     }
+
 }

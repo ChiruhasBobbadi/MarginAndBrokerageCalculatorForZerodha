@@ -169,7 +169,6 @@
 
             <EditText
                 android:id="@+id/per"
-
                 android:layout_width="160dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="8dp"
@@ -186,24 +185,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rgroup2" />
 
-            <TextView
+        <TextView
 
-                android:id="@+id/cust"
-                android:layout_width="159dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
+            android:id="@+id/cust"
+            android:layout_width="159dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
 
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Net Profit/Loss"
-                android:textColor="@color/white_grey"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/calculate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.005"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/list" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Net Profit/Loss"
+            android:textColor="@color/white_grey"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/calculate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.005"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/per" />
 
             <ListView
                 android:id="@+id/list"

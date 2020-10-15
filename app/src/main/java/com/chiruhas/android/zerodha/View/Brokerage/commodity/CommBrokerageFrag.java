@@ -22,7 +22,7 @@ import com.chiruhas.android.zerodha.HelperClasses.BrokerageHelper;
 import com.chiruhas.android.zerodha.HelperClasses.NameExtractHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

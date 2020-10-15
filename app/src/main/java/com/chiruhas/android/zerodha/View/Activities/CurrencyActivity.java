@@ -10,9 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +26,11 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.alice.AliceViewModel;
+import com.chiruhas.android.zerodha.ViewModel.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.samco.SamcoViewModel;
+import com.chiruhas.android.zerodha.ViewModel.wisdom.WisdomViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdRequest;
@@ -36,11 +39,18 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.chip.ChipGroup;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyActivity extends AppCompatActivity {
     private static final String TAG = "CurrencyActivity";
+    NiceSpinner spinner;
+    SamcoViewModel samcoViewModel;
+    WisdomViewModel wisdomViewModel;
+    AstaViewModel astaViewModel;
+    AliceViewModel alice;
     private ZerodhaViewModel view;
     private CurrencyAdapter adapter;
     private ProgressBar bar;
@@ -50,9 +60,6 @@ public class CurrencyActivity extends AppCompatActivity {
     private boolean mish2l, nrmlh2l, priceh2l;
     private ChipGroup chipGroup;
     private AdView adView;
-    private RadioGroup rg;
-    AstaViewModel astaViewModel;
-    AliceViewModel alice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,30 +67,51 @@ public class CurrencyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_currency);
         init();
 
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                getResources().getTextArray(R.array.currencyList));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
 
-            bar.setVisibility(View.VISIBLE);
-            adapter.updateData(new ArrayList<>());
-            switch (checkedId) {
-                case R.id.zerodha:
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    zerodhaCall();
-                    break;
-                case R.id.asta:
-                    astaCall();
-                    break;
-                case R.id.alice:
-                    aliceCall();
-                    break;
+                bar.setVisibility(View.VISIBLE);
+                adapter.updateData(new ArrayList<>());
+                switch (position) {
+                    case 0:
+
+                        zerodhaCall();
+                        break;
+                    case 2:
+                        astaCall();
+                        break;
+                    case 1:
+                        aliceCall();
+                        break;
+                    case 3:
+                        samcoCall();
+                        break;
+                    case 4:
+                        wisdomCall();
+                        break;
+
+                }
 
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
+
 
     }
 
+
     private void init() {
-        rg = findViewById(R.id.radioGroup);
+
         SharedPreferences data = getSharedPreferences("dataStore",
                 MODE_PRIVATE);
         String t = data.getString("equity", "");
@@ -91,8 +119,7 @@ public class CurrencyActivity extends AppCompatActivity {
             _currency = Double.parseDouble(t);
         mish2l = nrmlh2l = priceh2l = false;
         chipGroup = findViewById(R.id.chipGroup);
-        Log.d(TAG, "onCreate: sucessful");
-
+        spinner = findViewById(R.id.material_spinner);
         initAds();
         loadBanner();
 
@@ -210,6 +237,28 @@ public class CurrencyActivity extends AppCompatActivity {
         });
     }
 
+    private void samcoCall() {
+        samcoViewModel = ViewModelProviders.of(this).get(SamcoViewModel.class);
+        samcoViewModel.fetchCurrency().observe(this, GodModels -> {
+            currency = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    private void wisdomCall() {
+        wisdomViewModel = ViewModelProviders.of(this).get(WisdomViewModel.class);
+        wisdomViewModel.fetchCurrency().observe(this, GodModels -> {
+            currency = GodModels;
+
+            adapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);
 
@@ -228,7 +277,6 @@ public class CurrencyActivity extends AppCompatActivity {
             bar.setVisibility(View.GONE);
         });
     }
-
 
 
     private void initAds() {

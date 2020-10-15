@@ -1,4 +1,5 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.alice;
+package com.chiruhas.android.zerodha.ViewModel.wisdom;
+
 
 import com.chiruhas.android.zerodha.Model.Currency;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
@@ -10,7 +11,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-interface AliceClient {
+public interface WidomClient {
     @GET("equity")
     Call<List<GodModel>> getEquity();
 
@@ -22,4 +23,5 @@ interface AliceClient {
 
     @GET("futures")
     Call<List<Futures>> getFutures();
+
 }

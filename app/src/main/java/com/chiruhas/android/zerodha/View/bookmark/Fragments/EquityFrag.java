@@ -16,7 +16,7 @@ import com.chiruhas.android.zerodha.CustomAdapters.Equity.RecyclerViewAdapter;
 import com.chiruhas.android.zerodha.HelperClasses.AdViewHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 
 
 @SuppressLint("ValidFragment")

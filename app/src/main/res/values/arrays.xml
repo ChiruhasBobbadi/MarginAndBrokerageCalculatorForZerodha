@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="equityList">
+        <item>Zerodha</item>
+        <item>Alice Blue</item>
+        <item>Astha Trade</item>
+        <item>Samco</item>
+        <item>Wisdom Capital</item>
+    </string-array>
+    <string-array name="commodityList">
+        <item>Zerodha</item>
+        <item>Alice Blue</item>
+        <item>Astha Trade</item>
+    </string-array>
+    <string-array name="FuturesList">
+        <item>Zerodha</item>
+        <item>Alice Blue</item>
+        <item>Astha Trade</item>
+        <item>Samco</item>
+    </string-array>
+    <string-array name="currencyList">
+        <item>Zerodha</item>
+        <item>Alice Blue</item>
+        <item>Astha Trade</item>
+        <item>Samco</item>
+    </string-array>
+</resources>

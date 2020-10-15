@@ -2,7 +2,7 @@
 <resources>
 
     <!--Original id -->
-     <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
+    <!-- <string name="app_id">ca-app-pub-4351116683020455~8691946225</string>
      <string name="margin_banner">ca-app-pub-4351116683020455/5422962661</string>
      <string name="brokerage_banner">ca-app-pub-4351116683020455/3447536016</string>
        <string name="risk_calc_banner">ca-app-pub-4351116683020455/1450318822</string>
@@ -11,12 +11,12 @@
      <string name="mmi_banner">ca-app-pub-4351116683020455/7451687526</string>
      <string name="equity">ca-app-pub-4351116683020455/7352473382</string>
       <string name="commodity_inter">ca-app-pub-4351116683020455/7975787003</string>
- <string name="future_inter">ca-app-pub-4351116683020455/3222153773</string>
+ <string name="future_inter">ca-app-pub-4351116683020455/3222153773</string>-->
 
 
     <!-- demo id -->
 
- <!--<string name="app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="app_id">ca-app-pub-3940256099942544~3347511713</string>
  <string name="margin_banner">ca-app-pub-3940256099942544/6300978111</string>
  <string name="brokerage_banner">ca-app-pub-3940256099942544/6300978111</string>
  <string name="risk_calc_banner">ca-app-pub-3940256099942544/6300978111</string>
@@ -26,7 +26,7 @@
  <string name="currency_reward">ca-app-pub-3940256099942544/1033173712</string>
  <string name="brokerage_inter">ca-app-pub-3940256099942544/1033173712</string>
  <string name="bracket">ca-app-pub-3940256099942544/1033173712</string>
- <string name="equity">ca-app-pub-3940256099942544/1033173712</string>-->
+    <string name="equity">ca-app-pub-3940256099942544/1033173712</string>
 
 
 </resources>

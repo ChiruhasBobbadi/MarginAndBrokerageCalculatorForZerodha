@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
+package com.chiruhas.android.zerodha.ViewModel.asta;
 
 
 import com.chiruhas.android.zerodha.Model.Currency;
@@ -11,7 +11,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface ZerodhaClient {
+public interface AstaClient {
     @GET("equity")
     Call<List<GodModel>> getEquity();
 

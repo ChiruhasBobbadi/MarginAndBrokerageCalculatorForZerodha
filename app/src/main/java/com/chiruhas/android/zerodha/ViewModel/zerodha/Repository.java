@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.zerodha;
+package com.chiruhas.android.zerodha.ViewModel.zerodha;
 
 import android.util.Log;
 
@@ -15,7 +15,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.airbnb.lottie.L.TAG;
 
 public class Repository {
     Retrofit retrofit;
@@ -24,7 +23,7 @@ public class Repository {
 
     MutableLiveData<List<GodModel>> GodModels;
 
-
+    private static final String TAG = "Repository";
     public Repository() {
         retrofit = new Retrofit.Builder().baseUrl("https://api.kite.trade/margins/").addConverterFactory(GsonConverterFactory.create()).build();
 

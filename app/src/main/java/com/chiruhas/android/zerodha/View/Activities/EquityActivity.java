@@ -10,9 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +26,11 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.GodModel;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.alice.AliceViewModel;
+import com.chiruhas.android.zerodha.ViewModel.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.samco.SamcoViewModel;
+import com.chiruhas.android.zerodha.ViewModel.wisdom.WisdomViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdRequest;
@@ -35,6 +38,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.chip.ChipGroup;
+
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +56,8 @@ public class EquityActivity extends AppCompatActivity {
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar bar;
     List<GodModel> equity = new ArrayList<>();
+    NiceSpinner spinner;
+    WisdomViewModel wisdom;
     private boolean mish2l, nrmlh2l;
     private ChipGroup chipGroup;
     private FrameLayout adContainerView;
@@ -58,37 +65,73 @@ public class EquityActivity extends AppCompatActivity {
     //room viewmodel
     private double _equity;
     private SharedPreferences data;
-    private RadioGroup rg;
+    private SamcoViewModel samco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equity);
 
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                getResources().getTextArray(R.array.equityList));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         init();
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                recyclerViewAdapter.updateData(new ArrayList<>());
+                bar.setVisibility(View.VISIBLE);
+                switch (position) {
+                    case 0:
+                        zerodhaCall();
+                        break;
+                    case 1:
+                        aliceCall();
+                        break;
+                    case 2:
+                        astaCall();
+                        break;
+                    case 3:
+                        samcoCall();
+                        break;
+                    case 4:
+                        wisdomCap();
+                        break;
 
-        // radio group check chage listener
 
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-
-            recyclerViewAdapter.updateData(new ArrayList<>());
-            bar.setVisibility(View.VISIBLE);
-            switch (checkedId) {
-                case R.id.zerodha:
-                    zerodhaCall();
-                    break;
-                case R.id.asta:
-                    astaCall();
-                    break;
-                case R.id.alice:
-                    aliceCall();
-                    break;
-
+                }
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
+        zerodhaCall();
 
+    }
 
+    private void wisdomCap() {
+        wisdom = ViewModelProviders.of(this).get(WisdomViewModel.class);
+        wisdom.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
+
+            recyclerViewAdapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
+    }
+
+    private void samcoCall() {
+        samco = ViewModelProviders.of(this).get(SamcoViewModel.class);
+        samco.fetchEquity().observe(this, GodModels -> {
+            equity = GodModels;
+
+            recyclerViewAdapter.updateData(GodModels);
+
+            bar.setVisibility(View.GONE);
+        });
     }
 
     private void init() {
@@ -101,9 +144,11 @@ public class EquityActivity extends AppCompatActivity {
         rv = findViewById(R.id.rv);
         bar = findViewById(R.id.progress);
         bar.setVisibility(View.VISIBLE);
-        rg = findViewById(R.id.radioGroup);
+
         chipGroup = findViewById(R.id.chipGroup);
         mish2l = nrmlh2l = false;
+        spinner = findViewById(R.id.material_spinner);
+
         initAds();
         loadBanner();
 
@@ -119,7 +164,6 @@ public class EquityActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(this::loadAlert);
 
         rv.setAdapter(recyclerViewAdapter);
-        zerodhaCall();
 
 
     }

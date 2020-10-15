@@ -9,9 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +25,9 @@ import com.chiruhas.android.zerodha.HelperClasses.AlertHelper;
 import com.chiruhas.android.zerodha.HelperClasses.SortHelper;
 import com.chiruhas.android.zerodha.Model.Equity.Commodity;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.alice.AliceViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.asta.AstaViewModel;
-import com.chiruhas.android.zerodha.ViewModel.Repo.zerodha.ZerodhaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.alice.AliceViewModel;
+import com.chiruhas.android.zerodha.ViewModel.asta.AstaViewModel;
+import com.chiruhas.android.zerodha.ViewModel.zerodha.ZerodhaViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.ads.AdListener;
@@ -37,6 +38,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.chip.ChipGroup;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,16 +48,15 @@ public class CommodityActivity extends AppCompatActivity {
 
     private static final String TAG = "Commodity Activity";
     AliceViewModel alice;
+    NiceSpinner spinner;
     private CommodityAdapter commodityAdapter;
     private ProgressBar bar;
     private List<Commodity> list = new ArrayList<>();
     private double _commodity;
-    private RadioGroup rg;
     private Commodity commodity;
     private InterstitialAd mInterstitialAd;
     private AdView adView;
     private ChipGroup chipGroup;
-
     private boolean mish2l, nrmlh2l, priceh2l;
 
     @Override
@@ -64,23 +66,38 @@ public class CommodityActivity extends AppCompatActivity {
 
 
         init();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                getResources().getTextArray(R.array.commodityList));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         setAdapter();
         zerodhaCall();
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            commodityAdapter.updateData(new ArrayList<>());
-            bar.setVisibility(View.VISIBLE);
-            switch (checkedId) {
-                case R.id.zerodha:
-                    zerodhaCall();
-                    break;
-                case R.id.asta:
-                    astaCall();
-                    break;
-                case R.id.alice:
-                    aliceCall();
-                    break;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                commodityAdapter.updateData(new ArrayList<>());
+                bar.setVisibility(View.VISIBLE);
+                switch (position) {
+                    case 0:
+                        zerodhaCall();
+                        break;
+                    case 1:
+                        aliceCall();
+                        break;
+                    case 2:
+                        astaCall();
+                        break;
+
+                }
+
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
 
         mInterstitialAd.setAdListener(new AdListener() {
@@ -111,7 +128,7 @@ public class CommodityActivity extends AppCompatActivity {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mish2l = nrmlh2l = priceh2l = false;
         chipGroup = findViewById(R.id.chipGroup);
-        rg = findViewById(R.id.radioGroup);
+        spinner = findViewById(R.id.material_spinner);
         //loading adview
         initAds();
         loadBanner();

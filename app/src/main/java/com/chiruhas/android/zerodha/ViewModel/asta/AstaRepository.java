@@ -1,4 +1,4 @@
-package com.chiruhas.android.zerodha.ViewModel.Repo.asta;
+package com.chiruhas.android.zerodha.ViewModel.asta;
 
 import android.util.Log;
 

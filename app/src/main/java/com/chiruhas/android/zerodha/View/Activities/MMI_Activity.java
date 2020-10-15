@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.chiruhas.android.zerodha.Model.mmi.Mmi;
 import com.chiruhas.android.zerodha.R;
-import com.chiruhas.android.zerodha.ViewModel.Repo.mmi.MmiViewModel;
+import com.chiruhas.android.zerodha.ViewModel.mmi.MmiViewModel;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
