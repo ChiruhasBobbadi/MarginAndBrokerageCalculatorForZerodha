@@ -27,16 +27,16 @@ public class WisdomViewModel extends AndroidViewModel {
         r = new WisdomRepository();
 
         equity = r.getEquity();
-        commodity = r.getCommodity();
+        /*commodity = r.getCommodity();
         currency = r.getCurrency();
-        futures = r.getFutures();
+        futures = r.getFutures();*/
     }
 
     public LiveData<List<GodModel>> fetchEquity() {
         return equity;
     }
 
-    public LiveData<List<Commodity>> fetchCommodity() {
+   /* public LiveData<List<Commodity>> fetchCommodity() {
 
         return commodity;
     }
@@ -47,6 +47,6 @@ public class WisdomViewModel extends AndroidViewModel {
 
     public LiveData<List<Futures>> fetchFutures() {
         return futures;
-    }
+    }*/
 
 }

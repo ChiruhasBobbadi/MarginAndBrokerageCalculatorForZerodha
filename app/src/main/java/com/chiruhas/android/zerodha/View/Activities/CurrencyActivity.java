@@ -93,7 +93,7 @@ public class CurrencyActivity extends AppCompatActivity {
                         samcoCall();
                         break;
                     case 4:
-                        wisdomCall();
+                        //wisdomCall();
                         break;
 
                 }
@@ -248,7 +248,7 @@ public class CurrencyActivity extends AppCompatActivity {
         });
     }
 
-    private void wisdomCall() {
+   /* private void wisdomCall() {
         wisdomViewModel = ViewModelProviders.of(this).get(WisdomViewModel.class);
         wisdomViewModel.fetchCurrency().observe(this, GodModels -> {
             currency = GodModels;
@@ -257,7 +257,7 @@ public class CurrencyActivity extends AppCompatActivity {
 
             bar.setVisibility(View.GONE);
         });
-    }
+    }*/
 
     public void showPopup() {
         AlertHelper alertHelper = new AlertHelper(CurrencyActivity.this);

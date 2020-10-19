@@ -19,12 +19,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class WisdomRepository {
-
+    private static final String TAG = "WisdomRepository";
     Retrofit retrofit;
-    WidomClient widomClient;
+    WisdomClient wisdomClient;
     MutableLiveData<List<GodModel>> equity;
     MutableLiveData<List<Commodity>> commodity;
     MutableLiveData<List<Currency>> currency;
@@ -34,7 +32,7 @@ public class WisdomRepository {
     public WisdomRepository() {
         retrofit = new Retrofit.Builder().baseUrl("http://ec2-13-235-73-156.ap-south-1.compute.amazonaws.com:5000/wisdom/").addConverterFactory(GsonConverterFactory.create()).build();
 
-        widomClient = retrofit.create(WidomClient.class);
+        wisdomClient = retrofit.create(WisdomClient.class);
         equity = new MutableLiveData<>();
         commodity = new MutableLiveData<>();
         currency = new MutableLiveData<>();
@@ -42,16 +40,17 @@ public class WisdomRepository {
     }
 
     public LiveData<List<GodModel>> getEquity() {
-        Call<List<GodModel>> call = widomClient.getEquity();
+        Call<List<GodModel>> call = wisdomClient.getEquity();
+        Log.d(TAG, "getEquity: ");
         call.enqueue(new Callback<List<GodModel>>() {
             @Override
             public void onResponse(Call<List<GodModel>> call, Response<List<GodModel>> response) {
                 if (!response.isSuccessful()) {
-                    //Log.d(TAG, "onResponse: Commodity request failed.");
+                    Log.d(TAG, "onResponse: equity request failed.");
                     return;
                 }
                 equity.postValue(response.body());
-                //Log.d(TAG, "onResponse: commodity");
+                Log.d(TAG, "onResponse: equity");
             }
 
             @Override
@@ -59,13 +58,15 @@ public class WisdomRepository {
                 if (t instanceof SocketTimeoutException) {
                     Log.d(TAG, "Socket Time out. Please try again. astha equity");
                 }
+
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
         return equity;
     }
 
-    public LiveData<List<Commodity>> getCommodity() {
-        Call<List<Commodity>> call = widomClient.getCommodity();
+    /*public LiveData<List<Commodity>> getCommodity() {
+        Call<List<Commodity>> call = wisdomClient.getCommodity();
         call.enqueue(new Callback<List<Commodity>>() {
             @Override
             public void onResponse(Call<List<Commodity>> call, Response<List<Commodity>> response) {
@@ -88,7 +89,7 @@ public class WisdomRepository {
     }
 
     public LiveData<List<Futures>> getFutures() {
-        Call<List<Futures>> call = widomClient.getFutures();
+        Call<List<Futures>> call = wisdomClient.getFutures();
         call.enqueue(new Callback<List<Futures>>() {
             @Override
             public void onResponse(Call<List<Futures>> call, Response<List<Futures>> response) {
@@ -107,7 +108,7 @@ public class WisdomRepository {
     }
 
     public LiveData<List<Currency>> getCurrency() {
-        Call<List<Currency>> call = widomClient.getCurrency();
+        Call<List<Currency>> call = wisdomClient.getCurrency();
         call.enqueue(new Callback<List<Currency>>() {
             @Override
             public void onResponse(Call<List<Currency>> call, Response<List<Currency>> response) {
@@ -125,6 +126,6 @@ public class WisdomRepository {
             }
         });
         return currency;
-    }
+    }*/
 
 }

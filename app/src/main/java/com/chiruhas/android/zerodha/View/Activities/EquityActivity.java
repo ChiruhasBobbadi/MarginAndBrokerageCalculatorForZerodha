@@ -96,6 +96,7 @@ public class EquityActivity extends AppCompatActivity {
                         samcoCall();
                         break;
                     case 4:
+                        Log.d(TAG, "onItemSelected: ");
                         wisdomCap();
                         break;
 
@@ -113,10 +114,11 @@ public class EquityActivity extends AppCompatActivity {
     }
 
     private void wisdomCap() {
+        Log.d(TAG, "wisdomCap: ");
         wisdom = ViewModelProviders.of(this).get(WisdomViewModel.class);
         wisdom.fetchEquity().observe(this, GodModels -> {
             equity = GodModels;
-
+            Log.d(TAG, "wisdomCap: " + equity.size());
             recyclerViewAdapter.updateData(GodModels);
 
             bar.setVisibility(View.GONE);
